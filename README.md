@@ -1,1 +1,11 @@
-"# assessment-1-node-js-restful-api-leggant" 
+# Assessment 1 - leggant
+
+## API Endpoints
+
+## Postman Project
+
+## Entity Relationship Diagram
+
+## API/Command Line Instructions
+
+## References

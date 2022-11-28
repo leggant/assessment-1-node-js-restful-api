@@ -10,3 +10,19 @@ datasource db {
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
+model User {
+  id        String @id @default(uuid())
+  email     String @unique 
+  username  String @unique @db.Char(10)
+  firstName String @db.Char(50)
+  lastName  String @db.Char(50)
+  profilePictureURL String? @unique
+  role      Role   @default(BASIC)
+}
+
+enum Role {
+  BASIC
+  ADMIN
+  SUPER_ADMIN
+}

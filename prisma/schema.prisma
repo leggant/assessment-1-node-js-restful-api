@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id                String  @id @default(uuid())
+  email             String  @unique
+  username          String  @unique @db.Char(10)
+  firstName         String  @db.Char(50)
+  lastName          String  @db.Char(50)
+  password          String  @db.Char(16)
+  profilePictureURL String? @unique
+  role              Role    @default(BASIC)
+}
+
+enum Role {
+  BASIC
+  ADMIN
+  SUPER_ADMIN
+}

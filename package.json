@@ -1,0 +1,79 @@
+{
+  "name": "assignment-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant.git"
+  },
+  "keywords": [],
+  "author": "Anthony Legg",
+  "license": "MIT",
+  "homepage": "https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant#readme",
+  "bugs": {
+    "url": "https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant/issues"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.6.1",
+    "axios": "^1.2.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "env-cmd": "^10.1.0",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "c8": "^7.12.0",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
+    "mocha": "^10.1.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.0",
+    "pretty-quick": "^3.1.3",
+    "prisma": "^4.6.1"
+  },
+  "scripts": {
+    "watch": "env-cmd -f .env.development nodemon",
+    "start:dev": "env-cmd -f .env.development node app.js",
+    "start:prod": "env-cmd -f .env.production node app.js",
+    "migrate:dev": "env-cmd -f .env.development npx prisma migrate dev",
+    "migrate:prod": "env-cmd -f .env.production npx prisma migrate dev",
+    "reset:dev": "env-cmd -f .env.development npx prisma migrate reset --force",
+    "reset:prod": "env-cmd -f .env.production npx prisma migrate reset --force",
+    "test:dev": "env-cmd -f .env.development npx mocha --timeout 10000 --exit",
+    "test:prod": "env-cmd -f .env.production npx mocha --timeout 10000 --exit",
+    "prepare": "husky install"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "*/*.md",
+      "**/docs/**",
+      ".husky/**",
+      "prisma/**"
+    ],
+    "delay": 5000
+  }
+}

@@ -53,7 +53,8 @@
   "scripts": {
     "watch": "env-cmd -f .env.development nodemon",
     "start:dev": "env-cmd -f .env.development node app.js",
-    "start:prod": "env-cmd -f .env.production node app.js",
+    "start": "node app.js",
+    "migrate": "npx prisma migrate",
     "migrate:dev": "env-cmd -f .env.development npx prisma migrate dev",
     "migrate:prod": "env-cmd -f .env.production npx prisma migrate dev",
     "reset:dev": "env-cmd -f .env.development npx prisma migrate reset --force",

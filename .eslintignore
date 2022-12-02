@@ -4,3 +4,4 @@ prisma/
 package.json
 package-lock.json
 README.md
+jsdoc.json

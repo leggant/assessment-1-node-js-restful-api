@@ -10,3 +10,4 @@
 ## :bookmark_tabs:References 	
 :anchor: https://www.freecodecamp.org/news/the-express-handbook
 :anchor: https://express-validator.github.io/docs/index.html
+:anchor: https://youtu.be/YK-GurROGIg [#12](https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant/issues/12)

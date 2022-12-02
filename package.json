@@ -43,6 +43,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.2",
+    "jsdoc": "^4.0.0",
     "lint-staged": "^13.0.4",
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
@@ -64,6 +65,7 @@
     "pre:check": "npx prettier --check . --with-node-modules --debug-check",
     "pre:write": "npx pretty-quick --staged",
     "lint:check": "npx eslint .",
+    "doc": "jsdoc -c jsdoc.json",
     "prepare": "husky install"
   },
   "config": {

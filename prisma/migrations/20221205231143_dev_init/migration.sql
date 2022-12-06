@@ -4,11 +4,11 @@ CREATE TYPE "Role" AS ENUM ('BASIC_USER', 'ADMIN_USER');
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "username" CHAR(10) NOT NULL,
     "firstName" CHAR(50) NOT NULL,
     "lastName" CHAR(50) NOT NULL,
-    "password" CHAR(16) NOT NULL,
+    "userName" CHAR(10) NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "profilePictureURL" TEXT,
     "role" "Role" NOT NULL DEFAULT 'BASIC_USER',
 
@@ -16,10 +16,10 @@ CREATE TABLE "User" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_profilePictureURL_key" ON "User"("profilePictureURL");

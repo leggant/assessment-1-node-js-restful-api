@@ -13,11 +13,11 @@ datasource db {
 
 model User {
   id                String  @id @default(uuid())
-  email             String  @unique
-  username          String  @unique @db.Char(10)
   firstName         String  @db.Char(50)
   lastName          String  @db.Char(50)
-  password          String  @db.Char(16)
+  userName          String  @unique @db.Char(10)
+  email             String  @unique
+  password          String
   profilePictureURL String? @unique
   role              Role    @default(BASIC_USER)
 }

@@ -4,9 +4,9 @@ CREATE TYPE "Role" AS ENUM ('BASIC_USER', 'ADMIN_USER');
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "firstName" CHAR(50) NOT NULL,
-    "lastName" CHAR(50) NOT NULL,
-    "userName" CHAR(10) NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "userName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "profilePictureURL" TEXT,

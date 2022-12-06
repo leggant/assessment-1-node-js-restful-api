@@ -13,9 +13,9 @@ datasource db {
 
 model User {
   id                String  @id @default(uuid())
-  firstName         String  @db.Char(50)
-  lastName          String  @db.Char(50)
-  userName          String  @unique @db.Char(10)
+  firstName         String
+  lastName          String
+  userName          String  @unique
   email             String  @unique
   password          String
   profilePictureURL String? @unique

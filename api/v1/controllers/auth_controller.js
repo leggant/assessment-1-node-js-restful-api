@@ -4,15 +4,15 @@ import PRISMA from "../../../utils/prisma.mjs";
 
 const register = async (req, res) => {
   try {
-    const { name, email, password, username, role } = req.body;
+    const { firstName, lastName, userName, email, password, role } = req.body;
 
     let user = await PRISMA.user.findFirst({
       where: {
         email: {
           contains: email,
         },
-        username: {
-          contains: username,
+        userName: {
+          contains: userName,
         },
       },
     });
@@ -20,6 +20,10 @@ const register = async (req, res) => {
     if (user) {
       return res.status(409).json({ msg: "User already exists" });
     }
+
+    /**
+     * Validate the users input data
+     */
 
     /**
      * A salt is random bits added to a password before it is hashed. Salts
@@ -35,7 +39,14 @@ const register = async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     user = await PRISMA.user.create({
-      data: { name, email, password: hashedPassword, username, role },
+      data: {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password: hashedPassword,
+        role,
+      },
     });
 
     /**
@@ -58,14 +69,14 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password, username } = req.body;
+    const { email, password, userName } = req.body;
     const user = await PRISMA.user.findFirst({
       where: {
         email: {
           contains: email,
         },
-        username: {
-          contains: username,
+        userName: {
+          contains: userName,
         },
       },
     });
@@ -94,7 +105,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       {
         id: user.id,
-        name: user.name,
+        userName: user.userName,
       },
       JWT_SECRET,
       { expiresIn: JWT_LIFETIME },

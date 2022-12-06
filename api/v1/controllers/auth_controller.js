@@ -4,7 +4,15 @@ import PRISMA from "../../../utils/prisma.mjs";
 
 const register = async (req, res) => {
   try {
-    const { firstName, lastName, userName, email, password, role } = req.body;
+    const {
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+      role,
+      profileImgURL,
+    } = req.body;
 
     let user = await PRISMA.user.findFirst({
       where: {
@@ -46,6 +54,7 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
         role,
+        profileImgURL,
       },
     });
 

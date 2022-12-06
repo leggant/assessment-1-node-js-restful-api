@@ -73,15 +73,12 @@ const registerSchema = [
       return true;
     }),
   body("profileImgURL")
-    .escape()
     .trim()
     .isURL({
       protocols: ["http", "https"],
       require_protocol: true,
       allow_underscores: true,
-    })
-    .isString()
-    .isMimeType("image"),
+    }),
 ];
 
 export default registerSchema;

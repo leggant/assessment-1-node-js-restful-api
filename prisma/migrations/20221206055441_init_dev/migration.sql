@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "userName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "profilePictureURL" TEXT,
+    "profileImgURL" TEXT,
     "role" "Role" NOT NULL DEFAULT 'BASIC_USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -22,4 +22,4 @@ CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_profilePictureURL_key" ON "User"("profilePictureURL");
+CREATE UNIQUE INDEX "User_profileImgURL_key" ON "User"("profileImgURL");

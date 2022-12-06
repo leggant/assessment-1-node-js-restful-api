@@ -12,14 +12,14 @@ datasource db {
 }
 
 model User {
-  id                String  @id @default(uuid())
-  firstName         String
-  lastName          String
-  userName          String  @unique
-  email             String  @unique
-  password          String
-  profilePictureURL String? @unique
-  role              Role    @default(BASIC_USER)
+  id            String  @id @default(uuid())
+  firstName     String
+  lastName      String
+  userName      String  @unique
+  email         String  @unique
+  password      String
+  profileImgURL String? @unique
+  role          Role    @default(BASIC_USER)
 }
 
 enum Role {

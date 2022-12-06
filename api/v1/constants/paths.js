@@ -1,7 +1,7 @@
 const PATHS = {
   AUTH: "user/auth",
-  REGISTER: "user/auth/register",
-  LOGIN: "user/auth/login",
+  REGISTER: "/register",
+  LOGIN: "/login",
 };
 
 export default PATHS;

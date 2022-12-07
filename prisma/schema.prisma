@@ -12,18 +12,17 @@ datasource db {
 }
 
 model User {
-  id                String  @id @default(uuid())
-  email             String  @unique
-  username          String  @unique @db.Char(10)
-  firstName         String  @db.Char(50)
-  lastName          String  @db.Char(50)
-  password          String  @db.Char(16)
-  profilePictureURL String? @unique
-  role              Role    @default(BASIC)
+  id            String  @id @default(uuid())
+  firstName     String
+  lastName      String
+  userName      String  @unique
+  email         String  @unique
+  password      String
+  profileImgURL String? @unique
+  role          Role    @default(BASIC_USER)
 }
 
 enum Role {
-  BASIC
-  ADMIN
-  SUPER_ADMIN
+  BASIC_USER
+  ADMIN_USER
 }

@@ -1,4 +1,5 @@
 import USERTYPE from "./userType.js";
+import PRISMA from "../../../utils/prisma.mjs";
 
 class User {
   /**
@@ -12,7 +13,22 @@ class User {
     this.email = userData.email;
     this.password = userData.password;
     this.confirmPassword = userData.confirmPassword;
+    this.profileImgURL = userData.profileImgURL;
     this.role = userData.role;
+  }
+
+  async getUserIfUserExists(userName = "", email = "") {
+    const user = await PRISMA.user.findFirst({
+      where: {
+        email: {
+          contains: this.email || email,
+        },
+        userName: {
+          contains: this.userName || userName,
+        },
+      },
+    });
+    return user;
   }
 
   validPassword() {

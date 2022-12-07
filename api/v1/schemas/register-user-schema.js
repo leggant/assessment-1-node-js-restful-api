@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import USERTYPE from "../constants/userType.js";
 
-const registerSchema = [
+const RegisterSchema = [
   body("firstName")
     .escape()
     .trim()
@@ -56,7 +56,9 @@ const registerSchema = [
       "Password must have at least 8 characters, one number and one special character",
     )
     .isLength({ min: 8, max: 16 })
-    .withMessage("Password must be 8 char min and 16 char max lengths"),
+    .withMessage("Password must be 8 char min and 16 char max lengths")
+    .notEmpty({ ignore_whitespace: true })
+    .withMessage("A Password is Required."),
   body("confirmPassword")
     .escape()
     .trim()
@@ -71,7 +73,9 @@ const registerSchema = [
         throw new Error("Password and Confirmation Password Mismatch");
       }
       return true;
-    }),
+    })
+    .notEmpty({ ignore_whitespace: true })
+    .withMessage("Confirmation Password is Required."),
   body("profileImgURL")
     .trim()
     .isURL({
@@ -81,4 +85,4 @@ const registerSchema = [
     }),
 ];
 
-export default registerSchema;
+export default RegisterSchema;

@@ -14,3 +14,4 @@
 :anchor: https://blog.devgenius.io/validating-user-inputs-on-your-express-js-application-with-express-validator-4d82b995f524
 :anchor: https://www.w3schools.com/jsref/jsref_startswith.asp
 :anchor: https://www.youtube.com/watch?v=7i7xmwowwCY
+:anchor: https://stackoverflow.com/questions/1050720/how-to-add-hours-to-a-date-object

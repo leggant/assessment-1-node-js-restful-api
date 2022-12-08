@@ -32,6 +32,7 @@ model Quiz {
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
   scoreboard Scoreboard?
+  Players    Players[]
 }
 
 model Category {
@@ -50,7 +51,10 @@ model Scoreboard {
 }
 
 model Players {
-  id Int @id
+  id         Int    @id
+  playerList Json
+  quiz       Quiz   @relation(fields: [quizId], references: [id])
+  quizId     String
 }
 
 enum Role {

@@ -23,29 +23,34 @@ model User {
 }
 
 model Quiz {
-  id                String     @id @default(uuid())
-  name              String
-  startDate         DateTime
-  endDate           DateTime
-  numberOfQuestions Int
-  type              Type       @default(multiple)
-  difficulty        Difficulty @default(easy)
-  categoryId        Int
-  category          Category   @relation(fields: [categoryId], references: [id])
+  id         String      @id @default(uuid())
+  name       String
+  type       Type        @default(multiple)
+  difficulty Difficulty  @default(easy)
+  startDate  DateTime?
+  endDate    DateTime?
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
+  scoreboard Scoreboard?
 }
 
 model Category {
-  id   Int    @unique
+  id   Int    @id
   name String @unique
   quiz Quiz[]
 }
 
-model Scores {
+model Scoreboard {
   id           String  @id @default(uuid())
-  quizId       String
+  winner       String?
   scores       Json?
   averageScore Decimal @default(0.0)
-  winnerId     String?
+  quizId       String  @unique
+  quiz         Quiz    @relation(fields: [quizId], references: [id])
+}
+
+model Players {
+  id Int @id
 }
 
 enum Role {

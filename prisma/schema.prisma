@@ -22,7 +22,53 @@ model User {
   role          Role    @default(BASIC_USER)
 }
 
+model Quiz {
+  id         String      @id @default(uuid())
+  name       String
+  type       Type        @default(multiple)
+  difficulty Difficulty  @default(easy)
+  startDate  DateTime?
+  endDate    DateTime?
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
+  scoreboard Scoreboard?
+  Players    Players[]
+}
+
+model Category {
+  id   Int    @id
+  name String @unique
+  quiz Quiz[]
+}
+
+model Scoreboard {
+  id           String  @id @default(uuid())
+  winner       String?
+  scores       Json?
+  averageScore Decimal @default(0.0)
+  quizId       String  @unique
+  quiz         Quiz    @relation(fields: [quizId], references: [id])
+}
+
+model Players {
+  id         Int    @id
+  playerList Json
+  quiz       Quiz   @relation(fields: [quizId], references: [id])
+  quizId     String
+}
+
 enum Role {
   BASIC_USER
   ADMIN_USER
+}
+
+enum Difficulty {
+  easy
+  medium
+  hard
+}
+
+enum Type {
+  boolean
+  multiple
 }

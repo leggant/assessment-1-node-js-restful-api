@@ -7,6 +7,10 @@
 ## Postman Project
 ## Entity Relationship Diagram
 ## API/Command Line Instructions
+## Gist Links
+__Note: more users added than required.__
+- [End-point for Basic Users](https://gist.github.com/leggant/0bba24ff5402123c0a1301df853c5541)
+- [End-point for Admin Users](https://gist.github.com/leggant/55140b7528dae48661395db873568dfe)
 ## :bookmark_tabs:References 	
 :anchor: https://www.freecodecamp.org/news/the-express-handbook
 :anchor: https://express-validator.github.io/docs/index.html

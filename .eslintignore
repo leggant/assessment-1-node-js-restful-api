@@ -1,0 +1,8 @@
+node_modules
+docs/
+prisma/
+package.json
+package-lock.json
+README.md
+jsdoc.json
+coverage

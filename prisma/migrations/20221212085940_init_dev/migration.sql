@@ -1,18 +1,28 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('BASIC_USER', 'ADMIN_USER');
 
-  - You are about to drop the column `role` on the `User` table. All the data in the column will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "Difficulty" AS ENUM ('easy', 'medium', 'hard');
 
 -- CreateEnum
 CREATE TYPE "AnswerType" AS ENUM ('boolean', 'multiple');
 
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "role",
-ADD COLUMN     "roleType" "Role" NOT NULL DEFAULT 'BASIC_USER';
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "userName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "profileImgURL" TEXT,
+    "roleType" "Role" NOT NULL DEFAULT 'BASIC_USER',
+    "userScoreId" INTEGER NOT NULL,
+    "userParticipantId" INTEGER NOT NULL,
+    "userQuestionAnswerId" INTEGER NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "UserScore" (
@@ -59,6 +69,7 @@ CREATE TABLE "Question" (
     "question" TEXT NOT NULL,
     "correctAnswer" TEXT NOT NULL,
     "incorrectAnswers" JSONB NOT NULL,
+    "userQuestionAnswerId" INTEGER NOT NULL,
 
     CONSTRAINT "Question_pkey" PRIMARY KEY ("id")
 );
@@ -75,9 +86,24 @@ CREATE TABLE "Quiz" (
     "scoreList" JSONB NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "questionId" INTEGER NOT NULL,
+    "userScoreId" INTEGER NOT NULL,
+    "userParticipantId" INTEGER NOT NULL,
+    "userQuestionAnswerId" INTEGER NOT NULL,
 
     CONSTRAINT "Quiz_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_profileImgURL_key" ON "User"("profileImgURL");
+
+-- CreateIndex
+CREATE INDEX "User_email_userName_idx" ON "User"("email", "userName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserScore_id_userId_quizId_key" ON "UserScore"("id", "userId", "quizId");
@@ -100,32 +126,29 @@ CREATE UNIQUE INDEX "Question_id_quizId_key" ON "Question"("id", "quizId");
 -- CreateIndex
 CREATE UNIQUE INDEX "Quiz_id_categoryId_name_key" ON "Quiz"("id", "categoryId", "name");
 
--- CreateIndex
-CREATE INDEX "User_email_userName_idx" ON "User"("email", "userName");
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_userScoreId_fkey" FOREIGN KEY ("userScoreId") REFERENCES "UserScore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserScore" ADD CONSTRAINT "UserScore_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userParticipantId_fkey" FOREIGN KEY ("userParticipantId") REFERENCES "UserParticipant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserScore" ADD CONSTRAINT "UserScore_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "Quiz"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserParticipant" ADD CONSTRAINT "UserParticipant_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Question" ADD CONSTRAINT "Question_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserParticipant" ADD CONSTRAINT "UserParticipant_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "Quiz"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UserQuestionAnswer" ADD CONSTRAINT "UserQuestionAnswer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UserQuestionAnswer" ADD CONSTRAINT "UserQuestionAnswer_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "Quiz"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UserQuestionAnswer" ADD CONSTRAINT "UserQuestionAnswer_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Question" ADD CONSTRAINT "Question_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "Quiz"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Quiz" ADD CONSTRAINT "Quiz_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Quiz" ADD CONSTRAINT "Quiz_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "Question"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Quiz" ADD CONSTRAINT "Quiz_userScoreId_fkey" FOREIGN KEY ("userScoreId") REFERENCES "UserScore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Quiz" ADD CONSTRAINT "Quiz_userParticipantId_fkey" FOREIGN KEY ("userParticipantId") REFERENCES "UserParticipant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Quiz" ADD CONSTRAINT "Quiz_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

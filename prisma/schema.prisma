@@ -20,11 +20,11 @@ model User {
   password             String
   profileImgURL        String
   roleType             Role                @default(BASIC_USER)
-  UserScore            UserScore?          @relation(fields: [userScoreId], references: [id])
+  userScore            UserScore?          @relation(fields: [userScoreId], references: [id])
   userScoreId          Int?
-  UserParticipant      UserParticipant?    @relation(fields: [userParticipantId], references: [id])
+  userParticipant      UserParticipant?    @relation(fields: [userParticipantId], references: [id])
   userParticipantId    Int?
-  UserQuestionAnswer   UserQuestionAnswer? @relation(fields: [userQuestionAnswerId], references: [id])
+  userQuestionAnswer   UserQuestionAnswer? @relation(fields: [userQuestionAnswerId], references: [id])
   userQuestionAnswerId Int?
 
   @@index([email, userName])
@@ -67,7 +67,7 @@ model UserQuestionAnswer {
 model Category {
   id   Int    @id
   name String @unique
-  Quiz Quiz[]
+  quiz Quiz[]
 }
 
 model Question {
@@ -76,9 +76,9 @@ model Question {
   question             String
   correctAnswer        String
   incorrectAnswers     Json
-  UserQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
+  userQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
   userQuestionAnswerId Int
-  Quiz                 Quiz               @relation(fields: [quizId], references: [id])
+  quiz                 Quiz               @relation(fields: [quizId], references: [id])
 
   @@unique([id, quizId])
 }
@@ -95,11 +95,11 @@ model Quiz {
   categoryId           Int
   category             Category           @relation(fields: [categoryId], references: [id])
   questionId           Int
-  UserScore            UserScore          @relation(fields: [userScoreId], references: [id])
+  userScore            UserScore          @relation(fields: [userScoreId], references: [id])
   userScoreId          Int
-  UserParticipant      UserParticipant    @relation(fields: [userParticipantId], references: [id])
+  userParticipant      UserParticipant    @relation(fields: [userParticipantId], references: [id])
   userParticipantId    Int
-  UserQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
+  userQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
   userQuestionAnswerId Int
   question             Question[]
 

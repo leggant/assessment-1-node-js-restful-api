@@ -26,7 +26,9 @@ const register = async (req, res) => {
     });
 
     if (user) {
-      return res.status(409).json({ msg: "User already exists" });
+      return res
+        .status(409)
+        .json({ msg: `${firstName} ${lastName} already exists. Please Login` });
     }
 
     /**
@@ -66,7 +68,7 @@ const register = async (req, res) => {
     delete user.password;
 
     return res.status(201).json({
-      msg: "User successfully registered",
+      msg: `${userName} - successfully registered`,
       data: user,
     });
   } catch (err) {
@@ -129,7 +131,7 @@ const login = async (req, res) => {
     ).toLocaleDateString(datefmt);
 
     return res.status(200).json({
-      msg: "User successfully logged in",
+      msg: `${user.userName} - successfully logged in`,
       token,
       expiresAt: `${expiryDate}-${expiryTime}`,
     });

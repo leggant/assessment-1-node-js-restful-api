@@ -87,8 +87,7 @@
     "ignore": [
       "*/*.md",
       "**/docs/**",
-      ".husky/**",
-      "prisma/**"
+      ".husky/**"
     ],
     "delay": 5000
   }

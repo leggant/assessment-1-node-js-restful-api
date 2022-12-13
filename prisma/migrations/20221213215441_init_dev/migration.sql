@@ -15,11 +15,11 @@ CREATE TABLE "User" (
     "userName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "profileImgURL" TEXT,
-    "roleType" "Role" NOT NULL DEFAULT 'BASIC_USER',
-    "userScoreId" INTEGER NOT NULL,
-    "userParticipantId" INTEGER NOT NULL,
-    "userQuestionAnswerId" INTEGER NOT NULL,
+    "profileImgURL" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'BASIC_USER',
+    "userScoreId" INTEGER,
+    "userParticipantId" INTEGER,
+    "userQuestionAnswerId" INTEGER,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -100,9 +100,6 @@ CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_profileImgURL_key" ON "User"("profileImgURL");
-
--- CreateIndex
 CREATE INDEX "User_email_userName_idx" ON "User"("email", "userName");
 
 -- CreateIndex
@@ -127,13 +124,13 @@ CREATE UNIQUE INDEX "Question_id_quizId_key" ON "Question"("id", "quizId");
 CREATE UNIQUE INDEX "Quiz_id_categoryId_name_key" ON "Quiz"("id", "categoryId", "name");
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_userScoreId_fkey" FOREIGN KEY ("userScoreId") REFERENCES "UserScore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userScoreId_fkey" FOREIGN KEY ("userScoreId") REFERENCES "UserScore"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_userParticipantId_fkey" FOREIGN KEY ("userParticipantId") REFERENCES "UserParticipant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userParticipantId_fkey" FOREIGN KEY ("userParticipantId") REFERENCES "UserParticipant"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Question" ADD CONSTRAINT "Question_userQuestionAnswerId_fkey" FOREIGN KEY ("userQuestionAnswerId") REFERENCES "UserQuestionAnswer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

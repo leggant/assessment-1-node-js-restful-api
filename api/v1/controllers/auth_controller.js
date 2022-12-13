@@ -91,7 +91,8 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ msg: "Invalid email" });
+      const errorMessage = email ? "Invalid Email" : "Invalid Username";
+      return res.status(401).json({ msg: errorMessage });
     }
 
     /**
@@ -119,10 +120,18 @@ const login = async (req, res) => {
       JWT_SECRET,
       { expiresIn: JWT_LIFETIME },
     );
+    const datefmt = new Intl.RelativeTimeFormat("en-nz");
+    const expiryTime = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleTimeString(datefmt);
+    const expiryDate = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleDateString(datefmt);
 
     return res.status(200).json({
       msg: "User successfully logged in",
       token,
+      expiresAt: `${expiryDate}-${expiryTime}`,
     });
   } catch (err) {
     return res.status(500).json({

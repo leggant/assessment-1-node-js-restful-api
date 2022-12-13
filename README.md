@@ -7,6 +7,22 @@
 ## Postman Project
 ## Entity Relationship Diagram
 ## API/Command Line Instructions
+
+### Run Docker PostGres DB
+- start docker on the local system, run the following command in vsCode terminal. This will run a database locally within a background process
+```bash
+docker run --name apipostgresinstance -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres
+```
+- add the postgres db address to the .env.development file
+```plaintext
+DATABASE_URL="postgres://postgres:password@localhost:5432/apipostgresinstance"
+SHADOW_DATABASE_URL="postgres://postgres:password@localhost:5432/apipostgresinstance"
+```
+- run a test migration with the following command
+```bash
+npx prisma db push
+```
+
 ## Gist Links
 __Note: more users added than required.__
 - [End-point for Basic Users](https://gist.github.com/leggant/0bba24ff5402123c0a1301df853c5541)
@@ -19,3 +35,4 @@ __Note: more users added than required.__
 :anchor: https://www.w3schools.com/jsref/jsref_startswith.asp
 :anchor: https://www.youtube.com/watch?v=7i7xmwowwCY
 :anchor: https://stackoverflow.com/questions/1050720/how-to-add-hours-to-a-date-object
+:anchor: __database seeder__ https://www.prisma.io/docs/guides/database/seed-database#example-seed-scripts

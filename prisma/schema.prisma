@@ -12,20 +12,20 @@ datasource db {
 }
 
 model User {
-  id                   String             @id @default(uuid())
+  id                   String              @id @default(uuid())
   firstName            String
   lastName             String
-  userName             String             @unique
-  email                String             @unique
+  userName             String              @unique
+  email                String              @unique
   password             String
-  profileImgURL        String?            @unique
-  roleType             Role               @default(BASIC_USER)
-  UserScore            UserScore          @relation(fields: [userScoreId], references: [id])
-  userScoreId          Int
-  UserParticipant      UserParticipant    @relation(fields: [userParticipantId], references: [id])
-  userParticipantId    Int
-  UserQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
-  userQuestionAnswerId Int
+  profileImgURL        String
+  roleType             Role                @default(BASIC_USER)
+  UserScore            UserScore?          @relation(fields: [userScoreId], references: [id])
+  userScoreId          Int?
+  UserParticipant      UserParticipant?    @relation(fields: [userParticipantId], references: [id])
+  userParticipantId    Int?
+  UserQuestionAnswer   UserQuestionAnswer? @relation(fields: [userQuestionAnswerId], references: [id])
+  userQuestionAnswerId Int?
 
   @@index([email, userName])
 }

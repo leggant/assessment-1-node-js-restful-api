@@ -64,6 +64,7 @@
     "migrate:prod": "env-cmd -f .env.production npx prisma migrate dev",
     "reset:dev": "env-cmd -f .env.development npx prisma migrate reset --force",
     "reset:prod": "env-cmd -f .env.production npx prisma migrate reset --force",
+    "push:dev": "env-cmd -f .env.development npx prisma db push",
     "test:dev": "env-cmd -f .env.development npx mocha --timeout 10000 --exit",
     "test:prod": "env-cmd -f .env.production npx mocha --timeout 10000 --exit",
     "pre:check": "npx prettier --check . --with-node-modules --debug-check",

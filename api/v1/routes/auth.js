@@ -1,4 +1,3 @@
-/* eslint-disable import/no-import-module-exports */
 import { Router } from "express";
 import PATHS from "../constants/paths.js";
 import { register, login } from "../controllers/auth_controller.js";

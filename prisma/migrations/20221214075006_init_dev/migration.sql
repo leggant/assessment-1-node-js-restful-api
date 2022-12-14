@@ -20,6 +20,7 @@ CREATE TABLE "User" (
     "userScoreId" INTEGER,
     "userParticipantId" INTEGER,
     "userQuestionAnswerId" INTEGER,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -80,7 +81,7 @@ CREATE TABLE "Quiz" (
     "name" TEXT NOT NULL,
     "answerType" "AnswerType" NOT NULL DEFAULT 'multiple',
     "difficulty" "Difficulty" NOT NULL DEFAULT 'easy',
-    "startDate" TIMESTAMP(3) NOT NULL,
+    "startDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "endDate" TIMESTAMP(3),
     "questionList" JSONB NOT NULL,
     "scoreList" JSONB NOT NULL,
@@ -89,6 +90,7 @@ CREATE TABLE "Quiz" (
     "userScoreId" INTEGER NOT NULL,
     "userParticipantId" INTEGER NOT NULL,
     "userQuestionAnswerId" INTEGER NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Quiz_pkey" PRIMARY KEY ("id")
 );

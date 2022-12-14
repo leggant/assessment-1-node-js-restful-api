@@ -12,100 +12,92 @@ datasource db {
 }
 
 model User {
-  id                   String              @id @default(uuid())
-  firstName            String
-  lastName             String
-  userName             String              @unique
-  email                String              @unique
-  password             String
-  profileImgURL        String
-  role                 Role                @default(BASIC_USER)
-  userScore            UserScore?          @relation(fields: [userScoreId], references: [id])
-  userScoreId          Int?
-  userParticipant      UserParticipant?    @relation(fields: [userParticipantId], references: [id])
-  userParticipantId    Int?
-  userQuestionAnswer   UserQuestionAnswer? @relation(fields: [userQuestionAnswerId], references: [id])
-  userQuestionAnswerId Int?
-  updatedAt            DateTime            @updatedAt
+  id                  String               @id @default(uuid())
+  firstName           String
+  lastName            String
+  userName            String               @unique
+  email               String               @unique
+  password            String
+  profileImgURL       String
+  role                Role                 @default(BASIC_USER)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  userScores          UserScore[]
+  userParticipateQuiz UserParticipate[]
+  userQuestionAnswer  UserQuestionAnswer[]
 
   @@index([email, userName])
 }
 
 model UserScore {
-  id     Int    @id @default(autoincrement())
-  userId String
-  quizId String
-  score  Int
-  user   User[]
-  quiz   Quiz[]
-
-  @@unique([id, userId, quizId])
+  id        Int      @id @default(autoincrement())
+  userId    String
+  quizId    Int
+  score     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
 }
 
-model UserParticipant {
-  id     Int    @id @default(autoincrement())
-  userId String
-  quizId String
-  user   User[]
-  quiz   Quiz[]
-
-  @@unique([id, userId, quizId])
+model UserParticipate {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  quizId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
 }
 
 model UserQuestionAnswer {
-  id            Int        @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   userId        String
-  quizId        String
+  quizId        Int
   questionId    Int
-  correctAnswer Boolean    @default(false)
-  user          User[]
-  quiz          Quiz[]
-  question      Question[]
-
-  @@unique([id, userId, quizId, questionId])
+  answer        String
+  correctAnswer Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  quiz          Quiz     @relation(fields: [quizId], references: [id])
+  question      Question @relation(fields: [questionId], references: [id])
 }
 
 model Category {
-  id   Int    @id
-  name String @unique
-  quiz Quiz[]
+  id        Int      @id
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  quizzes   Quiz[]
 }
 
 model Question {
-  id                   Int                @id @default(autoincrement())
-  quizId               String             @unique
-  question             String
-  correctAnswer        String
-  incorrectAnswers     Json
-  userQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
-  userQuestionAnswerId Int
-  quiz                 Quiz               @relation(fields: [quizId], references: [id])
-
-  @@unique([id, quizId])
+  id                  Int                  @id @default(autoincrement())
+  quizId              Int?
+  question            String
+  correctAnswer       String
+  incorrectAnswers    Json
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  quiz                Quiz?                @relation(fields: [quizId], references: [id])
+  userQuestionAnswers UserQuestionAnswer[]
 }
 
 model Quiz {
-  id                   String             @id @default(uuid())
-  name                 String
-  answerType           AnswerType         @default(multiple)
-  difficulty           Difficulty         @default(easy)
-  startDate            DateTime           @default(now())
-  endDate              DateTime?
-  questionList         Json
-  scoreList            Json
-  categoryId           Int
-  category             Category           @relation(fields: [categoryId], references: [id])
-  questionId           Int
-  userScore            UserScore          @relation(fields: [userScoreId], references: [id])
-  userScoreId          Int
-  userParticipant      UserParticipant    @relation(fields: [userParticipantId], references: [id])
-  userParticipantId    Int
-  userQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
-  userQuestionAnswerId Int
-  question             Question[]
-  updatedAt            DateTime           @updatedAt
-
-  @@unique([id, categoryId, name])
+  id                  Int                  @id @default(autoincrement())
+  categoryId          Int
+  name                String
+  answerType          AnswerType           @default(multiple)
+  difficulty          Difficulty           @default(easy)
+  startDate           DateTime             @default(now())
+  endDate             DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  questions           Question[]
+  userQuestionAnswers UserQuestionAnswer[]
+  userParticipateQuiz UserParticipate[]
+  userScores          UserScore[]
+  category            Category             @relation(fields: [categoryId], references: [id])
 }
 
 enum Role {

@@ -1,7 +1,47 @@
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 
-const getById = async (PRISMAX, id, res, type, includes) => {
+const getSingleUserById = async (
+  PRISMAX,
+  res,
+  req,
+  includes,
+  id = "",
+  type = "",
+) => {
+  try {
+    let response;
+    if (includes) {
+      response = await PRISMAX.findUnique({
+        where: { id },
+        include: {
+          ...includes,
+        },
+      });
+    } else {
+      response = await PRISMAX.findUnique({
+        where: { id },
+      });
+    }
+    if (!response) {
+      return res
+        .status(200)
+        .json({ msg: `No ${type} with the id: ${id} found` });
+    }
+    return response;
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+const getSingleUserByParam = async (
+  PRISMAX,
+  res,
+  req,
+  includes,
+  id = "",
+  type = "",
+) => {
   try {
     let response;
     if (includes) {
@@ -29,7 +69,7 @@ const getById = async (PRISMAX, id, res, type, includes) => {
   }
 };
 
-const getAll = async (PRISMAX, res, type, includes) => {
+const getAll = async (PRISMAX, res, req, type, includes) => {
   try {
     let data;
     if (includes) {
@@ -142,4 +182,11 @@ const deleteById = async (PRISMAX, id, res, type) => {
   }
 };
 
-export { createNew, getAll, getById, updateById, deleteById };
+export {
+  createNew,
+  getSingleUserById,
+  getSingleUserByParam,
+  getAll,
+  updateById,
+  deleteById,
+};

@@ -4,12 +4,17 @@ const PATHS = {
   LOGIN: "/login",
   ADMIN: {
     METHODS: ["GET", "CREATE", "UPDATE", "DELETE"],
-    ADMINSEEDER: "user/auth/admin/seeder",
-    ADMINQUIZ: "user/auth/admin/quiz",
+    ADMINSEEDER: "/user/auth/admin/seeder",
   },
   BASIC: {
     METHODS: ["GET", "CREATE"],
-    USERQUIZ: "user/auth/quiz",
+  },
+  USER: {
+    USERDETAILS: "/details",
+  },
+  QUIZ: {
+    USERQUIZ: "/quiz",
+    ADMINQUIZ: "/admin/quiz",
   },
 };
 

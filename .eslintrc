@@ -23,6 +23,7 @@
     "no-unused-vars": "warn",
     "no-trailing-spaces": "warn",
     "no-useless-return": "warn",
+    "default-param-last": "warn",
     "no-extra-parens": "warn",
     "no-console": "off",
     "linebreak-style": ["error", "windows"],

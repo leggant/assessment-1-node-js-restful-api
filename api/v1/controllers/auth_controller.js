@@ -68,8 +68,7 @@ const register = async (req, res) => {
     delete user.password;
 
     return res.status(201).json({
-      msg: `${userName} - successfully registered`,
-      data: user,
+      msg: `New User: ${userName} Successfully Registered`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -117,7 +116,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       {
         id: user.id,
-        userName: user.userName,
+        role: user.role,
       },
       JWT_SECRET,
       { expiresIn: JWT_LIFETIME },

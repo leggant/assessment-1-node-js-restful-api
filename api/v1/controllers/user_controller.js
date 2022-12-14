@@ -7,7 +7,13 @@ const getUser = (req, res) => {
   try {
     const user = req.userData;
     return res.status(200).json({
-      data: user,
+      data: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userName: user.userName,
+        email: user.email,
+        profileImageURL: user.profileImgURL,
+      },
     });
   } catch (err) {
     return res.status(500).json({

@@ -26,6 +26,7 @@ model User {
   userParticipantId    Int?
   userQuestionAnswer   UserQuestionAnswer? @relation(fields: [userQuestionAnswerId], references: [id])
   userQuestionAnswerId Int?
+  updatedAt            DateTime            @updatedAt
 
   @@index([email, userName])
 }
@@ -88,7 +89,7 @@ model Quiz {
   name                 String
   answerType           AnswerType         @default(multiple)
   difficulty           Difficulty         @default(easy)
-  startDate            DateTime
+  startDate            DateTime           @default(now())
   endDate              DateTime?
   questionList         Json
   scoreList            Json
@@ -102,6 +103,7 @@ model Quiz {
   userQuestionAnswer   UserQuestionAnswer @relation(fields: [userQuestionAnswerId], references: [id])
   userQuestionAnswerId Int
   question             Question[]
+  updatedAt            DateTime           @updatedAt
 
   @@unique([id, categoryId, name])
 }

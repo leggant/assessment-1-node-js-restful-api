@@ -9,8 +9,10 @@ const PATHS = {
   BASIC: {
     METHODS: ["GET", "CREATE"],
   },
-  USER: {
-    USERDETAILS: "/details",
+  USERDETAILS: {
+    USERNAME: "/details/:userName",
+    USEREMAIL: "/details/:email",
+    USER: "/details",
   },
   QUIZ: {
     USERQUIZ: "/quiz",

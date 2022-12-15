@@ -38,3 +38,4 @@ __Note: more users added than required.__
 :anchor: __database seeder__ https://www.prisma.io/docs/guides/database/seed-database#example-seed-scripts
 https://stackoverflow.com/questions/69526209/prisma-how-can-i-update-only-some-of-the-models-fields-in-update
 https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
+:anchor: get first key/value from object - https://stackoverflow.com/a/56969714

@@ -1,75 +1,35 @@
 import bcryptjs from "bcryptjs";
+import PRISMA from "./prisma.mjs";
 
-const getSingleUserById = async (
-  PRISMAX,
-  res,
-  req,
-  includes,
-  id = "",
-  type = "",
-) => {
-  try {
-    let response;
-    if (includes) {
-      response = await PRISMAX.findUnique({
-        where: { id },
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      response = await PRISMAX.findUnique({
-        where: { id },
-      });
-    }
-    if (!response) {
-      return res
-        .status(200)
-        .json({ msg: `No ${type} with the id: ${id} found` });
-    }
-    return response;
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-const getSingleUserByParam = async (
-  PRISMAX,
-  res,
-  req,
-  includes,
-  id = "",
-  type = "",
-) => {
-  try {
-    let response;
-    if (includes) {
-      response = await PRISMAX.findUnique({
-        where: { id },
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      response = await PRISMAX.findUnique({
-        where: { id },
-      });
-    }
-    if (!response) {
-      return res
-        .status(200)
-        .json({ msg: `No ${type} with the id: ${id} found` });
-    }
-    return response;
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
+const getSingleUserById = async (id = "") => {
+  const response = await PRISMA.user.findUnique({
+    where: { id },
+  });
+  return response;
 };
 
-const getAll = async (PRISMAX, res, req, type, includes) => {
+const getSingleUserByParam = async (params) => {
+  const search = Object.values(params);
+  const response = await PRISMA.user.findFirstOrThrow({
+    where: {
+      OR: [
+        {
+          userName: {
+            contains: search[1],
+          },
+        },
+        {
+          email: {
+            contains: search[1],
+          },
+        },
+      ],
+    },
+  });
+  return response;
+};
+
+const getAllUsers = async (PRISMAX, res, req, type, includes) => {
   try {
     let data;
     if (includes) {
@@ -186,7 +146,7 @@ export {
   createNew,
   getSingleUserById,
   getSingleUserByParam,
-  getAll,
+  getAllUsers,
   updateById,
   deleteById,
 };

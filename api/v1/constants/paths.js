@@ -7,8 +7,7 @@ const PATHS = {
   },
   USERDETAILS: {
     USER: "/details",
-    ADMINUSERNAME: "/quizadmin/details/:userName",
-    ADMINUSEREMAIL: "/quizadmin/details/:email",
+    ADMINUSERSEARCH: "/quizadmin/details/:searchField/:searchValue",
   },
   QUIZ: {
     USERQUIZ: "/quiz",

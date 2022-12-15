@@ -4,8 +4,9 @@ import cors from "cors";
 import helmet from "helmet";
 
 import PATHS from "./api/v1/constants/paths.js";
+
 import loginRegisterRoutes from "./api/v1/routes/auth.js";
-import userAdminRoutes from "./api/v1/routes/userAdmin.js";
+import userProfileRoutes from "./api/v1/routes/userProfileAdmin.js";
 import userSeederRouter from "./api/v1/routes/userSeeder.js";
 
 dotenv.config();
@@ -32,7 +33,7 @@ app.get(`/${BASE_URL}/${CURRENT_VERSION}`, (req, res) => {
 });
 
 app.use(`/${BASE_URL}/${CURRENT_VERSION}/${PATHS.AUTH}`, loginRegisterRoutes);
-app.use(`/${BASE_URL}/${CURRENT_VERSION}/${PATHS.AUTH}`, userAdminRoutes);
+app.use(`/${BASE_URL}/${CURRENT_VERSION}/${PATHS.AUTH}`, userProfileRoutes);
 /**
  * Seeder Path
  * user/auth/admin/data/seeder

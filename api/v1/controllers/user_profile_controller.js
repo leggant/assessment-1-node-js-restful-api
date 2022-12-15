@@ -1,18 +1,42 @@
 import PRISMA from "../../../utils/prisma.mjs";
-import { updateById } from "../../../utils/userRequests.mjs";
+import checkDataType from "../../../utils/checkDataType.js";
+
+import {
+  getSingleUserById,
+  getSingleUserByParam,
+  updateById,
+} from "../../../utils/userRequests.mjs";
 
 const PRISMAX = PRISMA.user;
 
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
   try {
-    const user = req.userData;
+    const user = req.profileQuery;
+    // user can either be a string, or an object with a single key value pair
+    let type = checkDataType(user);
+    const queryById = type === "string";
+    const userData = await (async () => {
+      const data = queryById
+        ? await getSingleUserById(user)
+        : await getSingleUserByParam(user);
+      const datares = await data;
+      return datares;
+    })();
+    type = checkDataType(userData);
+    const noData = type === "undefined" || type === null;
+    if (noData) {
+      return res.status(404).json({
+        msg: "No User Profile Found",
+      });
+    }
+
     return res.status(200).json({
       data: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        userName: user.userName,
-        email: user.email,
-        profileImageURL: user.profileImgURL,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        userName: userData.userName,
+        email: userData.email,
+        profileImageURL: userData.profileImgURL,
       },
     });
   } catch (err) {

@@ -3,17 +3,12 @@ const PATHS = {
   REGISTER: "/register",
   LOGIN: "/login",
   ADMIN: {
-    METHODS: ["GET", "CREATE", "UPDATE", "DELETE"],
     ADMINSEEDER: "/user/auth/admin/seeder",
   },
-  BASIC: {
-    METHODS: ["GET", "CREATE"],
-  },
   USERDETAILS: {
-    USERNAME: "/details/:userName",
-    USEREMAIL: "/details/:email",
     USER: "/details",
-    ADMINONLY: "/quizadmin",
+    ADMINUSERNAME: "/quizadmin/details/:userName",
+    ADMINUSEREMAIL: "/quizadmin/details/:email",
   },
   QUIZ: {
     USERQUIZ: "/quiz",

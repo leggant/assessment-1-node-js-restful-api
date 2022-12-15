@@ -13,6 +13,7 @@ const PATHS = {
     USERNAME: "/details/:userName",
     USEREMAIL: "/details/:email",
     USER: "/details",
+    ADMINONLY: "/quizadmin",
   },
   QUIZ: {
     USERQUIZ: "/quiz",

@@ -1,0 +1,27 @@
+name: Label Closed Issue
+on:
+  issues:
+    types:
+      - closed
+jobs:
+  add-duplicate-closed-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const issue_num = context.issue.number
+            github.rest.issues.removeLabel({
+              issue_number: issue_num,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: ["p1", "p2", "p3", "p4", "p5", "in progress", "needs task list"]
+            })
+            github.rest.issues.addLabels({
+              issue_number: issue_num,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: ["duplicate issue", "not fix"]
+            })

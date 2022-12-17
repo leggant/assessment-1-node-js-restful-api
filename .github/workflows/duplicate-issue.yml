@@ -17,11 +17,11 @@ jobs:
               issue_number: issue_num,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: ["p1", "p2", "p3", "p4", "p5", "in progress", "needs task list"]
+              name: ["p1", "p2", "p3", "p4", "p5", "in progress", "needs task list", "bug", "deployment", "enhancement", "documentation", "to do", "testing"]
             })
             github.rest.issues.addLabels({
               issue_number: issue_num,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: ["duplicate issue", "not fix"]
+              name: [":no_entry_sign: duplicate", ":no_entry_sign: not fix"]
             })

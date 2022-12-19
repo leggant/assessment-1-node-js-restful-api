@@ -9,7 +9,7 @@ import {
 
 const PRISMAX = PRISMA.user;
 
-const getUser = async (req, res) => {
+const ctGetUser = async (req, res) => {
   try {
     const user = req.profileQuery;
     // user can either be a string, or an object with a single key value pair
@@ -46,11 +46,10 @@ const getUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const ctUpdateUser = async (req, res) => {
   try {
     const user = req.user;
     const updates = req.body;
-    const oldData = req.userData;
     const type = `user: ${user.userName}`;
     return await updateById(PRISMAX, user.id, updates, res, type);
   } catch (err) {
@@ -60,7 +59,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+const ctDeleteUser = async (req, res) => {
   console.log("hit DeleteUserData");
   try {
     const { userName, email } = req.body;
@@ -134,4 +133,4 @@ const deleteUser = async (req, res) => {
 //     });
 //   }
 // };
-export { getUser, updateUser, deleteUser };
+export { ctGetUser, ctUpdateUser, ctDeleteUser };

@@ -3,9 +3,9 @@ import PATHS from "../constants/paths.js";
 import UpdateSchema from "../schemas/update-user-schema.js";
 import validateSchema from "../middleware/mw_validateSchema.js";
 import {
-  getUser,
-  updateUser,
-  deleteUser,
+  ctGetUser,
+  ctUpdateUser,
+  ctDeleteUser,
 } from "../controllers/user_profile_controller.js";
 
 import mwAuth from "../middleware/mw_authentication.js";
@@ -13,19 +13,14 @@ import mwUserProfileQuery from "../middleware/mw_userProfile.js";
 
 const router = Router();
 
-router.get(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, getUser);
+router.get(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctGetUser);
 router.get(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
   mwUserProfileQuery,
-  getUser,
+  ctGetUser,
 );
-router.get(
-  PATHS.USERDETAILS.ADMINUSERSEARCH,
-  mwAuth,
-  mwUserProfileQuery,
-  getUser,
-);
+
 // router.put(
 //   PATHS.USERDETAILS.USER,
 //   mwAuth,

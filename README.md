@@ -40,6 +40,7 @@ https://stackoverflow.com/questions/69526209/prisma-how-can-i-update-only-some-o
 https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
 :anchor: get first key/value from object - https://stackoverflow.com/a/56969714
 :anchor: testing axios functions from the commandline using `run-func` npm package - https://stackoverflow.com/a/43598047 || using the command: `npx run-func ./utils/axiosRequests.mjs getUsers` and `npx env-cmd -f .env.development npx run-func ./api/v1/controllers/seeder_controller.js seedUsers`
+:anchor: get object count - https://www.geeksforgeeks.org/find-the-length-of-a-javascript-object/ 
 
 
 

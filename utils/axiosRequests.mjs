@@ -21,7 +21,6 @@ const getUsers = async () => {
     .catch((err) => {
       console.error(err.message);
     });
-  console.log(data);
   return data;
 };
 

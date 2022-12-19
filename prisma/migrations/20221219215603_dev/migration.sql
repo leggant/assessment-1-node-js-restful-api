@@ -104,9 +104,6 @@ CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE INDEX "User_email_userName_idx" ON "User"("email", "userName");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
 -- AddForeignKey

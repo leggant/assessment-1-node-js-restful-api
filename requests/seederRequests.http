@@ -1,0 +1,31 @@
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Anthony",
+  "lastName": "Legg",
+  "email": "leggtc1@student.op.ac.nz",
+  "userName": "leggtc1",
+  "role": "BASIC_USER",
+  "password": "Version@10019045",
+  "confirmPassword": "Version@10019045",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}
+
+### 
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "leggtc1@student.op.ac.nz",
+  "password": "Version@10019045"
+}
+// Run the seeder request
+### 
+GET http://localhost:3000/api/v1/user/auth/user/auth/admin/seeder HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNiNjE0OTVmLTU3ZWItNDg0Mi05ODE1LTYyYjAyOTAwYzJkYSIsInJvbGUiOiJCQVNJQ19VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNDIxODg0LCJleHAiOjE2NzE0MjU0ODR9.HZ-hxv_-V7jrGBuSMhfyaVL-nImUIGN4L2hDzUyXukw
+
+### 
+

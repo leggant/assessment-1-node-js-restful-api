@@ -3,7 +3,7 @@ const PATHS = {
   REGISTER: "/register",
   LOGIN: "/login",
   ADMIN: {
-    ADMINSEEDER: "/user/auth/admin/seeder",
+    ADMINSEEDER: "/admin/seeder",
   },
   USERDETAILS: {
     USER: "/details",

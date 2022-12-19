@@ -1,10 +1,18 @@
 import PRISMA from "../../../utils/prisma.mjs";
 import { getUsers } from "../../../utils/axiosRequests.mjs";
+import USERTYPE from "../constants/userType.js";
 
 const seedUsers = async (req, res) => {
-  const deleteUsers = await PRISMA.user.deleteMany({});
-  console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
   const USERDATA = await getUsers();
+  const userNames = USERDATA.users.map(({ userName }) => userName);
+  const deleteUsers = await PRISMA.user.deleteMany({
+    where: {
+      userName: {
+        in: userNames,
+      },
+    },
+  });
+  console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
   Promise.all(
     USERDATA.users.map((user) => {
       const createusers = PRISMA.user.create({

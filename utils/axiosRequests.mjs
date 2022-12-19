@@ -1,4 +1,5 @@
 import axios from "axios";
+import USERTYPE from "../api/v1/constants/userType.js";
 
 const GISTAXIOS = axios.create({
   baseURL:
@@ -9,7 +10,8 @@ const GISTAXIOS = axios.create({
 const GISTADMIN = "/admin_user.json";
 const GISTBASIC = "/basic_user.json";
 
-const getUsers = async () => {
+const getUsers = async (type) => {
+  const requestType = type === USERTYPE.ADMIN ? USERTYPE.ADMIN : USERTYPE.BASIC;
   const data = await axios
     .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
     .then(
@@ -27,7 +29,6 @@ const getUsers = async () => {
 const quizAxios = axios.create({
   baseURL: "",
   method: "GET",
-  responseEncoding: "json",
 });
 
 export { GISTAXIOS, quizAxios, getUsers };

@@ -1,0 +1,73 @@
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Yogi",
+  "lastName": "Legg",
+  "email": "yoginz1@student.op.ac.nz",
+  "userName": "yoginz1",
+  "role": "BASIC_USER1",
+  "password": "vZ8}LGK%wx",
+  "confirmPassword": "vZ8}LGK%wx",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Y",
+  "lastName": "L",
+  "email": "yoginz1@student.op.ac.nz",
+  "userName": "yoginz1",
+  "role": "BASIC_USER",
+  "password": "vZ8}LGK%wx",
+  "confirmPassword": "vZ8}LGK%wx",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}
+
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Yogi",
+  "lastName": "Legg",
+  "email": "yogi@student.op.ac.nz",
+  "userName": "yoginz",
+  "role": "BASIC_USER",
+  "password": "vZ8}LGK%wx",
+  "confirmPassword": "vZ8}LGK%wx",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}
+
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Yogi",
+  "lastName": "Legg",
+  "email": "yogi.student.op.ac.nz",
+  "userName": "yogi1",
+  "role": "BASIC_USER",
+  "password": "vZ8}LGK%wx",
+  "confirmPassword": "vZ8}LGK%wx",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}
+
+### 
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Yogi",
+  "lastName": "Legg",
+  "email": "yogi1@student.op.ac.nz",
+  "userName": "yogi1",
+  "role": "BASIC_USER",
+  "password": "vZ8}LGK",
+  "confirmPassword": "vZ8}LGK%wx",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/79.jpg"
+}

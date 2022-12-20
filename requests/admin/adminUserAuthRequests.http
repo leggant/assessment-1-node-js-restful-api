@@ -1,0 +1,64 @@
+###
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Anthony",
+  "lastName": "Legg",
+  "email": "leggtc1@student.op.ac.nz",
+  "userName": "leggtc1",
+  "role": "ADMIN_USER",
+  "password": "Yogi##@4tdfg",
+  "confirmPassword": "Yogi##@4tdfg",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+}
+
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "userName": "leggtc1",
+  "password": "Yogi##@4tdfg"
+}
+
+###
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkNGEzNTc4LTQ4NzMtNDcxMS04ZTc1LTlhYWRlNDU2MmU4NCIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTAyOTA2LCJleHAiOjE2NzE1MDY1MDZ9.juACJB1VwsOHKW27mZ7c_1RRqS4eYjFC2Aorr8O5Coc
+
+{
+  "password": "Yogi##@4tdfg",
+  "confirmPassword": "Yogi##@4tdfg"
+}
+
+###
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Grayson",
+  "lastName": "Orr",
+  "email": "grayorr@op.ac.nz",
+  "userName": "grayorr",
+  "role": "ADMIN_USER",
+  "password": "dfgdfgsBIT%2022",
+  "confirmPassword": "dfgdfgsBIT%2022",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+}
+
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "userName": "grayorr",
+  "password": "dfgdfgsBIT%2022"
+}
+
+
+// Run the seeder request
+### 
+GET http://localhost:3000/api/v1/user/auth/admin/seeder HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTA3ODI2LCJleHAiOjE2NzE1MTE0MjZ9.DH9cQUGTUO2u-JLrMGPAtP3renEfNajm-h8VR_vrPAQ

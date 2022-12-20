@@ -11,6 +11,22 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum Role {
+  BASIC_USER
+  ADMIN_USER
+}
+
+enum Difficulty {
+  easy
+  medium
+  hard
+}
+
+enum AnswerType {
+  boolean
+  multiple
+}
+
 model User {
   id                  String               @id @default(uuid())
   firstName           String
@@ -96,20 +112,4 @@ model Quiz {
   userParticipateQuiz UserParticipate[]
   userScores          UserScore[]
   category            Category             @relation(fields: [categoryId], references: [id])
-}
-
-enum Role {
-  BASIC_USER
-  ADMIN_USER
-}
-
-enum Difficulty {
-  easy
-  medium
-  hard
-}
-
-enum AnswerType {
-  boolean
-  multiple
 }

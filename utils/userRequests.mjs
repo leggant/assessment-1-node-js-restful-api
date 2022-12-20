@@ -1,5 +1,7 @@
 import bcryptjs from "bcryptjs";
 import PRISMA from "./prisma.mjs";
+import checkDataType from "./checkDataType.js";
+import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 
 const getSingleUserById = async (id = "") => {
   const response = await PRISMA.user.findUnique({
@@ -27,6 +29,45 @@ const getSingleUserByParam = async (params) => {
     },
   });
   return response;
+};
+
+const deleteUserById = async (id = "") => {
+  const user = await PRISMA.user.findFirst({
+    where: { id },
+  });
+  let resTypeOfData = checkDataType(user);
+  let resOk = resTypeOfData === "object" && !checkIfObjectIsEmpty(user);
+  const deleteReq = resOk
+    ? await PRISMA.user.delete({
+        where: { id },
+      })
+    : null;
+  resTypeOfData = checkDataType(deleteReq);
+  resOk = resTypeOfData === "object";
+  return resOk;
+};
+
+const deleteUserByParam = async (params) => {
+  const search = Object.values(params);
+  const user = await PRISMA.user.delete({
+    where: {
+      OR: [
+        {
+          userName: {
+            contains: search[1],
+          },
+        },
+        {
+          email: {
+            contains: search[1],
+          },
+        },
+      ],
+    },
+  });
+  const resTypeOfData = checkDataType(user);
+  const resOk = resTypeOfData === "object" && !checkIfObjectIsEmpty(user);
+  return resOk;
 };
 
 const getAllUsers = async (PRISMAX, res, req, type, includes) => {
@@ -117,36 +158,12 @@ const updateById = async (PRISMAX, id, data, res, type) => {
   }
 };
 
-const deleteById = async (PRISMAX, id, res, type) => {
-  try {
-    const result = await PRISMAX.findUnique({
-      where: { id },
-    });
-    if (!result) {
-      return res
-        .status(200)
-        .json({ msg: `No ${type} with the id: ${id} found` });
-    }
-
-    await PRISMAX.delete({
-      where: { id },
-    });
-
-    return res.json({
-      msg: `${type} with the id: ${id} successfully deleted`,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
 export {
   createNew,
   getSingleUserById,
   getSingleUserByParam,
   getAllUsers,
   updateById,
-  deleteById,
+  deleteUserById,
+  deleteUserByParam,
 };

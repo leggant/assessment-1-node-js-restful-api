@@ -23,6 +23,7 @@ const UpdateSchema = [
     .escape()
     .trim()
     .isAlphanumeric()
+    .withMessage("Username Cannot Contain Special Characters")
     .isLength({ min: 5, max: 10 })
     .withMessage("Username Must Be Between 5 and 10 characters"),
   body("email")
@@ -30,6 +31,7 @@ const UpdateSchema = [
     .escape()
     .trim()
     .isEmail()
+    .withMessage("Email Must Be Valid")
     .normalizeEmail()
     .custom((emailVal, { req }) => {
       if (!emailVal.startsWith(req.body.userName.toLowerCase())) {
@@ -76,7 +78,8 @@ const UpdateSchema = [
       protocols: ["http", "https"],
       require_protocol: true,
       allow_underscores: true,
-    }),
+    })
+    .withMessage("URL Must be Valid."),
 ];
 
 export default UpdateSchema;

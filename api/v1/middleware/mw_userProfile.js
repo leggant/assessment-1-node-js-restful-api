@@ -10,14 +10,12 @@ const mwUserProfileQuery = (req, res, next) => {
     if (isBasic || (isAdmin && queryAdminUserOnly)) {
       // only allowed to query their own data
       // request user by id in req.user.id
-      console.log("requesting user", id);
       req.profileQuery = id;
     } else if (isAdmin && !queryAdminUserOnly) {
       // a query param has been used in the request
       // this is used to query a user other than the current
       // admin user that is authenticated
       // check which param has been provided in the query
-      console.log("admin user requesting user with param", req.params);
       req.profileQuery = req.params;
     }
     return next();

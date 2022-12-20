@@ -14,7 +14,19 @@ import mwUserProfileQuery from "../middleware/mw_userProfile.js";
 
 const router = Router();
 
+// basic users
 router.get(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctGetUser);
+router.put(
+  PATHS.USERDETAILS.USER,
+  mwAuth,
+  UpdateSchema,
+  validateSchema,
+  mwUserProfileQuery,
+  ctUpdateUser,
+);
+router.delete(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctDeleteUser);
+
+// admin users
 router.get(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
@@ -22,46 +34,21 @@ router.get(
   mwUserProfileQuery,
   ctGetUser,
 );
-
-// router.put(
-//   PATHS.USERDETAILS.USER,
-//   mwAuth,
-//   UpdateSchema,
-//   validateSchema,
-//   mwUserProfileQuery,
-//   updateUser,
-// );
-// router.delete(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, deleteUser);
-
-// router.get(PATHS.USERDETAILS.USERNAME, mwAuth, mwUserProfileQuery, getUser);
-// router.get(PATHS.USERDETAILS.USEREMAIL, mwAuth, mwUserProfileQuery, getUser);
-// router.put(
-//   PATHS.USERDETAILS.USERNAME,
-//   mwAuth,
-//   UpdateSchema,
-//   validateSchema,
-//   mwUserProfileQuery,
-//   updateUser,
-// );
-// router.put(
-//   PATHS.USERDETAILS.USEREMAIL,
-//   mwAuth,
-//   UpdateSchema,
-//   validateSchema,
-//   mwUserProfileQuery,
-//   updateUser,
-// );
-// router.delete(
-//   PATHS.USERDETAILS.USERNAME,
-//   mwAuth,
-//   mwUserProfileQuery,
-//   deleteUser,
-// );
-// router.delete(
-//   PATHS.USERDETAILS.USEREMAIL,
-//   mwAuth,
-//   mwUserProfileQuery,
-//   deleteUser,
-// );
+router.put(
+  PATHS.USERDETAILS.ADMINUSERSEARCH,
+  mwAuth,
+  mwAdminUser,
+  UpdateSchema,
+  validateSchema,
+  mwUserProfileQuery,
+  ctGetUser,
+);
+router.delete(
+  PATHS.USERDETAILS.ADMINUSERSEARCH,
+  mwAuth,
+  mwAdminUser,
+  mwUserProfileQuery,
+  ctDeleteUser,
+);
 
 export default router;

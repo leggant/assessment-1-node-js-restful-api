@@ -5,7 +5,7 @@ CREATE TYPE "Role" AS ENUM ('BASIC_USER', 'ADMIN_USER');
 CREATE TYPE "Difficulty" AS ENUM ('easy', 'medium', 'hard');
 
 -- CreateEnum
-CREATE TYPE "AnswerType" AS ENUM ('boolean', 'multiple', 'test');
+CREATE TYPE "AnswerType" AS ENUM ('boolean', 'multiple');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -102,6 +102,9 @@ CREATE UNIQUE INDEX "User_userName_key" ON "User"("userName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_profileImgURL_key" ON "User"("profileImgURL");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");

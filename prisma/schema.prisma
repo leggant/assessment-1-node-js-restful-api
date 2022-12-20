@@ -18,7 +18,7 @@ model User {
   userName            String               @unique
   email               String               @unique
   password            String
-  profileImgURL       String
+  profileImgURL       String               @unique
   role                Role                 @default(BASIC_USER)
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt

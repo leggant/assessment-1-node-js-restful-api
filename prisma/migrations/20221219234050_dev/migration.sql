@@ -5,7 +5,7 @@ CREATE TYPE "Role" AS ENUM ('BASIC_USER', 'ADMIN_USER');
 CREATE TYPE "Difficulty" AS ENUM ('easy', 'medium', 'hard');
 
 -- CreateEnum
-CREATE TYPE "AnswerType" AS ENUM ('boolean', 'multiple');
+CREATE TYPE "AnswerType" AS ENUM ('boolean', 'multiple', 'test');
 
 -- CreateTable
 CREATE TABLE "User" (

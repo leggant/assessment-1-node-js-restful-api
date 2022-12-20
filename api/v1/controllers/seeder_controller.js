@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import PRISMA from "../../../utils/prisma.mjs";
 import { getUsers } from "../../../utils/axiosRequests.mjs";
 import USERTYPE from "../constants/userType.js";
@@ -15,6 +16,8 @@ const seedUsers = async (req, res) => {
   console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
   Promise.all(
     USERDATA.users.map((user) => {
+      const random = crypto.randomBytes(15).toString("hex");
+      const imageurl = `https://avatars.dicebear.com/api/human/:${random}.svg?radius=50&size=200`;
       const createusers = PRISMA.user.create({
         data: {
           firstName: user.firstName,
@@ -23,7 +26,7 @@ const seedUsers = async (req, res) => {
           email: user.email,
           password: user.password,
           role: user.role,
-          profileImgURL: "",
+          profileImgURL: imageurl,
         },
       });
       return createusers;

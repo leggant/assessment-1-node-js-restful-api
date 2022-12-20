@@ -11,14 +11,14 @@ const PRISMAX = PRISMA.user;
 
 const ctGetUser = async (req, res) => {
   try {
-    const user = req.profileQuery;
+    const query = req.profileQuery;
     // user can either be a string, or an object with a single key value pair
-    let type = checkDataType(user);
+    let type = checkDataType(query);
     const queryById = type === "string";
     const userData = await (async () => {
       const data = queryById
-        ? await getSingleUserById(user)
-        : await getSingleUserByParam(user);
+        ? await getSingleUserById(query)
+        : await getSingleUserByParam(query);
       const datares = await data;
       return datares;
     })();

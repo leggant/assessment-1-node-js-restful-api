@@ -1,7 +1,6 @@
 import crypto from "crypto";
 import PRISMA from "../../../utils/prisma.mjs";
 import { getUsers } from "../../../utils/axiosRequests.mjs";
-import USERTYPE from "../constants/userType.js";
 
 const seedUsers = async (req, res) => {
   const USERDATA = await getUsers();

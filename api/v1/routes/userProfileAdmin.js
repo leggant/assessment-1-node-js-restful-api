@@ -9,6 +9,7 @@ import {
 } from "../controllers/user_profile_controller.js";
 
 import mwAuth from "../middleware/mw_authentication.js";
+import mwAdminUser from "../middleware/mw_adminUser.js";
 import mwUserProfileQuery from "../middleware/mw_userProfile.js";
 
 const router = Router();
@@ -17,6 +18,7 @@ router.get(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctGetUser);
 router.get(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
+  mwAdminUser,
   mwUserProfileQuery,
   ctGetUser,
 );

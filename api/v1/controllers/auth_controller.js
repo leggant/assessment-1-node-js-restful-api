@@ -92,7 +92,9 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      const errorMessage = email ? "Invalid Email" : "Invalid Username";
+      const errorMessage = email
+        ? "No User Associated With The Provided Email. Please Register"
+        : "No User Associated With The Provided User Name. Please Register";
       return res.status(401).json({ msg: errorMessage });
     }
 

@@ -46,6 +46,7 @@ model User {
 model BlockedToken {
   id        Int      @id @default(autoincrement())
   token     String
+  exp       BigInt
   createdAt DateTime @default(now())
 }
 

@@ -27,6 +27,7 @@ CREATE TABLE "User" (
 CREATE TABLE "BlockedToken" (
     "id" SERIAL NOT NULL,
     "token" TEXT NOT NULL,
+    "exp" BIGINT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "BlockedToken_pkey" PRIMARY KEY ("id")

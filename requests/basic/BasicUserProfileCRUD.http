@@ -31,9 +31,21 @@ content-type: application/json
 
 }
 
+// Update User With Token
+### 
+PUT  http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/details HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1MjQyMDZkLWMzMGEtNDcxZC04NDMwLTcwYjBlZmIyYWUwZCIsInJvbGUiOiJCQVNJQ19VU0VSIiwidXNlck5hbWUiOiJ5b2dpbnoxIiwiaWF0IjoxNjcxNTI0MzkwLCJleHAiOjE2NzE1Mjc5OTB9.SSAqYvI56SslZcMMzDBX143r4j8nZyOWZaKxOIzsu04
 
 ###
+
+
+// Delete current user via valid token
+### 
+DELETE http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4NTg1NDNhLTFhMTEtNDMyYS1hYzI4LWIzYjJhMTQwYzM5NiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJncmF5b3JyIiwiaWF0IjoxNjcxNjU3MTU4LCJleHAiOjE2NzE2NjA3NTh9.86lB8bGTTxMbqKXjsN3s-xse-k9TKCMB7-daa7a7DlU

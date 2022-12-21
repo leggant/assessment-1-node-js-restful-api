@@ -1,3 +1,4 @@
+// Create account profile
 ###
 POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
 content-type: application/json
@@ -12,7 +13,7 @@ content-type: application/json
   "confirmPassword": "Yogi##@4tdfg",
   "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
 }
-
+// Login + Get Auth Token
 ###
 POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
 content-type: application/json
@@ -22,7 +23,9 @@ content-type: application/json
   "password": "Yogi##@4tdfg"
 }
 
+// Replace Bearer Token
+// Run the seeder request
 ### 
-DELETE  http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+GET http://localhost:3000/api/v1/user/auth/admin/seeder HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhZGRmY2U3LTJlM2YtNDNkOC04Zjk2LTJjMzc4NmQwY2MyZSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTkxMTY2LCJleHAiOjE2NzE1OTQ3NjZ9.DF2m1uzpkzK4Wpv_kdHTFoN9tlsUwl84RqJt67ptKjs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU2NTM5LCJleHAiOjE2NzE2NjAxMzl9.8sWQG6R21CM6NIE9JpXcHwZ_15CyK1rBdp5I1f-G7Gs

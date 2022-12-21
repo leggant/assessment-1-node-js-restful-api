@@ -1,0 +1,30 @@
+
+// get admin user profile by username
+### 
+GET http://localhost:3000/api/v1/user/auth/quizadmin/details/userName/grayorr HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g
+
+// get admin user profile by email
+### 
+GET http://localhost:3000/api/v1/user/auth/quizadmin/details/email/grayorr@op.ac.nz HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g
+
+// get basic user profile by username
+### 
+GET http://localhost:3000/api/v1/user/auth/quizadmin/details/userName/cgrzesiewicz3 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g
+
+// get basic user profile by email
+### 
+GET http://localhost:3000/api/v1/user/auth/quizadmin/details/email/cgrzesiewicz3@unesco.org HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g
+
+// get current user via token
+### 
+GET http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g

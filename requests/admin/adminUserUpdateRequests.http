@@ -1,0 +1,5 @@
+// Update User With Token
+### 
+PUT  http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTc2OTQ1LCJleHAiOjE2NzE1ODA1NDV9.y9k-ZBFN8HeKqwPYWDGYd6CQZRC3Jm2J0PkDH-H9-8g

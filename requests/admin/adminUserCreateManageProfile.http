@@ -1,0 +1,28 @@
+###
+POST http://localhost:3000/api/v1/user/auth/register HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Anthony",
+  "lastName": "Legg",
+  "email": "leggtc1@student.op.ac.nz",
+  "userName": "leggtc1",
+  "role": "ADMIN_USER",
+  "password": "Yogi##@4tdfg",
+  "confirmPassword": "Yogi##@4tdfg",
+  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+}
+
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "userName": "leggtc1",
+  "password": "Yogi##@4tdfg"
+}
+
+### 
+DELETE  http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhZGRmY2U3LTJlM2YtNDNkOC04Zjk2LTJjMzc4NmQwY2MyZSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTkxMTY2LCJleHAiOjE2NzE1OTQ3NjZ9.DF2m1uzpkzK4Wpv_kdHTFoN9tlsUwl84RqJt67ptKjs

@@ -23,13 +23,12 @@ content-type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkNGEzNTc4LTQ4NzMtNDcxMS04ZTc1LTlhYWRlNDU2MmU4NCIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTAyOTA2LCJleHAiOjE2NzE1MDY1MDZ9.juACJB1VwsOHKW27mZ7c_1RRqS4eYjFC2Aorr8O5Coc
 
 {
-  "password": "Yogi##@4tdfg",
-  "confirmPassword": "Yogi##@4tdfg"
+  "email": "leggtc1@student.op.ac.nz",
+  "password": "Yogi##@4tdfg"
 }
 
 ###
@@ -44,7 +43,7 @@ content-type: application/json
   "role": "ADMIN_USER",
   "password": "dfgdfgsBIT%2022",
   "confirmPassword": "dfgdfgsBIT%2022",
-  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+  "profileImgURL": "https://randomuser.me/api/portraits/men/85.jpg"
 }
 
 ###
@@ -56,9 +55,17 @@ content-type: application/json
   "password": "dfgdfgsBIT%2022"
 }
 
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "grayorr@op.ac.nz",
+  "password": "dfgdfgsBIT%2022"
+}
 
 // Run the seeder request
 ### 
 GET http://localhost:3000/api/v1/user/auth/admin/seeder HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwNGIyYzI1LWY2MWQtNGEyNi1iNTE2LTQyODEyZDVjZmIxMiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTA3ODI2LCJleHAiOjE2NzE1MTE0MjZ9.DH9cQUGTUO2u-JLrMGPAtP3renEfNajm-h8VR_vrPAQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhZGRmY2U3LTJlM2YtNDNkOC04Zjk2LTJjMzc4NmQwY2MyZSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNTkxMTY2LCJleHAiOjE2NzE1OTQ3NjZ9.DF2m1uzpkzK4Wpv_kdHTFoN9tlsUwl84RqJt67ptKjs

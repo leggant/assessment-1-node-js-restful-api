@@ -6,25 +6,39 @@ import {
   ctGetUser,
   ctUpdateUser,
   ctDeleteUser,
-} from "../controllers/user_profile_controller.js";
+} from "../controllers/userProfileController.js";
 
 import mwAuth from "../middleware/mw_authentication.js";
 import mwAdminUser from "../middleware/mw_adminUser.js";
+import mwTokenValid from "../middleware/mw_tokenValid.js";
 import mwUserProfileQuery from "../middleware/mw_userProfile.js";
 
 const router = Router();
 
 // basic users
-router.get(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctGetUser);
+router.get(
+  PATHS.USERDETAILS.USER,
+  mwAuth,
+  mwTokenValid,
+  mwUserProfileQuery,
+  ctGetUser,
+);
 router.put(
   PATHS.USERDETAILS.USER,
   mwAuth,
+  mwTokenValid,
   UpdateSchema,
   validateSchema,
   mwUserProfileQuery,
   ctUpdateUser,
 );
-router.delete(PATHS.USERDETAILS.USER, mwAuth, mwUserProfileQuery, ctDeleteUser);
+router.delete(
+  PATHS.USERDETAILS.USER,
+  mwAuth,
+  mwTokenValid,
+  mwUserProfileQuery,
+  ctDeleteUser,
+);
 
 // admin users
 router.get(

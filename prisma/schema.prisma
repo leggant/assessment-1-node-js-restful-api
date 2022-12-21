@@ -43,6 +43,12 @@ model User {
   userQuestionAnswer  UserQuestionAnswer[]
 }
 
+model BlockedToken {
+  id        Int      @id @default(autoincrement())
+  token     String
+  createdAt DateTime @default(now())
+}
+
 model UserScore {
   id        Int      @id @default(autoincrement())
   userId    String

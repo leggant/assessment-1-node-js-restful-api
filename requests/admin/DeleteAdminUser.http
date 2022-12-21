@@ -2,19 +2,19 @@
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/details HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4NTg1NDNhLTFhMTEtNDMyYS1hYzI4LWIzYjJhMTQwYzM5NiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJncmF5b3JyIiwiaWF0IjoxNjcxNjU3MTU4LCJleHAiOjE2NzE2NjA3NTh9.86lB8bGTTxMbqKXjsN3s-xse-k9TKCMB7-daa7a7DlU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk
 
 // Delete basic user profile by username
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/quizadmin/details/userName/cgrzesiewicz3 HTTP/1.1
 content-type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk
 
 // Delete basic user profile by email
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/quizadmin/details/email/cgrzesiewicz3@unesco.org HTTP/1.1
 content-type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk
 
 
 // delete admin user profile by username
@@ -22,11 +22,11 @@ Authorization: Bearer
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/quizadmin/details/userName/grayorr HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU2MjYzLCJleHAiOjE2NzE2NTk4NjN9.jJtufy6sJkqqMMrdXKx2PyVawdUTjFZ1X_QVHaIbU6E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk
 
 // Delete other admin user profile by email
 // this should fail
 ### 
 DELETE http://localhost:3000/api/v1/user/auth/quizadmin/details/email/grayorr@op.ac.nz HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJkZTc3NjI0LTE1Y2MtNGM4MC05ZDdlLTYzZjQ4YTY0NWU0NyIsInJvbGUiOiJCQVNJQ19VU0VSIiwidXNlck5hbWUiOiJ5b2dpbnoxIiwiaWF0IjoxNjcxNjU2MDYxLCJleHAiOjE2NzE2NTk2NjF9.hEaa4Cxp9fUl0b_yaIUBhhtpPOQqUcRwylcfG-gs1tI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk

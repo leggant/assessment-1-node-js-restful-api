@@ -44,6 +44,7 @@ router.delete(
 router.get(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
+  mwTokenValid,
   mwAdminUser,
   mwUserProfileQuery,
   ctGetUser,
@@ -51,6 +52,7 @@ router.get(
 router.put(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
+  mwTokenValid,
   mwAdminUser,
   UpdateSchema,
   validateSchema,
@@ -60,6 +62,7 @@ router.put(
 router.delete(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
+  mwTokenValid,
   mwAdminUser,
   mwUserProfileQuery,
   ctDeleteUser,

@@ -1,4 +1,5 @@
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 import PRISMA from "./prisma.mjs";
 import checkDataType from "./checkDataType.js";
 import checkIfObjectIsEmpty from "./checkEmptyObject.js";
@@ -31,7 +32,7 @@ const getSingleUserByParam = async (params) => {
   return response;
 };
 
-const deleteUserById = async (id = "") => {
+const deleteUserById = async (token, id = "") => {
   const user = await PRISMA.user.findFirst({
     where: { id },
   });
@@ -44,10 +45,22 @@ const deleteUserById = async (id = "") => {
     : null;
   resTypeOfData = checkDataType(deleteReq);
   resOk = resTypeOfData === "object";
+  const userData = jwt.verify(token, process.env.JWT_SECRET);
+  if (resOk) {
+    const expireToken = await PRISMA.blockedToken.create({
+      data: {
+        token,
+        exp: userData.exp,
+      },
+    });
+    resTypeOfData = checkDataType(expireToken);
+    resOk = resTypeOfData === "object";
+    return resOk;
+  }
   return resOk;
 };
 
-const deleteUserByParam = async (params) => {
+const deleteUserByParam = async (token, params) => {
   const search = Object.values(params);
   const user = await PRISMA.user.delete({
     where: {
@@ -65,9 +78,42 @@ const deleteUserByParam = async (params) => {
       ],
     },
   });
-  const resTypeOfData = checkDataType(user);
-  const resOk = resTypeOfData === "object" && !checkIfObjectIsEmpty(user);
+  let resTypeOfData = checkDataType(user);
+  let resOk = resTypeOfData === "object";
+  const userData = jwt.verify(token, process.env.JWT_SECRET);
+  if (resOk) {
+    const expireToken = await PRISMA.blockedToken.create({
+      data: {
+        token,
+        exp: userData.exp,
+      },
+    });
+    resTypeOfData = checkDataType(expireToken);
+    resOk = resTypeOfData === "object";
+    return resOk;
+  }
   return resOk;
+};
+
+const clearBlockedTokens = async () => {
+  const deleteBlockedTokens = await PRISMA.blockedToken.findMany({
+    where: {
+      exp: {
+        gte: Date.now(),
+      },
+    },
+  });
+  if (deleteBlockedTokens.length) {
+    const clearAll = await PRISMA.blockedToken.deleteMany({
+      where: {
+        id: {
+          in: deleteBlockedTokens,
+        },
+      },
+    });
+    return clearAll.count;
+  }
+  return 0;
 };
 
 const getAllUsers = async (PRISMAX, res, req, type, includes) => {
@@ -166,4 +212,5 @@ export {
   updateById,
   deleteUserById,
   deleteUserByParam,
+  clearBlockedTokens,
 };

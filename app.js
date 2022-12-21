@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
 
 import PATHS from "./api/v1/constants/paths.js";
 
@@ -22,7 +23,7 @@ const BASE_URL = "api";
  * The current version of this API is 1
  */
 const CURRENT_VERSION = process.env.API_VERSION || "v1";
-
+app.use(`/${BASE_URL}/${CURRENT_VERSION}/docs`, express.static("docs"));
 /**
  * The default port in the development env is 3000
  */

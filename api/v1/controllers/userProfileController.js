@@ -7,6 +7,7 @@ import {
   updateById,
   deleteUserById,
   deleteUserByParam,
+  clearBlockedTokens,
 } from "../../../utils/userRequests.mjs";
 
 const PRISMAX = PRISMA.user;
@@ -68,16 +69,20 @@ const ctUpdateUser = async (req, res) => {
 const ctDeleteUser = async (req, res) => {
   try {
     const query = req.profileQuery;
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(" ")[1];
     // user can either be a string, or an object with a single key value pair
     const type = checkDataType(query);
     const deleteWithId = type === "string";
     const reqStatus = await (async () => {
       const data = deleteWithId
-        ? await deleteUserById(query)
-        : await deleteUserByParam(query);
+        ? await deleteUserById(token, query)
+        : await deleteUserByParam(token, query);
       const datares = await data;
       return datares;
     })();
+    const cleared = await clearBlockedTokens();
+    console.log("expired/deleted tokens deleted: ", cleared);
     if (!reqStatus) {
       return res.status(404).json({ msg: "User Not Found/Was Not Deleted." });
     }

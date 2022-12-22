@@ -26,7 +26,9 @@ const register = async (req, res) => {
     });
 
     if (user) {
-      return res.status(409).json({ msg: "User already exists" });
+      return res
+        .status(409)
+        .json({ msg: `${firstName} ${lastName} already exists. Please Login` });
     }
 
     /**
@@ -66,8 +68,7 @@ const register = async (req, res) => {
     delete user.password;
 
     return res.status(201).json({
-      msg: "User successfully registered",
-      data: user,
+      msg: `New User: ${userName} Successfully Registered`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -91,7 +92,10 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ msg: "Invalid email" });
+      const errorMessage = email
+        ? "No User Associated With The Provided Email. Please Register"
+        : "No User Associated With The Provided User Name. Please Register";
+      return res.status(401).json({ msg: errorMessage });
     }
 
     /**
@@ -114,15 +118,24 @@ const login = async (req, res) => {
     const token = jwt.sign(
       {
         id: user.id,
+        role: user.role,
         userName: user.userName,
       },
       JWT_SECRET,
       { expiresIn: JWT_LIFETIME },
     );
+    const datefmt = new Intl.RelativeTimeFormat("en-nz");
+    const expiryTime = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleTimeString(datefmt);
+    const expiryDate = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleDateString(datefmt);
 
     return res.status(200).json({
-      msg: "User successfully logged in",
+      msg: `${user.userName} - successfully logged in`,
       token,
+      expiresAt: `${expiryDate}-${expiryTime}`,
     });
   } catch (err) {
     return res.status(500).json({

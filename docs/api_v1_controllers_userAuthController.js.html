@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: api/v1/controllers/userAuthController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: api/v1/controllers/userAuthController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+import PRISMA from "../../../utils/prisma.mjs";
+
+const register = async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+      role,
+      profileImgURL,
+    } = req.body;
+
+    let user = await PRISMA.user.findFirst({
+      where: {
+        email: {
+          contains: email,
+        },
+        userName: {
+          contains: userName,
+        },
+      },
+    });
+
+    if (user) {
+      return res
+        .status(409)
+        .json({ msg: `${firstName} ${lastName} already exists. Please Login` });
+    }
+
+    /**
+     * Validate the users input data
+     */
+
+    /**
+     * A salt is random bits added to a password before it is hashed. Salts
+     * create unique passwords even if two users have the same passwords
+     */
+    const salt = await bcryptjs.genSalt();
+
+    /**
+     * Generate a hash for a given string. The first argument
+     * is a string to be hashed, i.e., Pazzw0rd123 and the second
+     * argument is a salt, i.e., E1F53135E559C253
+     */
+    const hashedPassword = await bcryptjs.hash(password, salt);
+
+    user = await PRISMA.user.create({
+      data: {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password: hashedPassword,
+        role,
+        profileImgURL,
+      },
+    });
+
+    /**
+     * Delete the password property from the user object. It
+     * is a less expensive operation than querying the User
+     * table to get only user's email and name
+     */
+    delete user.password;
+
+    return res.status(201).json({
+      msg: `New User: ${userName} Successfully Registered`,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { email, password, userName } = req.body;
+    const user = await PRISMA.user.findFirst({
+      where: {
+        email: {
+          contains: email,
+        },
+        userName: {
+          contains: userName,
+        },
+      },
+    });
+
+    if (!user) {
+      const errorMessage = email
+        ? "No User Associated With The Provided Email. Please Register"
+        : "No User Associated With The Provided User Name. Please Register";
+      return res.status(401).json({ msg: errorMessage });
+    }
+
+    /**
+     * Compare the given string, i.e., Pazzw0rd123, with the given
+     * hash, i.e., user's hashed password
+     */
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ msg: "Invalid password" });
+    }
+
+    const { JWT_SECRET, JWT_LIFETIME } = process.env;
+
+    /**
+     * Return a JWT. The first argument is the payload, i.e., an object containing
+     * the authenticated user's id and name, the second argument is the secret
+     * or public/private key, and the third argument is the lifetime of the JWT
+     */
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+        userName: user.userName,
+      },
+      JWT_SECRET,
+      { expiresIn: JWT_LIFETIME },
+    );
+    const datefmt = new Intl.RelativeTimeFormat("en-nz");
+    const expiryTime = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleTimeString(datefmt);
+    const expiryDate = new Date(
+      new Date().setHours(new Date().getHours() + 1),
+    ).toLocaleDateString(datefmt);
+
+    return res.status(200).json({
+      msg: `${user.userName} - successfully logged in`,
+      token,
+      expiresAt: `${expiryDate}-${expiryTime}`,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+export { register, login };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="dotenv.html">dotenv</a></li><li><a href="express.html">express</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li></ul><h3>Global</h3><ul><li><a href="global.html#API_VERSION">API_VERSION</a></li><li><a href="global.html#BASE_PATH">BASE_PATH</a></li><li><a href="global.html#PATHS">PATHS</a></li><li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Dec 23 2022 12:01:03 GMT+1300 (New Zealand Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

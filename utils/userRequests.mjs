@@ -7,6 +7,13 @@ import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 const getSingleUserById = async (id = "") => {
   const response = await PRISMA.user.findUnique({
     where: { id },
+    select: {
+      firstName: true,
+      lastName: true,
+      email: true,
+      userName: true,
+      profileImgURL: true,
+    },
   });
   return response;
 };
@@ -27,6 +34,13 @@ const getSingleUserByParam = async (params) => {
           },
         },
       ],
+    },
+    select: {
+      firstName: true,
+      lastName: true,
+      userName: true,
+      email: true,
+      profileImgURL: true,
     },
   });
   return response;

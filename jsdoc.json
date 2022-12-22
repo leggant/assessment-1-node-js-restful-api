@@ -1,21 +1,19 @@
 {
-    "source": {
-        "include": [
-            "api",
-            "utils"
-        ],
-        "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs)"
-    }, 
-    "plugins": ["plugins/markdown"],
-    "templates": {
-        "cleverLinks": true,
-        "monospaceLinks": true
-    },
-    "opts": {
-        "recurse": true,
-        "destination": "./docs/",
-        "tutorials": "./instructions",
-        "readme": "./README.md"
-    }
+  "source": {
+    "include": ["app.js", "api", "utils", ".env.example"],
+    "exclude": ["docs", "requests", ".husky", "instructions", "prisma"],
+    "includePattern": ".+\\.js|.mjs(doc|x)?$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/",
+    "tutorials": "./instructions",
+    "readme": "./README.md"
+  }
 }

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import PRISMA from "./prisma.mjs";
 import checkDataType from "./checkDataType.js";
 import checkIfObjectIsEmpty from "./checkEmptyObject.js";
+import USERTYPE from "../api/v1/constants/userType.js";
 
 const getSingleUserById = async (id = "") => {
   const response = await PRISMA.user.findUnique({
@@ -46,6 +47,43 @@ const getSingleUserByParam = async (params) => {
   return response;
 };
 
+const updateUserById = async (req, res, data = {}) => {
+  let response;
+  try {
+    response = await PRISMA.user.findUnique({
+      where: { id: "" },
+    });
+    if (!response) {
+      return res.status(200).json({ msg: "No User Found." });
+    }
+    // https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
+    if (Object.keys(data).length === 0) {
+      return res.status(200).json({ msg: "No data provided in the request." });
+    }
+    const salt = data.password ? await bcryptjs.genSalt() : null;
+    const hashedPassword = salt
+      ? await bcryptjs.hash(data.password, salt)
+      : null;
+    response = await PRISMA.user.update({
+      where: { id: "" },
+      data: {
+        firstname: data.firstname || undefined,
+        lastName: data.lastName || undefined,
+        userName: data.userName || undefined,
+        email: data.email || undefined,
+        password: hashedPassword || undefined,
+        role: data.role || undefined,
+        profileImgURL: data.profileImgURL || undefined,
+      },
+    });
+    return res.status(200).json({ msg: "User Successfully Updated." });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
 const deleteUserById = async (token, id = "") => {
   const user = await PRISMA.user.findFirst({
     where: { id },
@@ -76,7 +114,7 @@ const deleteUserById = async (token, id = "") => {
 
 const deleteUserByParam = async (token, params) => {
   const search = Object.values(params);
-  const user = await PRISMA.user.delete({
+  const userSearch = await PRISMA.user.findFirstOrThrow({
     where: {
       OR: [
         {
@@ -92,17 +130,24 @@ const deleteUserByParam = async (token, params) => {
       ],
     },
   });
+  if (userSearch.role === USERTYPE.ADMIN) {
+    return false;
+  }
+  const user = await PRISMA.user.delete({
+    where: {
+      id: userSearch.id,
+    },
+  });
   let resTypeOfData = checkDataType(user);
   let resOk = resTypeOfData === "object";
-  const userData = jwt.verify(token, process.env.JWT_SECRET);
   if (resOk) {
-    const expireToken = await PRISMA.blockedToken.create({
+    const invalidBasicUser = await PRISMA.blockedUser.create({
       data: {
-        token,
-        exp: userData.exp,
+        uid: userSearch.id,
+        exp: Date.now(),
       },
     });
-    resTypeOfData = checkDataType(expireToken);
+    resTypeOfData = checkDataType(invalidBasicUser);
     resOk = resTypeOfData === "object";
     return resOk;
   }
@@ -113,15 +158,42 @@ const clearBlockedTokens = async () => {
   const deleteBlockedTokens = await PRISMA.blockedToken.findMany({
     where: {
       exp: {
-        gte: Date.now(),
+        lte: Date.now() - 3600000,
       },
+    },
+    select: {
+      token: true,
     },
   });
   if (deleteBlockedTokens.length) {
     const clearAll = await PRISMA.blockedToken.deleteMany({
       where: {
-        id: {
-          in: deleteBlockedTokens,
+        token: {
+          in: deleteBlockedTokens[0].token,
+        },
+      },
+    });
+    return clearAll.count;
+  }
+  return 0;
+};
+
+const clearBlockedUsers = async () => {
+  const deleteBlockedUsers = await PRISMA.blockedUser.findMany({
+    where: {
+      exp: {
+        lte: Date.now() - 3600000,
+      },
+    },
+    select: {
+      uid: true,
+    },
+  });
+  if (deleteBlockedUsers.length) {
+    const clearAll = await PRISMA.blockedUser.deleteMany({
+      where: {
+        uid: {
+          in: deleteBlockedUsers[0].uid,
         },
       },
     });
@@ -153,78 +225,13 @@ const getAllUsers = async (PRISMAX, res, req, type, includes) => {
   }
 };
 
-const createNew = async (PRISMAX, data, res, type, includes) => {
-  try {
-    await PRISMAX.create({
-      data,
-    });
-    let updatedData;
-    if (includes) {
-      updatedData = await PRISMAX.findMany({
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      updatedData = await PRISMAX.findMany();
-    }
-    return res.status(201).json({
-      msg: `${type} successfully created`,
-      data: updatedData,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
-const updateById = async (PRISMAX, id, data, res, type) => {
-  let response;
-  try {
-    response = await PRISMAX.findUnique({
-      where: { id },
-    });
-    if (!response) {
-      return res
-        .status(200)
-        .json({ msg: `No ${type} with the id: ${id} found` });
-    }
-    // https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
-    if (Object.keys(data).length === 0) {
-      return res.status(200).json({ msg: "No data provided in the request." });
-    }
-    const salt = data.password ? await bcryptjs.genSalt() : null;
-    const hashedPassword = salt
-      ? await bcryptjs.hash(data.password, salt)
-      : null;
-    response = await PRISMAX.update({
-      where: { id },
-      data: {
-        firstname: data.firstname || undefined,
-        lastName: data.lastName || undefined,
-        userName: data.userName || undefined,
-        email: data.email || undefined,
-        password: hashedPassword || undefined,
-        role: data.role || undefined,
-        profileImgURL: data.profileImgURL || undefined,
-      },
-    });
-    return res.status(200).json({ msg: "User Successfully Updated." });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
 export {
-  createNew,
   getSingleUserById,
   getSingleUserByParam,
   getAllUsers,
-  updateById,
+  updateUserById,
   deleteUserById,
   deleteUserByParam,
   clearBlockedTokens,
+  clearBlockedUsers,
 };

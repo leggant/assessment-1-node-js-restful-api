@@ -47,7 +47,12 @@ model BlockedToken {
   id        Int      @id @default(autoincrement())
   token     String
   exp       BigInt
-  createdAt DateTime @default(now())
+}
+
+model BlockedUser {
+  id        Int      @id @default(autoincrement())
+  uid       String
+  exp       BigInt
 }
 
 model UserScore {

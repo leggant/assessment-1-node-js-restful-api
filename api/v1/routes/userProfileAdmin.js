@@ -62,9 +62,9 @@ router.put(
 router.delete(
   PATHS.USERDETAILS.ADMINUSERSEARCH,
   mwAuth,
-  mwTokenValid,
   mwAdminUser,
   mwUserProfileQuery,
+  mwTokenValid,
   ctDeleteUser,
 );
 

@@ -2,13 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-import path from "path";
 
 import PATHS from "./api/v1/constants/paths.js";
 
-import loginRegisterRoutes from "./api/v1/routes/auth.js";
-import userProfileRoutes from "./api/v1/routes/userProfileAdmin.js";
-import userSeederRouter from "./api/v1/routes/userSeeder.js";
+import loginRegisterRoutes from "./api/v1/routes/userAuthRouter.js";
+import userProfileRoutes from "./api/v1/routes/userProfileRouter.js";
+import userSeederRouter from "./api/v1/routes/seedUsersRouter.js";
 
 dotenv.config();
 

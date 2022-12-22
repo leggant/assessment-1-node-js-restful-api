@@ -72,3 +72,5 @@ __Note: more users added than required.__
 - :anchor: get object count - https://www.geeksforgeeks.org/find-the-length-of-a-javascript-object
 - :anchor: get specific values from array of objects
   - https://www.designcise.com/web/tutorial/how-to-extract-specific-keys-values-from-an-array-of-objects-in-javascript
+- https://stackoverflow.com/a/8016205
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it

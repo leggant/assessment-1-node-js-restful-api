@@ -1,16 +1,14 @@
-import PRISMA from "../../../utils/prisma.mjs";
 import checkDataType from "../../../utils/checkDataType.js";
 
 import {
   getSingleUserById,
   getSingleUserByParam,
-  updateById,
+  updateUserById,
   deleteUserById,
   deleteUserByParam,
   clearBlockedTokens,
+  clearBlockedUsers,
 } from "../../../utils/userRequests.mjs";
-
-const PRISMAX = PRISMA.user;
 
 const ctGetUser = async (req, res) => {
   try {
@@ -35,11 +33,7 @@ const ctGetUser = async (req, res) => {
 
     return res.status(200).json({
       data: {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        userName: userData.userName,
-        email: userData.email,
-        profileImageURL: userData.profileImgURL,
+        userData,
       },
     });
   } catch (err) {
@@ -58,7 +52,7 @@ const ctUpdateUser = async (req, res) => {
     const user = req.user;
     const updates = req.body;
     const type = `user: ${user.userName}`;
-    return await updateById(PRISMAX, user.id, updates, res, type);
+    return await updateUserById(user.id, updates, res, type);
   } catch (err) {
     return res.status(500).json({
       msg: err.message,
@@ -77,14 +71,18 @@ const ctDeleteUser = async (req, res) => {
     const reqStatus = await (async () => {
       const data = deleteWithId
         ? await deleteUserById(token, query)
-        : await deleteUserByParam(token, query);
+        : await deleteUserByParam(token, query); // admin only
       const datares = await data;
       return datares;
     })();
-    const cleared = await clearBlockedTokens();
-    console.log("expired/deleted tokens deleted: ", cleared);
+    const clearedTokens = await clearBlockedTokens();
+    const clearedUsers = await clearBlockedUsers();
+    console.log("deleted invalid token count: ", clearedTokens);
+    console.log("deleted invalid user count: ", clearedUsers);
     if (!reqStatus) {
-      return res.status(404).json({ msg: "User Not Found/Was Not Deleted." });
+      return res
+        .status(404)
+        .json({ msg: "Request User Could Not Be Found/Could Not Be Deleted." });
     }
     return res.status(200).json({ msg: "User Deleted Successfully" });
   } catch (err) {

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Class: dotenv</title>
+    <title>JSDoc: Source: utils/axiosRequests.mjs</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,46 +19,64 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Class: dotenv</h1>
+      <h1 class="page-title">Source: utils/axiosRequests.mjs</h1>
 
       <section>
-        <header>
-          <h2>
-            <span class="attribs"><span class="type-signature"></span></span
-            >dotenv<span class="signature">()</span
-            ><span class="type-signature"></span>
-          </h2>
-        </header>
-
         <article>
-          <div class="container-overview">
-            <h4 class="name" id="dotenv">
-              <span class="type-signature"></span>new dotenv<span
-                class="signature"
-                >()</span
-              ><span class="type-signature"></span>
-            </h4>
+          <pre
+            class="prettyprint source linenums"
+          ><code>import axios from "axios";
+/**
+ * create a reusable instance of axios, complete with base url, and allowed methods
+ * @constructor axios
+ * @version 1.2.0
+ * @constant GISTAXIOS instance of axios created to target seeder endpoints
+ * @description create a reusable instance of axios, complete with base url, and allowed methods
+ * @see {@link https://axios-http.com/docs/instance|axios-http}
+ * @example const instance = axios.create({
+baseURL: 'https://some-domain.com/api/',
+method: "GET",
+timeout: 5000,
+headers: {'X-Custom-Header': 'foobar'}
+});
+ */
+const GISTAXIOS = axios.create({
+  baseURL:
+    "https://gist.githubusercontent.com/leggant/0bba24ff5402123c0a1301df853c5541/raw/1749009d0d9ef6d14dd67939d6d5b734a2621c0c",
+  method: "GET",
+});
+/**
+ * gist endpoint for admin user seeder
+ * @const GISTADMIN
+ * @type {string}
+ * @description gist endpoint for admin user seeder
+ * @default "/admin_user.json"
+ */
+const GISTADMIN = "/admin_user.json";
+const GISTBASIC = "/basic_user.json";
 
-            <div class="description">
-              <p>initialise a instance of dotenv</p>
-            </div>
+const getUsers = async () => {
+  const data = await axios
+    .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
+    .then(
+      axios.spread((admin, basic) => {
+        const users = admin.data.concat(basic.data);
+        return { users };
+      }),
+    )
+    .catch((err) => {
+      console.error(err.message);
+    });
+  return data;
+};
 
-            <dl class="details">
-              <dt class="tag-source">Source:</dt>
-              <dd class="tag-source">
-                <ul class="dummy">
-                  <li>
-                    <a href="app.js.html">app.js</a>,
-                    <a href="app.js.html#line22">line 22</a>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
+const quizAxios = axios.create({
+  baseURL: "",
+  method: "GET",
+});
 
-            <h5>Example</h5>
-
-            <pre class="prettyprint"><code>dotenv.config();</code></pre>
-          </div>
+export { quizAxios, getUsers };
+</code></pre>
         </article>
       </section>
     </div>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Class: dotenv</title>
+    <title>JSDoc: Source: utils/prisma.mjs</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,46 +19,25 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Class: dotenv</h1>
+      <h1 class="page-title">Source: utils/prisma.mjs</h1>
 
       <section>
-        <header>
-          <h2>
-            <span class="attribs"><span class="type-signature"></span></span
-            >dotenv<span class="signature">()</span
-            ><span class="type-signature"></span>
-          </h2>
-        </header>
-
         <article>
-          <div class="container-overview">
-            <h4 class="name" id="dotenv">
-              <span class="type-signature"></span>new dotenv<span
-                class="signature"
-                >()</span
-              ><span class="type-signature"></span>
-            </h4>
+          <pre
+            class="prettyprint source linenums"
+          ><code>import { PrismaClient } from "@prisma/client";
+/**
+ * Create a Prisma Client to be imported throughout the app/api.
+ * @constructor PrismaClient
+ * @constant PRISMA
+ * @description initialises a global instance of Prisma Client
+ * @example const PRISMA = new PrismaClient();
+ * @exports PRISMA export instance of prisma
+ */
+const PRISMA = new PrismaClient();
 
-            <div class="description">
-              <p>initialise a instance of dotenv</p>
-            </div>
-
-            <dl class="details">
-              <dt class="tag-source">Source:</dt>
-              <dd class="tag-source">
-                <ul class="dummy">
-                  <li>
-                    <a href="app.js.html">app.js</a>,
-                    <a href="app.js.html#line22">line 22</a>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-
-            <h5>Example</h5>
-
-            <pre class="prettyprint"><code>dotenv.config();</code></pre>
-          </div>
+export default PRISMA;
+</code></pre>
         </article>
       </section>
     </div>

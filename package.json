@@ -75,7 +75,7 @@
     "pre:check": "npx prettier --check . --with-node-modules --debug-check",
     "pre:write": "npx pretty-quick --staged",
     "lint:check": "npx eslint .",
-    "doc": "jsdoc -c jsdoc.json && git add ./docs/*",
+    "doc": "jsdoc -c jsdoc.json && npx pretty-quick ./docs/*",
     "prepare": "husky install"
   },
   "config": {

@@ -1,9 +1,31 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import PRISMA from "../../../utils/prisma.mjs";
-
+/**
+ * A API User
+ * @typedef {Object} User
+ * @property {string} firstName - User first name | required
+ * @property {string} lastName - User last name | required
+ * @property {string} userName - Users unique username | required
+ * @property {string} email - Users unique email address | required
+ * @property {string} password - plain text/hashed version of the user password | required
+ * @property {string} role - user role type | required
+ * @property {string} profileImgURL - Users unique profile image link | required
+ */
+/**
+ * @function register
+ * @param {Request} req
+ * @param {Response} res
+ * @async
+ * @returns res
+ */
 const register = async (req, res) => {
   try {
+    /**
+     * user profile registration
+     * @description user profile registration
+     * @type {User}
+     */
     const {
       firstName,
       lastName,

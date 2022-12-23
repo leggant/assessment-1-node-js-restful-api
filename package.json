@@ -91,6 +91,9 @@
     "./utils/*.mjs": [
       "npm run pre:write",
       "npm run lint:check"
+    ],
+    "./docs/*.html": [
+      "npm run pre:write"
     ]
   },
   "nodemonConfig": {

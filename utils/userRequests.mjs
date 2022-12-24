@@ -66,44 +66,46 @@ const getSingleUserByParam = async (params) => {
   return response;
 };
 
-const updateUserById = async (req, res, data = {}) => {
-  let response;
-  try {
-    response = await PRISMA.user.findUnique({
-      where: { id: "" },
-    });
-    if (!response) {
-      return res.status(200).json({ msg: "No User Found." });
-    }
-    // https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
-    if (Object.keys(data).length === 0) {
-      return res.status(200).json({ msg: "No data provided in the request." });
-    }
-    const salt = data.password ? await bcryptjs.genSalt() : null;
-    const hashedPassword = salt
-      ? await bcryptjs.hash(data.password, salt)
-      : null;
-    response = await PRISMA.user.update({
-      where: { id: "" },
-      data: {
-        firstname: data.firstname || undefined,
-        lastName: data.lastName || undefined,
-        userName: data.userName || undefined,
-        email: data.email || undefined,
-        password: hashedPassword || undefined,
-        role: data.role || undefined,
-        profileImgURL: data.profileImgURL || undefined,
-      },
-    });
-    return res.status(200).json({ msg: "User Successfully Updated." });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
+const updateUserById = async (userReq, data) => {
+  const user = await PRISMA.user.findFirstOrThrow({
+    where: { id: userReq.id },
+  });
+  const salt = data.password ? await bcryptjs.genSalt() : null;
+  const hashedPassword = salt
+    ? await bcryptjs.hash(data.password, salt)
+    : user.password;
+  const filteredData = data.confirmPassword
+    ? Object.fromEntries(
+        Object.entries(data).filter(
+          ([key]) => !key.includes("confirmPassword"),
+        ),
+      )
+    : data;
+  const updateRes = await PRISMA.user.update({
+    where: { id: userReq.id },
+    select: {
+      firstName: true,
+      lastName: true,
+      userName: true,
+      email: true,
+      password: true,
+      profileImgURL: true,
+    },
+    data: {
+      ...filteredData,
+      password: hashedPassword,
+    },
+  });
+  const resTypeOfData = checkDataType(updateRes);
+  const resOk = resTypeOfData === "object";
+  if (resOk) {
+    updateRes.password = "#############################";
+    return updateRes;
   }
+  return resOk;
 };
 
-const deleteUserById = async (token, id = "") => {
+const deleteUserById = async (token, id) => {
   const user = await PRISMA.user.findFirst({
     where: { id },
   });

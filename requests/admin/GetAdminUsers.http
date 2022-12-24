@@ -2,7 +2,7 @@
 ### 
 GET http://localhost:3000/api/v1/user/auth/details HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU3ODA0LCJleHAiOjE2NzE2NjE0MDR9.JVpI6dBU-h4Q3s9msMVO120HzEUKI_mKOWx9OZwc7Bk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODA1LCJleHAiOjE2NzE4Njg0MDV9.qHybDPlJ9zXrSteY919_xWhkUsegeDN1tAydR3UX390
 
 // get admin user profile by username
 ### 

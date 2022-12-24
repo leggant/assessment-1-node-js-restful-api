@@ -10,7 +10,7 @@ content-type: application/json
   "role": "ADMIN_USER",
   "password": "Yogi##@4tdfg",
   "confirmPassword": "Yogi##@4tdfg",
-  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+  "profileImgURL": "https://randomuser.me/api/portraits/men/95.jpg"
 }
 
 ###

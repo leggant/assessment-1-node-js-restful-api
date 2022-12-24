@@ -68,7 +68,7 @@
               <ul class="dummy">
                 <li>
                   <a href="app.js.html">app.js</a>,
-                  <a href="app.js.html#line49">line 49</a>
+                  <a href="app.js.html#line53">line 53</a>
                 </li>
               </ul>
             </dd>
@@ -106,125 +106,21 @@
               <ul class="dummy">
                 <li>
                   <a href="app.js.html">app.js</a>,
-                  <a href="app.js.html#line42">line 42</a>
+                  <a href="app.js.html#line41">line 41</a>
                 </li>
               </ul>
             </dd>
           </dl>
 
-          <h4 class="name" id="GISTADMIN">
-            <span class="type-signature">(constant) </span>GISTADMIN<span
-              class="type-signature"
-            >
-              :string</span
-            >
-          </h4>
-
-          <div class="description">
-            <p>gist endpoint for admin user seeder</p>
-          </div>
-
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">string</span>
-            </li>
-          </ul>
-
-          <dl class="details">
-            <dt class="tag-default">Default Value:</dt>
-            <dd class="tag-default">
-              <ul class="dummy">
-                <li>"/admin_user.json"</li>
-              </ul>
-            </dd>
-
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="utils_axiosRequests.mjs.html"
-                    >utils/axiosRequests.mjs</a
-                  >, <a href="utils_axiosRequests.mjs.html#line21">line 21</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-
-          <h4 class="name" id="GISTAXIOS">
-            <span class="type-signature">(constant) </span>GISTAXIOS<span
+          <h4 class="name" id="PATHS">
+            <span class="type-signature">(constant) </span>PATHS<span
               class="type-signature"
             ></span>
           </h4>
 
           <div class="description">
-            <p>
-              create a reusable instance of axios, complete with base url, and
-              allowed methods
-            </p>
-          </div>
-
-          <dl class="details">
-            <dt class="tag-version">Version:</dt>
-            <dd class="tag-version">
-              <ul class="dummy">
-                <li>1.2.0</li>
-              </ul>
-            </dd>
-
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="utils_axiosRequests.mjs.html"
-                    >utils/axiosRequests.mjs</a
-                  >, <a href="utils_axiosRequests.mjs.html#line2">line 2</a>
-                </li>
-              </ul>
-            </dd>
-
-            <dt class="tag-see">See:</dt>
-            <dd class="tag-see">
-              <ul>
-                <li>
-                  <a href="https://axios-http.com/docs/instance">axios-http</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-
-          <h5>Example</h5>
-
-          <pre class="prettyprint"><code>const instance = axios.create({
-baseURL: 'https://some-domain.com/api/',
-method: "GET",
-timeout: 5000,
-headers: {'X-Custom-Header': 'foobar'}
-});</code></pre>
-
-          <h4 class="name" id="PATHS">
-            <span class="type-signature">(constant) </span>PATHS<span
-              class="type-signature"
-            >
-              :object.&lt;string,
-              (string|object.&lt;string.&lt;object.&lt;string, string>>>)></span
-            >
-          </h4>
-
-          <div class="description">
             <p>import path strings to be appended to API endpoints</p>
           </div>
-
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type"
-                >object.&lt;string,
-                (string|object.&lt;string.&lt;object.&lt;string,
-                string>>>)></span
-              >
-            </li>
-          </ul>
 
           <dl class="details">
             <dt class="tag-source">Source:</dt>
@@ -283,7 +179,255 @@ AUTH: "user/auth",
               <ul class="dummy">
                 <li>
                   <a href="app.js.html">app.js</a>,
-                  <a href="app.js.html#line57">line 57</a>
+                  <a href="app.js.html#line60">line 60</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="hashedPassword">
+            <span class="type-signature">(constant) </span>hashedPassword<span
+              class="type-signature"
+            >
+              :string</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>
+              Generate a hash for a given string. The first argument is a string
+              to be hashed, i.e., Pazzw0rd123 and the second argument is a salt,
+              i.e., E1F53135E559C253
+            </p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">string</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userAuthController.js.html"
+                    >api/v1/controllers/userAuthController.js</a
+                  >,
+                  <a href="api_v1_controllers_userAuthController.js.html#line66"
+                    >line 66</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h3 class="subsection-title">Methods</h3>
+
+          <h4 class="name" id="register">
+            <span class="type-signature">(async) </span>register<span
+              class="signature"
+              >(req, res)</span
+            ><span class="type-signature"> &rarr; {Response}</span>
+          </h4>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>req</code></td>
+
+                <td class="type">
+                  <span class="param-type">Request</span>
+                </td>
+
+                <td class="description last"><p>HTTP request object</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>res</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last">
+                  <p>returned HTTP response object</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userAuthController.js.html"
+                    >api/v1/controllers/userAuthController.js</a
+                  >,
+                  <a href="api_v1_controllers_userAuthController.js.html#line15"
+                    >line 15</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>res</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+            </dd>
+          </dl>
+
+          <h3 class="subsection-title">Type Definitions</h3>
+
+          <h4 class="name" id="User">User</h4>
+
+          <div class="description">
+            <p>A API User</p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Object</span>
+            </li>
+          </ul>
+
+          <h5 class="subsection-title">Properties:</h5>
+
+          <table class="props">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>firstName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>User first name | required</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>lastName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>User last name | required</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>userName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>Users unique username | required</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>email</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>Users unique email address | required</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>password</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>
+                    plain text/hashed version of the user password | required
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>role</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>user role type | required</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>profileImgURL</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>Users unique profile image link | required</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userAuthController.js.html"
+                    >api/v1/controllers/userAuthController.js</a
+                  >,
+                  <a href="api_v1_controllers_userAuthController.js.html#line4"
+                    >line 4</a
+                  >
                 </li>
               </ul>
             </dd>
@@ -297,6 +441,9 @@ AUTH: "user/auth",
       <h3>Modules</h3>
       <ul>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
+        <li><a href="module-axiosRequests.html">axiosRequests</a></li>
+        <li><a href="module-quizRequests.html">quizRequests</a></li>
+        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
@@ -311,10 +458,10 @@ AUTH: "user/auth",
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
-        <li><a href="global.html#GISTADMIN">GISTADMIN</a></li>
-        <li><a href="global.html#GISTAXIOS">GISTAXIOS</a></li>
         <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#register">register</a></li>
       </ul>
     </nav>
 
@@ -322,8 +469,8 @@ AUTH: "user/auth",
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Dec 23
-      2022 18:05:39 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Dec 24
+      2022 18:33:54 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

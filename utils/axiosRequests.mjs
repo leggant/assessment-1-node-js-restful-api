@@ -1,3 +1,7 @@
+/**
+ * Axios Request Module
+ * @module axiosRequests
+ */
 import axios from "axios";
 /**
  * create a reusable instance of axios, complete with base url, and allowed methods

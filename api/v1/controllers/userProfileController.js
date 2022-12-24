@@ -51,8 +51,16 @@ const ctUpdateUser = async (req, res) => {
   try {
     const user = req.user;
     const updates = req.body;
-    const type = `user: ${user.userName}`;
-    return await updateUserById(user.id, updates, res, type);
+    const updateRes = await updateUserById(user, updates);
+    const ok = checkDataType(updateRes);
+    if (ok === "boolean") {
+      return res
+        .status(400)
+        .json({ msg: `Update Error ${user.userName} Update Not Completed.` });
+    }
+    return res
+      .status(200)
+      .json({ msg: `${updateRes.userName} Updated Successfully`, updateRes });
   } catch (err) {
     return res.status(500).json({
       msg: err.message,

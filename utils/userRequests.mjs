@@ -37,7 +37,6 @@ const getSingleUserById = async (id) => {
   });
   return response;
 };
-
 const getSingleUserByParam = async (params) => {
   const search = Object.values(params);
   const response = await PRISMA.user.findFirstOrThrow({
@@ -102,6 +101,42 @@ const updateUserById = async (userReq, data) => {
     updateRes.password = "#############################";
     return updateRes;
   }
+  return resOk;
+};
+
+const updateUserByParam = async (params, data) => {
+  const search = Object.values(params);
+  const userSearch = await PRISMA.user.findFirstOrThrow({
+    where: {
+      OR: [
+        {
+          userName: {
+            contains: search[1],
+          },
+        },
+        {
+          email: {
+            contains: search[1],
+          },
+        },
+      ],
+    },
+  });
+  if (userSearch.role === USERTYPE.ADMIN) {
+    return false;
+  }
+  const user = await PRISMA.user.update({
+    where: {
+      id: userSearch.id,
+    },
+    data: {
+      userName: data.userName || undefined,
+      email: data.email || undefined,
+      role: data.role || undefined,
+    },
+  });
+  const resTypeOfData = checkDataType(user);
+  const resOk = resTypeOfData === "object";
   return resOk;
 };
 
@@ -251,6 +286,7 @@ export {
   getSingleUserByParam,
   getAllUsers,
   updateUserById,
+  updateUserByParam,
   deleteUserById,
   deleteUserByParam,
   clearBlockedTokens,

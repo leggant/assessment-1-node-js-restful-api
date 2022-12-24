@@ -102,14 +102,20 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password, userName } = req.body;
-    const user = await PRISMA.user.findFirst({
+    const user = await PRISMA.user.findFirstOrThrow({
       where: {
-        email: {
-          contains: email,
-        },
-        userName: {
-          contains: userName,
-        },
+        OR: [
+          {
+            userName: {
+              contains: userName,
+            },
+          },
+          {
+            email: {
+              contains: email,
+            },
+          },
+        ],
       },
     });
 

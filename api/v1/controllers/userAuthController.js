@@ -14,10 +14,10 @@ import PRISMA from "../../../utils/prisma.mjs";
  */
 /**
  * @function register
- * @param {Request} req
- * @param {Response} res
+ * @param {Request} req HTTP request object
+ * @param {Response} res returned HTTP response object
  * @async
- * @returns res
+ * @returns {Response} res
  */
 const register = async (req, res) => {
   try {
@@ -67,10 +67,16 @@ const register = async (req, res) => {
      * Generate a hash for a given string. The first argument
      * is a string to be hashed, i.e., Pazzw0rd123 and the second
      * argument is a salt, i.e., E1F53135E559C253
+     * @constant {string} hashedPassword
      */
     const hashedPassword = await bcryptjs.hash(password, salt);
-
     user = await PRISMA.user.create({
+      /**
+       * user profile registration
+       * @description user profile registration
+       * @type {User}
+       * @ignore
+       */
       data: {
         firstName,
         lastName,

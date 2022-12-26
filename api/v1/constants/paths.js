@@ -3,7 +3,8 @@ const PATHS = {
   REGISTER: `${AUTHONLY}/register`,
   LOGIN: `${AUTHONLY}/login`,
   ADMIN: {
-    SEEDER: `${AUTHONLY}/admin/seeder`,
+    PLAYERSEEDER: `${AUTHONLY}/admin/seeder/players`,
+    CATEGORYSEEDER: `${AUTHONLY}/admin/seeder/categories`,
     QUIZ: `${AUTHONLY}/admin/quiz`,
     QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
     QUIZPLAYER: `${AUTHONLY}/admin/quiz/:quizId/player/:playerId`,

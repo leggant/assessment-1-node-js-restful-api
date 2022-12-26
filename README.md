@@ -79,3 +79,5 @@ __Note: more users added than required.__
   - https://www.designcise.com/web/tutorial/how-to-extract-specific-keys-values-from-an-array-of-objects-in-javascript
 - https://stackoverflow.com/a/8016205
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
+- filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
+- https://hackernoon.com/how-to-update-object-key-values-using-javascript

@@ -12,7 +12,6 @@ AUTH: "user/auth",
     ADMINQUIZ: "/admin/quiz",
   },
 };
- * @type {object<string, string | object<string<object<string, string>>>>}
  */
 import PATHS from "./api/v1/constants/paths.js";
 
@@ -40,38 +39,31 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 /**
- * @constant BASE_PATH
- * @description Defines the base value for all API routes
+ * Defines the base value for all API routes
+ * @constant {string} BASE_PATH
  * @default api
  * @type {string}
  */
 const BASE_PATH = "api";
 /**
- * @constant API_VERSION
- * @description Defines the current version of the API. This is provided by an environment variable
+ * Defines the current version of the API. This is provided by an environment variable
  * @default v1
  * @type {string}
  */
 const API_VERSION = process.env.API_VERSION || "v1";
 app.use(`/${BASE_PATH}/${API_VERSION}/docs`, express.static("docs"));
 /**
- * @constant SERVER_PORT
- * @description Set the server port. The default port in the development env is 3000
+ * Set the server port. The default port in the development env is 3000
  * @default 3000
  * @type {number}
  */
-const SERVER_PORT = process.env.SERVER_PORT;
+const SERVER_PORT = process.env.PORT;
 
 app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
   res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
 });
-
 app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, loginRegisterRoutes);
 app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userProfileRoutes);
-/**
- * Seeder Path
- * user/auth/admin/data/seeder
- */
 app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userSeederRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Source: api/v1/middleware/mw_authentication.js</title>
+    <title>JSDoc: Source: utils/axiosRequests.mjs</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,61 +19,65 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Source: api/v1/middleware/mw_authentication.js</h1>
+      <h1 class="page-title">Source: utils/axiosRequests.mjs</h1>
 
       <section>
         <article>
-          <pre
-            class="prettyprint source linenums"
-          ><code>import jwt from "jsonwebtoken";
+          <pre class="prettyprint source linenums"><code>/**
+ * Axios Request Module
+ * @module axiosRequests
+ */
+import axios from "axios";
+/**
+ * create a reusable instance of axios, complete with base url, and allowed methods
+ * @constructor axios
+ * @version 1.2.0
+ * @constant GISTAXIOS instance of axios created to target seeder endpoints
+ * @description create a reusable instance of axios, complete with base url, and allowed methods
+ * @see {@link https://axios-http.com/docs/instance|axios-http}
+ * @example const instance = axios.create({
+baseURL: 'https://some-domain.com/api/',
+method: "GET",
+timeout: 5000,
+headers: {'X-Custom-Header': 'foobar'}
+});
+ */
+const GISTAXIOS = axios.create({
+  baseURL:
+    "https://gist.githubusercontent.com/leggant/0bba24ff5402123c0a1301df853c5541/raw/1749009d0d9ef6d14dd67939d6d5b734a2621c0c",
+  method: "GET",
+});
+/**
+ * gist endpoint for admin user seeder
+ * @const GISTADMIN
+ * @type {string}
+ * @description gist endpoint for admin user seeder
+ * @default "/admin_user.json"
+ */
+const GISTADMIN = "/admin_user.json";
+const GISTBASIC = "/basic_user.json";
 
-const mwAuth = (req, res, next) => {
-  try {
-    /**
-     * The authorization request header provides information that authenticates
-     * a user agent with a server, allowing access to a protected resource. The
-     * information will be a bearer token, and a user agent is a middle man between
-     * you and the server. An example of a user agent is Postman or a web browser
-     * like Google Chrome
-     */
-    const authHeader = req.headers.authorization;
-
-    /**
-     * A bearer token will look something like this - Bearer &lt;JWT>. A
-     * response containing a 403 forbidden status code and message
-     * is returned if a bearer token is not provided
-     */
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(403).json({
-        msg: "No token provided",
-      });
-    }
-
-    /**
-     * Get the JWT from the bearer token
-     */
-    const token = authHeader.split(" ")[1];
-
-    /**
-     * Verify the signed JWT is valid. The first argument is the token,
-     * i.e., JWT and the second argument is the secret or public/private key
-     */
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-
-    /**
-     * Set Request's user property to the authenticated user
-     */
-    req.user = payload;
-
-    return next();
-  } catch (error) {
-    return res.status(403).json({
-      msg: "Not authorized to access this route",
+const getUsers = async () => {
+  const data = await axios
+    .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
+    .then(
+      axios.spread((admin, basic) => {
+        const users = admin.data.concat(basic.data);
+        return { users };
+      }),
+    )
+    .catch((err) => {
+      console.error(err.message);
     });
-  }
+  return data;
 };
 
-export default mwAuth;
+const quizAxios = axios.create({
+  baseURL: "",
+  method: "GET",
+});
+
+export { quizAxios, getUsers };
 </code></pre>
         </article>
       </section>

@@ -1,9 +1,31 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import PRISMA from "../../../utils/prisma.mjs";
-
+/**
+ * A API User
+ * @typedef {Object} User
+ * @property {string} firstName - User first name | required
+ * @property {string} lastName - User last name | required
+ * @property {string} userName - Users unique username | required
+ * @property {string} email - Users unique email address | required
+ * @property {string} password - plain text/hashed version of the user password | required
+ * @property {string} role - user role type | required
+ * @property {string} profileImgURL - Users unique profile image link | required
+ */
+/**
+ * @function register
+ * @param {Request} req HTTP request object
+ * @param {Response} res returned HTTP response object
+ * @async
+ * @returns {Response} res
+ */
 const register = async (req, res) => {
   try {
+    /**
+     * user profile registration
+     * @description user profile registration
+     * @type {User}
+     */
     const {
       firstName,
       lastName,
@@ -45,10 +67,16 @@ const register = async (req, res) => {
      * Generate a hash for a given string. The first argument
      * is a string to be hashed, i.e., Pazzw0rd123 and the second
      * argument is a salt, i.e., E1F53135E559C253
+     * @constant {string} hashedPassword
      */
     const hashedPassword = await bcryptjs.hash(password, salt);
-
     user = await PRISMA.user.create({
+      /**
+       * user profile registration
+       * @description user profile registration
+       * @type {User}
+       * @ignore
+       */
       data: {
         firstName,
         lastName,
@@ -80,14 +108,20 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password, userName } = req.body;
-    const user = await PRISMA.user.findFirst({
+    const user = await PRISMA.user.findFirstOrThrow({
       where: {
-        email: {
-          contains: email,
-        },
-        userName: {
-          contains: userName,
-        },
+        OR: [
+          {
+            userName: {
+              contains: userName,
+            },
+          },
+          {
+            email: {
+              contains: email,
+            },
+          },
+        ],
       },
     });
 

@@ -47,9 +47,28 @@ const getUsers = async () => {
   return data;
 };
 
-const quizAxios = axios.create({
-  baseURL: "",
+// Quizzes
+
+const QUIZAXIOS = axios.create({
+  baseURL: "https://opentdb.com",
   method: "GET",
 });
 
-export { quizAxios, getUsers };
+// Quiz Categories
+
+const CATENDPOINT = "/api_category.php";
+const getCategories = async () => {
+  const data = await QUIZAXIOS.get(CATENDPOINT)
+    .then((resData) => {
+      const dataRes = resData.data;
+      return dataRes.trivia_categories;
+    })
+    .catch((err) => {
+      console.error(err.message);
+    });
+  return data;
+};
+
+// Quiz Admin
+
+export { QUIZAXIOS, getUsers, getCategories };

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
+import morgan from "morgan";
 
 import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
 import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
  */
 const app = express();
+app.use(morgan("dev"));
 app.use(cors());
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));

@@ -5,7 +5,7 @@ import helmet from "helmet";
 
 import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
 import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
-import userSeederRouter from "./api/v1/routes/seedUsersRouter.js";
+import seederRouter from "./api/v1/routes/seederRouter.js";
 /**
  * @constructor dotenv
  * @description initialise a instance of dotenv
@@ -52,7 +52,7 @@ app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
 });
 app.use(`/${BASE_PATH}/${API_VERSION}`, loginRegisterRouter);
 app.use(`/${BASE_PATH}/${API_VERSION}`, userProfileRouter);
-app.use(`/${BASE_PATH}/${API_VERSION}`, userSeederRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, seederRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);
 });

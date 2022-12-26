@@ -8,7 +8,7 @@ import mwTokenValid from "../middleware/mw_tokenValid.js";
 const userSeederRouter = Router();
 // user/auth/admin/seeder/users
 userSeederRouter.get(
-  `${PATHS.ADMIN.ADMINSEEDER}`,
+  `${PATHS.ADMIN.SEEDER}`,
   mwAuth,
   mwTokenValid,
   mwAdminUser,

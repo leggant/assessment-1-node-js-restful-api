@@ -2,21 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-/**
- * @constant PATHS
- * @description import path strings to be appended to API endpoints
- * @example {
-AUTH: "user/auth",
-  QUIZ: {
-    USERQUIZ: "/quiz",
-    ADMINQUIZ: "/admin/quiz",
-  },
-};
- */
-import PATHS from "./api/v1/constants/paths.js";
 
-import loginRegisterRoutes from "./api/v1/routes/userAuthRouter.js";
-import userProfileRoutes from "./api/v1/routes/userProfileRouter.js";
+import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
+import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
 import userSeederRouter from "./api/v1/routes/seedUsersRouter.js";
 /**
  * @constructor dotenv
@@ -62,9 +50,9 @@ const SERVER_PORT = process.env.PORT;
 app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
   res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
 });
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, loginRegisterRoutes);
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userProfileRoutes);
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userSeederRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, loginRegisterRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, userProfileRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, userSeederRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);
 });

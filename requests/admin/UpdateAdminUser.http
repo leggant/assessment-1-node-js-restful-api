@@ -1,0 +1,56 @@
+// Update User With Token
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "userName": "leggtc1",
+  "password": "Yogi##@4tdfg"
+}
+
+### 
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODU4LCJleHAiOjE2NzE4Njg0NTh9.Dt1soh-WKS7zHvjr_I_UEQYbz6YTLj1zRvfYftCedig
+
+{
+  "password": "$Yogi1980@#",
+  "confirmPassword": "$Yogi1980@#"
+}
+
+### 
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODU4LCJleHAiOjE2NzE4Njg0NTh9.Dt1soh-WKS7zHvjr_I_UEQYbz6YTLj1zRvfYftCedig
+
+{
+  "firstName": "Anthony"
+}
+
+### 
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODU4LCJleHAiOjE2NzE4Njg0NTh9.Dt1soh-WKS7zHvjr_I_UEQYbz6YTLj1zRvfYftCedig
+
+{
+  "userName": "antnz"
+}
+
+### 
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODU4LCJleHAiOjE2NzE4Njg0NTh9.Dt1soh-WKS7zHvjr_I_UEQYbz6YTLj1zRvfYftCedig
+
+{
+  "email": "antnz@student.op.ac.nz"
+}
+
+### 
+PUT http://localhost:3000/api/v1/user/auth/details HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhYWQ2Nzk2LTkxYTItNDg3My04Yzk0LTQ4ODYwZTY2NWExYSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxODY0ODU4LCJleHAiOjE2NzE4Njg0NTh9.Dt1soh-WKS7zHvjr_I_UEQYbz6YTLj1zRvfYftCedig
+
+{
+  "userName": "antnz",
+  "email": "antnz@student.op.ac.nz"
+}

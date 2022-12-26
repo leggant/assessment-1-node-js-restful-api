@@ -1,40 +1,72 @@
-import express, { urlencoded, json } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-
+/**
+ * @constant PATHS
+ * @description import path strings to be appended to API endpoints
+ * @example {
+AUTH: "user/auth",
+  QUIZ: {
+    USERQUIZ: "/quiz",
+    ADMINQUIZ: "/admin/quiz",
+  },
+};
+ */
 import PATHS from "./api/v1/constants/paths.js";
-import auth from "./api/v1/routes/auth.js";
 
+import loginRegisterRoutes from "./api/v1/routes/userAuthRouter.js";
+import userProfileRoutes from "./api/v1/routes/userProfileRouter.js";
+import userSeederRouter from "./api/v1/routes/seedUsersRouter.js";
+/**
+ * @constructor dotenv
+ * @description initialise a instance of dotenv
+ * @example dotenv.config();
+ */
 dotenv.config();
-
-const app = express();
-
-const BASE_URL = "api";
-
 /**
- * The current version of this API is 1
- */
-const CURRENT_VERSION = process.env.API_VERSION || "v1";
-
-/**
- * The default port in the development env is 3000
- */
-const PORT = process.env.PORT;
-
+ * @constructor express
+ * @description initialise a global instance of ExpressJS
+ * @example const app = express();
 app.use(cors());
 app.use(helmet());
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+ */
+const app = express();
+app.use(cors());
+app.use(helmet());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+/**
+ * Defines the base value for all API routes
+ * @constant {string} BASE_PATH
+ * @default api
+ * @type {string}
+ */
+const BASE_PATH = "api";
+/**
+ * Defines the current version of the API. This is provided by an environment variable
+ * @default v1
+ * @type {string}
+ */
+const API_VERSION = process.env.API_VERSION || "v1";
+app.use(`/${BASE_PATH}/${API_VERSION}/docs`, express.static("docs"));
+/**
+ * Set the server port. The default port in the development env is 3000
+ * @default 3000
+ * @type {number}
+ */
+const SERVER_PORT = process.env.PORT;
 
-app.get(`/${BASE_URL}/${CURRENT_VERSION}`, (req, res) => {
-  res.json({ msg: `/${BASE_URL}/${CURRENT_VERSION}` });
+app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
+  res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
 });
-
-app.use(`/${BASE_URL}/${CURRENT_VERSION}/${PATHS.AUTH}`, auth);
-
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, loginRegisterRoutes);
+app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userProfileRoutes);
+app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userSeederRouter);
+app.listen(SERVER_PORT, () => {
+  console.log(`Server is listening on port ${SERVER_PORT}`);
 });
 
 export default app;

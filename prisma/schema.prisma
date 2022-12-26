@@ -11,52 +11,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model User {
-  id            String  @id @default(uuid())
-  firstName     String
-  lastName      String
-  userName      String  @unique
-  email         String  @unique
-  password      String
-  profileImgURL String? @unique
-  role          Role    @default(BASIC_USER)
-}
-
-model Quiz {
-  id         String      @id @default(uuid())
-  name       String
-  type       Type        @default(multiple)
-  difficulty Difficulty  @default(easy)
-  startDate  DateTime?
-  endDate    DateTime?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  scoreboard Scoreboard?
-  Players    Players[]
-}
-
-model Category {
-  id   Int    @id
-  name String @unique
-  quiz Quiz[]
-}
-
-model Scoreboard {
-  id           String  @id @default(uuid())
-  winner       String?
-  scores       Json?
-  averageScore Decimal @default(0.0)
-  quizId       String  @unique
-  quiz         Quiz    @relation(fields: [quizId], references: [id])
-}
-
-model Players {
-  id         Int    @id
-  playerList Json
-  quiz       Quiz   @relation(fields: [quizId], references: [id])
-  quizId     String
-}
-
 enum Role {
   BASIC_USER
   ADMIN_USER
@@ -68,7 +22,106 @@ enum Difficulty {
   hard
 }
 
-enum Type {
+enum AnswerType {
   boolean
   multiple
+}
+
+model User {
+  id                  String               @id @default(uuid())
+  firstName           String
+  lastName            String
+  userName            String               @unique
+  email               String               @unique
+  password            String
+  profileImgURL       String               @unique
+  role                Role                 @default(BASIC_USER)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  userScores          UserScore[]
+  userParticipateQuiz UserParticipate[]
+  userQuestionAnswer  UserQuestionAnswer[]
+}
+
+model BlockedToken {
+  id        Int      @id @default(autoincrement())
+  token     String
+  exp       BigInt
+}
+
+model BlockedUser {
+  id        Int      @id @default(autoincrement())
+  uid       String
+  exp       BigInt
+}
+
+model UserScore {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  quizId    Int
+  score     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+}
+
+model UserParticipate {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  quizId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+}
+
+model UserQuestionAnswer {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  quizId        Int
+  questionId    Int
+  answer        String
+  correctAnswer Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  quiz          Quiz     @relation(fields: [quizId], references: [id])
+  question      Question @relation(fields: [questionId], references: [id])
+}
+
+model Category {
+  id        Int      @id
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  quizzes   Quiz[]
+}
+
+model Question {
+  id                  Int                  @id @default(autoincrement())
+  quizId              Int?
+  question            String
+  correctAnswer       String
+  incorrectAnswers    Json
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  quiz                Quiz?                @relation(fields: [quizId], references: [id])
+  userQuestionAnswers UserQuestionAnswer[]
+}
+
+model Quiz {
+  id                  Int                  @id @default(autoincrement())
+  categoryId          Int
+  name                String
+  answerType          AnswerType           @default(multiple)
+  difficulty          Difficulty           @default(easy)
+  startDate           DateTime             @default(now())
+  endDate             DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  questions           Question[]
+  userQuestionAnswers UserQuestionAnswer[]
+  userParticipateQuiz UserParticipate[]
+  userScores          UserScore[]
+  category            Category             @relation(fields: [categoryId], references: [id])
 }

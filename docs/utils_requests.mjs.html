@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: utils/requests.mjs</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: utils/requests.mjs</h1>
+
+      <section>
+        <article>
+          <pre class="prettyprint source linenums"><code>/**
+ * Quiz Related API Request Handler Methods
+ * @module quizRequests
+ */
+const getById = async (PRISMAX, id, res, type, includes) => {
+  try {
+    let response;
+    if (includes) {
+      response = await PRISMAX.findUnique({
+        where: { id: Number(id) },
+        include: {
+          ...includes,
+        },
+      });
+    } else {
+      response = await PRISMAX.findUnique({
+        where: { id: Number(id) },
+      });
+    }
+    if (!response) {
+      return res
+        .status(200)
+        .json({ msg: `No ${type} with the id: ${id} found` });
+    }
+    return res.json({ data: response });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+const getAll = async (PRISMAX, res, type, includes) => {
+  try {
+    let data;
+    if (includes) {
+      data = await PRISMAX.findMany({
+        include: {
+          ...includes,
+        },
+      });
+    } else {
+      data = await PRISMAX.findMany();
+    }
+    if (data.length === 0) {
+      return res.status(200).json({ msg: `No ${type}s found` });
+    }
+    return res.json({ data });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+const createNew = async (PRISMAX, data, res, type, includes) => {
+  try {
+    await PRISMAX.create({
+      data,
+    });
+    let updatedData;
+    if (includes) {
+      updatedData = await PRISMAX.findMany({
+        include: {
+          ...includes,
+        },
+      });
+    } else {
+      updatedData = await PRISMAX.findMany();
+    }
+    return res.status(201).json({
+      msg: `${type} successfully created`,
+      data: updatedData,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+const updateById = async (PRISMAX, id, data, res, type) => {
+  try {
+    let result = await PRISMAX.findUnique({
+      where: { id: Number(id) },
+    });
+    if (!result) {
+      return res
+        .status(200)
+        .json({ msg: `No ${type} with the id: ${id} found` });
+    }
+    result = await PRISMAX.update({
+      where: { id: Number(id) },
+      data,
+    });
+    return res.json({
+      msg: `${type} with the id: ${id} successfully updated`,
+      data: result,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+const deleteById = async (PRISMAX, id, res, type) => {
+  try {
+    const result = await PRISMAX.findUnique({
+      where: { id: Number(id) },
+    });
+    if (!result) {
+      return res
+        .status(200)
+        .json({ msg: `No ${type} with the id: ${id} found` });
+    }
+
+    await PRISMAX.delete({
+      where: { id: Number(id) },
+    });
+
+    return res.json({
+      msg: `${type} with the id: ${id} successfully deleted`,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
+};
+
+export { createNew, getAll, getById, updateById, deleteById };
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-PRISMA.html">PRISMA</a></li>
+        <li><a href="module-axiosRequests.html">axiosRequests</a></li>
+        <li><a href="module-quizRequests.html">quizRequests</a></li>
+        <li><a href="module-userRequests.html">userRequests</a></li>
+      </ul>
+      <h3>Classes</h3>
+      <ul>
+        <li><a href="dotenv.html">dotenv</a></li>
+        <li><a href="express.html">express</a></li>
+      </ul>
+      <h3>Tutorials</h3>
+      <ul>
+        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
+      </ul>
+      <h3>Global</h3>
+      <ul>
+        <li><a href="global.html#API_VERSION">API_VERSION</a></li>
+        <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
+        <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#register">register</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Dec 24
+      2022 18:33:54 GMT+1300 (New Zealand Daylight Time)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

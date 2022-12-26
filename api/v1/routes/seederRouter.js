@@ -4,7 +4,7 @@ import mwAuth from "../middleware/mw_authentication.js";
 import mwAdminUser from "../middleware/mw_adminUser.js";
 import mwTokenValid from "../middleware/mw_tokenValid.js";
 import { seedUsers } from "../controllers/userSeederController.js";
-import { seedQuizCategories } from "../controllers/categorySeederContoller.js";
+import { seedQuizCategories } from "../controllers/categorySeederController.js";
 
 const seederRouter = Router();
 

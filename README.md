@@ -13,6 +13,8 @@
 
 ## API/Command Line Instructions
 
+https://opentdb.com/api_category.php
+
 ### Migrate the Database
 #### Development
 ```node
@@ -81,3 +83,4 @@ __Note: more users added than required.__
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
 - filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
 - https://hackernoon.com/how-to-update-object-key-values-using-javascript
+- `npx run-func ./utils/axiosRequests.mjs getCategories`

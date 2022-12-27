@@ -13,6 +13,13 @@
 
 ## API/Command Line Instructions
 
+### Database Seeders
+_user and category seeders are both available from admin-only endpoints_
+1. user seeder endpoint: `/user/auth/admin/seeder/players`
+2. category seeder endpoint: `/user/auth/admin/seeder/categories`
+
+https://opentdb.com/api_category.php
+
 ### Migrate the Database
 #### Development
 ```node
@@ -81,3 +88,4 @@ __Note: more users added than required.__
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
 - filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
 - https://hackernoon.com/how-to-update-object-key-values-using-javascript
+- `npx run-func ./utils/axiosRequests.mjs getCategories`

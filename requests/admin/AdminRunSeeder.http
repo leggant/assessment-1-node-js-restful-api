@@ -11,7 +11,7 @@ content-type: application/json
   "role": "ADMIN_USER",
   "password": "Yogi##@4tdfg",
   "confirmPassword": "Yogi##@4tdfg",
-  "profileImgURL": "https://randomuser.me/api/portraits/men/75.jpg"
+  "profileImgURL": "https://randomuser.me/api/portraits/men/80.jpg"
 }
 // Login + Get Auth Token
 ###
@@ -24,8 +24,15 @@ content-type: application/json
 }
 
 // Replace Bearer Token
-// Run the seeder request
+// Run the user seeder request
 ### 
-GET http://localhost:3000/api/v1/user/auth/admin/seeder HTTP/1.1
+GET http://localhost:3000/api/v1/user/auth/admin/seeder/players HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYWMyMGY0LTUxMmMtNGEzZi1hMDM4LWNhZDI0ZGExMGI0YiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcxNjU2NTM5LCJleHAiOjE2NzE2NjAxMzl9.8sWQG6R21CM6NIE9JpXcHwZ_15CyK1rBdp5I1f-G7Gs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgxOTk3Mzc1LWFlODMtNDAzYy1iNGZiLWQ4NzY3Yzg3N2Q5ZSIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMTA5NDMyLCJleHAiOjE2NzIxMTMwMzJ9.iJvBdCAej8AYvhRdzVn-xL_hAZAxNfQna9QQ0XC7A9I
+
+// Replace Bearer Token
+// Run the category seeder request
+### 
+GET http://localhost:3000/api/v1/user/auth/admin/seeder/categories HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMTA5NDhiLTZkY2ItNGIyZC04ZTY3LTlmYzUxNjlhNWE0NCIsInJvbGUiOiJCQVNJQ19VU0VSIiwidXNlck5hbWUiOiJ5b2dpbnoxIiwiaWF0IjoxNjcyMTEwNjc2LCJleHAiOjE2NzIxMTQyNzZ9.PABKBqhkl-LAm4a5el6uhRYkLEqVgdmoGrxWmsVaGbo

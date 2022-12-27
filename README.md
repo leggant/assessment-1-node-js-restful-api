@@ -13,6 +13,11 @@
 
 ## API/Command Line Instructions
 
+### Database Seeders
+_user and category seeders are both available from admin-only endpoints_
+1. user seeder endpoint: `/user/auth/admin/seeder/players`
+2. category seeder endpoint: `/user/auth/admin/seeder/categories`
+
 https://opentdb.com/api_category.php
 
 ### Migrate the Database

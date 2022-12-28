@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+
 import PRISMA from "../../../utils/prisma.mjs";
 import QUIZCONSTS from "../constants/quiz.js";
 
@@ -7,6 +8,7 @@ const NewQuizSchema = [
     .escape()
     .trim()
     .isNumeric()
+    .toInt()
     .withMessage("ID must be an integer value")
     .notEmpty()
     .withMessage("Category ID Is Required")
@@ -27,13 +29,13 @@ const NewQuizSchema = [
   body("name")
     .escape()
     .trim()
-    .isAlpha()
+    .matches(/[a-zA-Z\s]/gi)
     .withMessage(
       "Quiz name must contain letters only. No numbers or special characters",
     )
     .isLength({ min: 5, max: 30 })
     .withMessage("Quiz Name Must Be Between 5 and 30 characters")
-    .notEmpty()
+    .notEmpty({ ignore_whitespace: true })
     .withMessage("Quiz Name Is Required"),
   body("difficulty")
     .escape()
@@ -54,31 +56,15 @@ const NewQuizSchema = [
     .trim()
     .isDate()
     .withMessage("Correctly formated date required")
-    .custom((pass, { req }) => {
-      if (pass !== req.body.password) {
-        throw new Error("Password and Confirmation Password Mismatch");
-      }
-      return true;
-    })
-    .notEmpty({ ignore_whitespace: true })
-    .withMessage("Confirmation Password is Required."),
+    .notEmpty()
+    .withMessage("Quiz Start Date is Required."),
   body("endDate")
     .escape()
     .trim()
-    .isStrongPassword({ minLength: 8, minNumbers: 1, minSymbols: 1 })
-    .withMessage(
-      "Confirmation Password must have at least 8 characters, one number and one special character",
-    )
-    .isLength({ min: 8, max: 16 })
-    .withMessage("Password must be 8 char min and 16 char max lengths")
-    .custom((pass, { req }) => {
-      if (pass !== req.body.password) {
-        throw new Error("Password and Confirmation Password Mismatch");
-      }
-      return true;
-    })
-    .notEmpty({ ignore_whitespace: true })
-    .withMessage("Confirmation Password is Required."),
+    .isDate()
+    .withMessage("Correctly Formated Date Required")
+    .notEmpty()
+    .withMessage("Quiz End Date is Required"),
 ];
 
 export default NewQuizSchema;

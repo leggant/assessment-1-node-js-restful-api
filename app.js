@@ -6,6 +6,7 @@ import morgan from "morgan";
 
 import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
 import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
+import adminQuizRouter from "./api/v1/routes/adminQuizRouter.js";
 import seederRouter from "./api/v1/routes/seederRouter.js";
 /**
  * @constructor dotenv
@@ -54,6 +55,7 @@ app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
 });
 app.use(`/${BASE_PATH}/${API_VERSION}`, loginRegisterRouter);
 app.use(`/${BASE_PATH}/${API_VERSION}`, userProfileRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, adminQuizRouter);
 app.use(`/${BASE_PATH}/${API_VERSION}`, seederRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);

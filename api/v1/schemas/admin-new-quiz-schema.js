@@ -10,13 +10,16 @@ const NewQuizSchema = [
     .withMessage("ID must be an integer value")
     .notEmpty()
     .withMessage("Category ID Is Required")
-    .custom(async (id, { req }) => {
-      const categories = await PRISMA.category.findMany({
+    .custom(async (categoryId, { req }) => {
+      const categories = await PRISMA.category.findUniqueOrThrow({
+        where: {
+          id: Number(req.body.categoryId),
+        },
         select: {
           id: true,
         },
       });
-      if (!categories.includes(Number(req.body.id))) {
+      if (categories.id !== Number(req.body.categoryId)) {
         throw new Error("Invalid Category ID");
       }
       return true;

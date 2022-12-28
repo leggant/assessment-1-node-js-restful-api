@@ -57,6 +57,8 @@ const QUIZAXIOS = axios.create({
 // Quiz Categories
 
 const CATENDPOINT = "/api_category.php";
+const CREATEQUIZ = "/api.php";
+
 const getCategories = async () => {
   const data = await QUIZAXIOS.get(CATENDPOINT)
     .then((resData) => {
@@ -71,4 +73,28 @@ const getCategories = async () => {
 
 // Quiz Admin
 
-export { QUIZAXIOS, getUsers, getCategories };
+const queryString = (query) => {
+  let reqString = CREATEQUIZ;
+  const { category, amount, type, difficulty } = query;
+  reqString = category ? `${reqString}?category=${category}` : reqString;
+  reqString = amount ? `${reqString}?amount=${amount}` : reqString;
+  reqString = difficulty ? `${reqString}?difficulty=${difficulty}` : reqString;
+  reqString = type ? `${reqString}?type=${type}` : reqString;
+  return reqString;
+};
+
+const createQuizRequest = async (query) => {
+  const reqString = `${CREATEQUIZ}?category=9&amount=30&difficulty=easy&type=multiple`;
+  const data = await QUIZAXIOS.get(reqString)
+    .then((resData) => {
+      const dataRes = resData.data;
+      return dataRes.results;
+    })
+    .catch((err) => {
+      console.error(err.message);
+    });
+  console.log(data);
+  return data;
+};
+
+export { getUsers, getCategories, createQuizRequest };

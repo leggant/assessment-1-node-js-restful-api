@@ -2,11 +2,11 @@ import { Temporal } from "@js-temporal/polyfill";
 
 const quizDateValid = (quizday, quizmonth, quizyear) => {
   const now = Temporal.Now.plainDateISO();
-  const check = new Temporal.PlainDate(quizday, quizmonth, quizyear);
+  const check = new Temporal.PlainDate(quizyear, quizmonth, quizday);
   const res = check.since(now).days;
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = res <= 0 ? false : true;
-  console.log("quiz date is valid", isValid.valueOf());
+  console.info("quiz date is valid", isValid.valueOf());
   return isValid;
 };
 

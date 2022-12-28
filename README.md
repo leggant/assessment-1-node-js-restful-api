@@ -89,3 +89,5 @@ __Note: more users added than required.__
 - filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
 - https://hackernoon.com/how-to-update-object-key-values-using-javascript
 - `npx run-func ./utils/axiosRequests.mjs getCategories`
+- `npx run-func ./utils/dateTimeCheck.mjs getCategories`
+- quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing: `npx run-func ./utils/dateTimeCheck.mjs quizDateValid 27 12 2022` and `npx run-func ./utils/dateTimeCheck.mjs quizEnddateValid 24 12 2022 30 12 2022`

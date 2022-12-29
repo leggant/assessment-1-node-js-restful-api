@@ -4,6 +4,7 @@ import {
   createNewQuiz,
   createNewQuizQuestions,
 } from "../../../utils/quizRequests.mjs";
+import PRISMA from "../../../utils/prisma.mjs";
 
 const ctCreateQuiz = async (req, res) => {
   const { categoryId, difficulty, answerType, questions } = req.body;
@@ -20,41 +21,37 @@ const ctCreateQuiz = async (req, res) => {
   await createNewQuizQuestions(quizData, newQuizItem, res);
 };
 
-const ctGetQuiz = async (req, res) => {
-  console.info("hit get quiz by ID");
-  // try {
-  //   const query = req.profileQuery;
-  //   // user can either be a string, or an object with a single key value pair
-  //   let type = checkDataType(query);
-  //   const queryById = type === "string";
-  //   const userData = await (async () => {
-  //     const data = queryById
-  //       ? await getSingleUserById(query)
-  //       : await getSingleUserByParam(query);
-  //     const datares = await data;
-  //     return datares;
-  //   })();
-  //   type = checkDataType(userData);
-  //   const noData = type === "undefined" || type === null;
-  //   if (noData) {
-  //     return res.status(404).json({
-  //       msg: "No User Profile Found",
-  //     });
-  //   }
-  //   return res.status(200).json({
-  //     data: {
-  //       userData: "user",
-  //     },
-  //   });
-  // } catch (err) {
-  //   return res.status(500).json({
-  //     msg: err.message,
-  //   });
-  // }
+const ctGetQuizById = async (req, res) => {
+  const quizres = await PRISMA.quiz.findFirst({
+    where: { id: Number(req.params.quizId) },
+    include: {
+      questions: true,
+      userScores: true,
+      userParticipateQuiz: true,
+      userQuestionAnswers: true,
+    },
+  });
+  if (quizres) {
+    res.status(200).json({ data: quizres });
+  } else {
+    res.status(404).json({ msg: "No Quiz Data Located." });
+  }
 };
 
 const ctGetAllQuizzes = async (req, res) => {
-  console.log("Hit get all users");
+  const allQuizzes = await PRISMA.quiz.findMany({
+    include: {
+      questions: true,
+      userScores: true,
+      userParticipateQuiz: true,
+      userQuestionAnswers: true,
+    },
+  });
+  if (allQuizzes.length) {
+    res.status(200).json({ data: allQuizzes });
+  } else {
+    res.status(404).json({ msg: "No Quiz Data Located." });
+  }
 };
 
 const ctUpdateQuiz = async (req, res) => {
@@ -78,36 +75,35 @@ const ctUpdateQuiz = async (req, res) => {
   // }
 };
 
-const ctDeleteQuiz = async (req, res) => {
-  // try {
-  //   const query = req.profileQuery;
-  //   const authHeader = req.headers.authorization;
-  //   const token = authHeader.split(" ")[1];
-  //   // user can either be a string, or an object with a single key value pair
-  //   const type = checkDataType(query);
-  //   const deleteWithId = type === "string";
-  //   const reqStatus = await (async () => {
-  //     const data = deleteWithId
-  //       ? await deleteUserById(token, query)
-  //       : await deleteUserByParam(token, query); // admin only
-  //     const datares = await data;
-  //     return datares;
-  //   })();
-  //   const clearedTokens = await clearBlockedTokens();
-  //   const clearedUsers = await clearBlockedUsers();
-  //   console.log("deleted invalid token count: ", clearedTokens);
-  //   console.log("deleted invalid user count: ", clearedUsers);
-  //   if (!reqStatus) {
-  //     return res
-  //       .status(404)
-  //       .json({ msg: "Request User Could Not Be Found/Could Not Be Deleted." });
-  //   }
-  //   return res.status(200).json({ msg: "User Deleted Successfully" });
-  // } catch (err) {
-  //   return res.status(500).json({
-  //     msg: err.message,
-  //   });
-  // }
+const ctDeleteQuizById = async (req, res) => {
+  const quizres = await PRISMA.quiz.findFirst({
+    where: { id: Number(req.params.quizId) },
+    include: {
+      questions: true,
+    },
+  });
+  if (quizres) {
+    await PRISMA.quiz
+      .delete({
+        where: { id: quizres.id },
+        include: {
+          questions: true,
+        },
+      })
+      .then((result) => {
+        res
+          .status(202)
+          .json({ msg: `Quiz ${result.name} Deleted Successfully.` });
+      });
+  } else {
+    res.status(404).json({ msg: "Quiz Not Found." });
+  }
 };
 
-export { ctCreateQuiz, ctGetQuiz, ctGetAllQuizzes, ctUpdateQuiz, ctDeleteQuiz };
+export {
+  ctCreateQuiz,
+  ctGetQuizById,
+  ctGetAllQuizzes,
+  ctUpdateQuiz,
+  ctDeleteQuizById,
+};

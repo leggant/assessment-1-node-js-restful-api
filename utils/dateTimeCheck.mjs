@@ -23,7 +23,7 @@ const quizDateValid = (quizday, quizmonth, quizyear) => {
   const res = check.since(now).days;
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = res <= 0 ? false : true;
-  console.info("quiz date is valid", isValid.valueOf());
+  // console.info("quiz date is valid", isValid.valueOf());
   return isValid;
 };
 
@@ -40,7 +40,7 @@ const quizEnddateValid = (
   const difference = quizDate.until(endDate).days;
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference > 0 && difference <= 5 ? true : false;
-  console.log("end date is valid: ", isValid.valueOf());
+  // console.log("end date is valid: ", isValid.valueOf());
   return isValid;
 };
 

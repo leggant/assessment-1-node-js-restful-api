@@ -61,8 +61,8 @@ const NewQuizSchema = [
     .trim()
     .isNumeric()
     .withMessage("Number of questions, must have a numeric value")
-    .isInt({ min: 10, max: 50 })
-    .withMessage("Number must be between 10 and 50")
+    .isInt({ min: 10, max: 10 })
+    .withMessage("Number of questions must equal 10.")
     .notEmpty()
     .withMessage("Number of questions is Required"),
   body("startDate")

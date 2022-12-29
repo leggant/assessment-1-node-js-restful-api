@@ -1,5 +1,15 @@
 import { Temporal } from "@js-temporal/polyfill";
 
+const splitDate = (dateToSplit) => {
+  const split = dateToSplit.split("-");
+  const year = split[0];
+  let month = split[1];
+  month = month.charAt(0) === "0" ? month.substring(1) : month;
+  let day = split[2];
+  day = day.charAt(0) === "0" ? day.substring(1) : day;
+  return { year, month, day };
+};
+
 const quizDateValid = (quizday, quizmonth, quizyear) => {
   const now = Temporal.Now.plainDateISO();
   const check = new Temporal.PlainDate(quizyear, quizmonth, quizday);
@@ -28,4 +38,4 @@ const quizEnddateValid = (
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export { quizDateValid, quizEnddateValid };
+export { splitDate, quizDateValid, quizEnddateValid };

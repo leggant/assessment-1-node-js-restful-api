@@ -2,6 +2,11 @@ import { body } from "express-validator";
 
 import PRISMA from "../../../utils/prisma.mjs";
 import QUIZCONSTS from "../constants/quiz.js";
+import {
+  quizDateValid,
+  quizEnddateValid,
+  splitDate,
+} from "../../../utils/dateTimeCheck.mjs";
 
 const NewQuizSchema = [
   body("categoryId")
@@ -51,11 +56,34 @@ const NewQuizSchema = [
     .withMessage("Quiz Answer Type Must Be Valid")
     .notEmpty()
     .withMessage("Quiz Answer Type is Required"),
+  body("questions")
+    .escape()
+    .trim()
+    .isNumeric()
+    .withMessage("Number of questions, must have a numeric value")
+    .isInt({ min: 10, max: 50 })
+    .withMessage("Number must be between 10 and 50")
+    .notEmpty()
+    .withMessage("Number of questions is Required"),
   body("startDate")
     .escape()
     .trim()
     .isDate()
     .withMessage("Correctly formated date required")
+    .custom((start, { req }) => {
+      const dateSplit = splitDate(req.body.startDate);
+      const isValid = quizDateValid(
+        dateSplit.day,
+        dateSplit.month,
+        dateSplit.year,
+      );
+      if (!isValid) {
+        throw new Error(
+          "Quiz Start Date is Invalid. This must be a date in the future.",
+        );
+      }
+      return true;
+    })
     .notEmpty()
     .withMessage("Quiz Start Date is Required."),
   body("endDate")
@@ -63,6 +91,24 @@ const NewQuizSchema = [
     .trim()
     .isDate()
     .withMessage("Correctly Formated Date Required")
+    .custom((end, { req }) => {
+      const startSplit = splitDate(req.body.startDate);
+      const endSplit = splitDate(req.body.endDate);
+      const isValid = quizEnddateValid(
+        startSplit.day,
+        startSplit.month,
+        startSplit.year,
+        endSplit.day,
+        endSplit.month,
+        endSplit.year,
+      );
+      if (!isValid) {
+        throw new Error(
+          "Quiz Start/End Dates are Invalid. The start date must be in the future, and the end date must come after within 5 days.",
+        );
+      }
+      return true;
+    })
     .notEmpty()
     .withMessage("Quiz End Date is Required"),
 ];

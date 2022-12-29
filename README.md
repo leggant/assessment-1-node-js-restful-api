@@ -91,3 +91,6 @@ __Note: more users added than required.__
 - `npx run-func ./utils/axiosRequests.mjs getCategories`
 - `npx run-func ./utils/dateTimeCheck.mjs getCategories`
 - quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing: `npx run-func ./utils/dateTimeCheck.mjs quizDateValid 27 12 2022` and `npx run-func ./utils/dateTimeCheck.mjs quizEnddateValid 24 12 2022 30 12 2022`
+- https://stackoverflow.com/a/3367429 Get epoch for a specific date using Javascript
+- https://stackoverflow.com/a/61505926 MONTHS in JavaScript Dates starts in zero (0 = January, 11 = December)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it

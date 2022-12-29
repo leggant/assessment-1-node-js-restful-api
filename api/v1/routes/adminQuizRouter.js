@@ -3,7 +3,12 @@ import PATHS from "../constants/paths.js";
 import CreateSchema from "../schemas/admin-new-quiz-schema.js";
 import validateSchema from "../middleware/mw_validateSchema.js";
 
-import { ctCreateQuiz } from "../controllers/quizAdminController.js";
+import {
+  ctCreateQuiz,
+  ctGetAllQuizzes,
+  ctGetQuizById,
+  ctDeleteQuizById,
+} from "../controllers/quizAdminController.js";
 
 import mwAuth from "../middleware/mw_authentication.js";
 import mwAdminUser from "../middleware/mw_adminUser.js";
@@ -21,15 +26,30 @@ router.post(
   ctCreateQuiz,
 );
 
-// // admin users
-// router.get(
-//   PATHS.ADMIN.USERSEARCH,
-//   mwAuth,
-//   mwTokenValid,
-//   mwAdminUser,
-//   mwUserProfileQuery,
-//   ctGetUser,
-// );
+router.get(
+  PATHS.ADMIN.QUIZ,
+  mwAuth,
+  mwTokenValid,
+  mwAdminUser,
+  ctGetAllQuizzes,
+);
+
+router.get(
+  PATHS.ADMIN.QUIZQUERY,
+  mwAuth,
+  mwTokenValid,
+  mwAdminUser,
+  ctGetQuizById,
+);
+
+router.delete(
+  PATHS.ADMIN.QUIZQUERY,
+  mwAuth,
+  mwTokenValid,
+  mwAdminUser,
+  ctDeleteQuizById,
+);
+
 // router.put(
 //   PATHS.ADMIN.USERSEARCH,
 //   mwAuth,

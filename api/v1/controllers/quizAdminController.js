@@ -1,9 +1,23 @@
 import checkDataType from "../../../utils/checkDataType.js";
-
-import { createNewQuiz } from "../../../utils/quizRequests.mjs";
+import { createQuizOpenTDBRequest } from "../../../utils/axiosRequests.mjs";
+import {
+  createNewQuiz,
+  createNewQuizQuestions,
+} from "../../../utils/quizRequests.mjs";
 
 const ctCreateQuiz = async (req, res) => {
-  console.info("hit create quiz");
+  const { categoryId, difficulty, answerType, questions } = req.body;
+  // create a new quiz, get the quiz db id
+  const newQuizItem = await createNewQuiz(req.body);
+  // valid request - get quiz data from the 3rd party api
+  const quizData = await createQuizOpenTDBRequest({
+    category: categoryId,
+    difficulty,
+    answerType,
+    amount: questions,
+  });
+  // create questions from the quizData object, newQuizItem.id quiz id
+  await createNewQuizQuestions(quizData, newQuizItem, res);
 };
 
 const ctGetQuiz = async (req, res) => {

@@ -10,6 +10,13 @@ const splitDate = (dateToSplit) => {
   return { year, month, day };
 };
 
+const dbDateStringFromDate = (date) => {
+  const data = splitDate(date);
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
+  const dateres = new Date(`${data.month} ${data.day}, ${data.year} UTC`);
+  return dateres;
+};
+
 const quizDateValid = (quizday, quizmonth, quizyear) => {
   const now = Temporal.Now.plainDateISO();
   const check = new Temporal.PlainDate(quizyear, quizmonth, quizday);
@@ -38,4 +45,4 @@ const quizEnddateValid = (
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export { splitDate, quizDateValid, quizEnddateValid };
+export { splitDate, dbDateStringFromDate, quizDateValid, quizEnddateValid };

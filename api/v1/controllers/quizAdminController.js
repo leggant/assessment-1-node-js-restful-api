@@ -92,9 +92,7 @@ const ctDeleteQuizById = async (req, res) => {
         },
       })
       .then((result) => {
-        res
-          .status(202)
-          .json({ msg: `Quiz ${result.name} Deleted Successfully.` });
+        res.status(202).json({ msg: `${result.name} Deleted Successfully.` });
       });
   } else {
     res.status(404).json({ msg: "Quiz Not Found." });

@@ -56,12 +56,13 @@ const NewQuizSchema = [
     .withMessage("Quiz Answer Type Must Be Valid")
     .notEmpty()
     .withMessage("Quiz Answer Type is Required"),
-  body("questions")
+  body("numQuestions")
     .escape()
     .trim()
     .isNumeric()
     .withMessage("Number of questions, must have a numeric value")
     .isInt({ min: 10, max: 10 })
+    .toInt()
     .withMessage("Number of questions must equal 10.")
     .notEmpty()
     .withMessage("Number of questions is Required"),

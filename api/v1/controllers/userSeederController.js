@@ -34,13 +34,15 @@ const seedUsers = async (req, res) => {
     .then((data) => {
       const count = Object.keys(data).length;
       console.info(`[SEED] ${count} user records successfully created`);
-      res
+      return res
         .status(201)
         .json({ msg: `[SEED] ${count} user records successfully created` });
     })
     .catch((e) => {
       console.error("[SEED] Failed to create user records", e);
-      res.status(401).json({ msg: "[SEED] Failed to create user records" });
+      return res
+        .status(401)
+        .json({ msg: "[SEED] Failed to create user records", e });
     });
 };
 

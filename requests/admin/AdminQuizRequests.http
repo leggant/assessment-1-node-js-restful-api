@@ -1,0 +1,59 @@
+###
+POST http://localhost:3000/api/v1/user/auth/login HTTP/1.1
+content-type: application/json
+
+{
+  "userName": "leggtc1",
+  "password": "Yogi##@4tdfg"
+}
+
+// create a quiz
+###
+POST http://localhost:3000/api/v1/user/auth/admin/quiz HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+
+{
+    "categoryId": 9,
+    "name": "Yogis Quiz",
+    "difficulty": "easy",
+    "answerType": "multiple",
+    "questions": 10,
+    "startDate": "2022-12-31",
+    "endDate": "2023-01-03"
+}
+
+// get all quizzes
+###
+GET http://localhost:3000/api/v1/user/auth/admin/quiz HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+
+// get a quiz by id
+###
+GET http://localhost:3000/api/v1/user/auth/admin/quiz/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+
+// update a quiz by id
+###
+PUT http://localhost:3000/api/v1/user/auth/admin/quiz/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+
+{
+    "categoryId": 9,
+    "name": "Yogis Quiz",
+    "difficulty": "easy",
+    "answerType": "multiple",
+    "questions": 10,
+    "startDate": "2022-12-31",
+    "endDate": "2023-01-03"
+}
+
+
+// delete a quiz by id
+###
+DELETE http://localhost:3000/api/v1/user/auth/admin/quiz/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs

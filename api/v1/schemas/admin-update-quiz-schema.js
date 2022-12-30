@@ -53,13 +53,14 @@ const UpdateQuizSchema = [
     .optional({ nullable: true })
     .isIn([QUIZCONSTS.ANSTYPE.MULTI, QUIZCONSTS.ANSTYPE.TRUEFALSE])
     .withMessage("Quiz Answer Type Must Be Valid"),
-  body("questions")
+  body("numQuestions")
     .escape()
     .trim()
     .optional({ nullable: true })
     .isNumeric()
     .withMessage("Number of questions, must have a numeric value")
     .isInt({ min: 10, max: 10 })
+    .toInt()
     .withMessage("Number of questions must equal 10."),
   body("startDate")
     .escape()

@@ -3,6 +3,7 @@ import { createQuizOpenTDBRequest } from "../../../utils/axiosRequests.mjs";
 import {
   createNewQuiz,
   createNewQuizQuestions,
+  updateQuizById,
 } from "../../../utils/quizRequests.mjs";
 import PRISMA from "../../../utils/prisma.mjs";
 
@@ -54,25 +55,25 @@ const ctGetAllQuizzes = async (req, res) => {
   }
 };
 
-const ctUpdateQuiz = async (req, res) => {
-  // try {
-  //   const user = req.user;
-  //   const updates = req.body;
-  //   const updateRes = await updateUserById(user, updates);
-  //   const ok = checkDataType(updateRes);
-  //   if (ok === "boolean") {
-  //     return res
-  //       .status(400)
-  //       .json({ msg: `Update Error ${user.userName} Update Not Completed.` });
-  //   }
-  //   return res
-  //     .status(200)
-  //     .json({ msg: `${updateRes.userName} Updated Successfully`, updateRes });
-  // } catch (err) {
-  //   return res.status(500).json({
-  //     msg: err.message,
-  //   });
-  // }
+const ctUpdateQuizById = async (req, res) => {
+  try {
+    const quizId = Number(req.params.quizId);
+    const updateResult = await updateQuizById(quizId, req.body);
+    const ok = checkDataType(updateResult);
+    if (ok === "boolean") {
+      return res
+        .status(400)
+        .json({ msg: `Quiz Update Error: Update Not Completed.` });
+    }
+    return res.status(200).json({
+      msg: `${updateResult.name} Updated Successfully`,
+      updateResult,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: err.message,
+    });
+  }
 };
 
 const ctDeleteQuizById = async (req, res) => {
@@ -104,6 +105,6 @@ export {
   ctCreateQuiz,
   ctGetQuizById,
   ctGetAllQuizzes,
-  ctUpdateQuiz,
+  ctUpdateQuizById,
   ctDeleteQuizById,
 };

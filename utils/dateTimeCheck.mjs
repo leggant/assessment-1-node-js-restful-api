@@ -36,12 +36,12 @@ const quizEnddateValid = (
   endmonth,
   endyear,
 ) => {
-  const quizDate = new Temporal.PlainDate(quizyear, quizmonth, quizday);
-  const endDate = new Temporal.PlainDate(endyear, endmonth, endday);
-  const difference = quizDate.until(endDate).days;
+  const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
+  const endDate = moment(`${endyear}-${endmonth}-${endday}`);
+  // https://momentjs.com/docs/#/displaying/difference/
+  const difference = moment.duration(endDate.diff(quizDate)).asDays();
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference > 0 && difference <= 5 ? true : false;
-  // console.log("end date is valid: ", isValid.valueOf());
   return isValid;
 };
 

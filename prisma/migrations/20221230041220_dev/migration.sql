@@ -107,6 +107,7 @@ CREATE TABLE "Quiz" (
     "name" TEXT NOT NULL,
     "answerType" "AnswerType" NOT NULL DEFAULT 'multiple',
     "difficulty" "Difficulty" NOT NULL DEFAULT 'easy',
+    "numQuestions" INTEGER NOT NULL DEFAULT 10,
     "startDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "endDate" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

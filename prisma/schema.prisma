@@ -44,15 +44,15 @@ model User {
 }
 
 model BlockedToken {
-  id        Int      @id @default(autoincrement())
-  token     String
-  exp       BigInt
+  id    Int    @id @default(autoincrement())
+  token String
+  exp   BigInt
 }
 
 model BlockedUser {
-  id        Int      @id @default(autoincrement())
-  uid       String
-  exp       BigInt
+  id  Int    @id @default(autoincrement())
+  uid String
+  exp BigInt
 }
 
 model UserScore {
@@ -115,6 +115,7 @@ model Quiz {
   name                String
   answerType          AnswerType           @default(multiple)
   difficulty          Difficulty           @default(easy)
+  numQuestions        Int                  @default(10)
   startDate           DateTime             @default(now())
   endDate             DateTime?
   createdAt           DateTime             @default(now())

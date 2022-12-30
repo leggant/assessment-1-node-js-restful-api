@@ -1,4 +1,5 @@
 import { Temporal } from "@js-temporal/polyfill";
+import moment from "moment";
 
 const splitDate = (dateToSplit) => {
   const split = dateToSplit.split("-");
@@ -44,5 +45,21 @@ const quizEnddateValid = (
   return isValid;
 };
 
+const playerCanParticipate = (quizStart, quizEnd) => {
+  const dateNow = moment().format("YYYY-M-D");
+  const start = moment(quizStart, "YYYY-M-D").format("YYYY-M-D");
+  const end = moment(quizEnd, "YYYY-M-D").format("YYYY-M-D");
+  const sameOrAfter = moment(dateNow).isSameOrAfter(start);
+  const sameOrBefore = moment(dateNow).isSameOrBefore(end);
+  const canPartake = sameOrAfter && sameOrBefore;
+  return canPartake;
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export { splitDate, dbDateStringFromDate, quizDateValid, quizEnddateValid };
+export {
+  splitDate,
+  dbDateStringFromDate,
+  quizDateValid,
+  quizEnddateValid,
+  playerCanParticipate,
+};

@@ -8,7 +8,7 @@ import {
 import PRISMA from "../../../utils/prisma.mjs";
 
 const ctCreateQuiz = async (req, res) => {
-  const { categoryId, difficulty, answerType, questions } = req.body;
+  const { categoryId, difficulty, answerType, numQuestions } = req.body;
   // create a new quiz, get the quiz db id
   const newQuizItem = await createNewQuiz(req.body);
   // valid request - get quiz data from the 3rd party api
@@ -16,7 +16,7 @@ const ctCreateQuiz = async (req, res) => {
     category: categoryId,
     difficulty,
     answerType,
-    amount: questions,
+    amount: numQuestions,
   });
   // create questions from the quizData object, newQuizItem.id quiz id
   await createNewQuizQuestions(quizData, newQuizItem, res);

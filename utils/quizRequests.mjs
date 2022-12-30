@@ -6,8 +6,15 @@ import PRISMA from "./prisma.mjs";
 import { dbDateStringFromDate } from "./dateTimeCheck.mjs";
 
 const createNewQuiz = async (reqdata) => {
-  const { categoryId, name, startDate, endDate, difficulty, answerType } =
-    reqdata;
+  const {
+    categoryId,
+    name,
+    startDate,
+    endDate,
+    difficulty,
+    answerType,
+    questions,
+  } = reqdata;
   const dbStartDate = dbDateStringFromDate(startDate);
   const dbEndDate = dbDateStringFromDate(endDate);
   const newQuiz = await PRISMA.quiz.create({
@@ -16,6 +23,7 @@ const createNewQuiz = async (reqdata) => {
       name,
       answerType,
       difficulty,
+      numQuestions: Number(questions),
       startDate: dbStartDate,
       endDate: dbEndDate,
     },

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import PATHS from "../constants/paths.js";
 import CreateSchema from "../schemas/admin-new-quiz-schema.js";
+import UpdateQuizSchema from "../schemas/admin-update-quiz-schema.js";
 import validateSchema from "../middleware/mw_validateSchema.js";
 
 import {
@@ -46,6 +47,8 @@ router.get(
 router.put(
   PATHS.ADMIN.QUIZQUERY,
   mwAuth,
+  UpdateQuizSchema,
+  validateSchema,
   mwTokenValid,
   mwAdminUser,
   ctUpdateQuizById,

@@ -11,14 +11,14 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/v1/user/auth/admin/quiz HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzc4MTU3LCJleHAiOjE2NzIzODE3NTd9.eyzmiMs_zi01V3nVvChxPZw2czm00ek4dg_xB2iiHu0
 
 {
-    "categoryId": 9,
+    "categoryId": 13,
     "name": "Yogis Quiz",
     "difficulty": "easy",
     "answerType": "multiple",
-    "questions": 10,
+    "numQuestions": 10,
     "startDate": "2022-12-31",
     "endDate": "2023-01-03"
 }
@@ -37,23 +37,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiL
 
 // update a quiz by id
 ###
-PUT http://localhost:3000/api/v1/user/auth/admin/quiz/1 HTTP/1.1
+PUT http://localhost:3000/api/v1/user/auth/admin/quiz/4 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzc4MTU3LCJleHAiOjE2NzIzODE3NTd9.eyzmiMs_zi01V3nVvChxPZw2czm00ek4dg_xB2iiHu0
 
 {
-    "categoryId": 9,
-    "name": "Yogis Quiz",
-    "difficulty": "easy",
-    "answerType": "multiple",
-    "questions": 10,
-    "startDate": "2022-12-31",
-    "endDate": "2023-01-03"
+    "categoryId": 11
 }
-
 
 // delete a quiz by id
 ###
-DELETE http://localhost:3000/api/v1/user/auth/admin/quiz/1 HTTP/1.1
+DELETE http://localhost:3000/api/v1/user/auth/admin/quiz/5 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzczNzUxLCJleHAiOjE2NzIzNzczNTF9.aFu_Pe94dI94iayZRxp-h_XvXdLFvuIYX-Cpn0kVMTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjNzBkZWFiLTNlZDctNDJhYi1hNjA1LTU2ZDdmYzhmZWVhZiIsInJvbGUiOiJBRE1JTl9VU0VSIiwidXNlck5hbWUiOiJsZWdndGMxIiwiaWF0IjoxNjcyMzc4MTU3LCJleHAiOjE2NzIzODE3NTd9.eyzmiMs_zi01V3nVvChxPZw2czm00ek4dg_xB2iiHu0

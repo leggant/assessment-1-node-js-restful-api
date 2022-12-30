@@ -7,6 +7,7 @@ import {
   ctCreateQuiz,
   ctGetAllQuizzes,
   ctGetQuizById,
+  ctUpdateQuizById,
   ctDeleteQuizById,
 } from "../controllers/quizAdminController.js";
 
@@ -42,6 +43,14 @@ router.get(
   ctGetQuizById,
 );
 
+router.put(
+  PATHS.ADMIN.QUIZQUERY,
+  mwAuth,
+  mwTokenValid,
+  mwAdminUser,
+  ctUpdateQuizById,
+);
+
 router.delete(
   PATHS.ADMIN.QUIZQUERY,
   mwAuth,
@@ -49,24 +58,5 @@ router.delete(
   mwAdminUser,
   ctDeleteQuizById,
 );
-
-// router.put(
-//   PATHS.ADMIN.USERSEARCH,
-//   mwAuth,
-//   mwTokenValid,
-//   mwAdminUser,
-//   UpdateSchema,
-//   validateSchema,
-//   mwUserProfileQuery,
-//   ctGetUser,
-// );
-// router.delete(
-//   PATHS.ADMIN.USERSEARCH,
-//   mwAuth,
-//   mwAdminUser,
-//   mwUserProfileQuery,
-//   mwTokenValid,
-//   ctDeleteUser,
-// );
 
 export default router;

@@ -1,17 +1,23 @@
+const AUTHONLY = "/user/auth";
 const PATHS = {
-  AUTH: "user/auth",
-  REGISTER: "/register",
-  LOGIN: "/login",
+  REGISTER: `${AUTHONLY}/register`,
+  LOGIN: `${AUTHONLY}/login`,
   ADMIN: {
-    ADMINSEEDER: "/admin/seeder",
+    PLAYERSEEDER: `${AUTHONLY}/admin/seeder/players`,
+    CATEGORYSEEDER: `${AUTHONLY}/admin/seeder/categories`,
+    QUIZ: `${AUTHONLY}/admin/quiz`,
+    QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
+    QUIZPLAYER: `${AUTHONLY}/admin/quiz/:quizId/player/:playerId`,
+    USERSEARCH: `${AUTHONLY}/admin/details/:searchField/:searchValue`,
   },
-  USERDETAILS: {
-    USER: "/details",
-    ADMINUSERSEARCH: "/quizadmin/details/:searchField/:searchValue",
+  USER: {
+    PROFILE: `${AUTHONLY}/profile`,
   },
   QUIZ: {
-    USERQUIZ: "/quiz",
-    ADMINQUIZ: "/admin/quiz",
+    PLAYER: `${AUTHONLY}/quiz`,
+    PLAYERQUERY: `${AUTHONLY}/quiz/:quizId`,
+    PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/player/:playerId`,
+    PLAYERTOTAL: `${AUTHONLY}/details/:userId/results`,
   },
 };
 

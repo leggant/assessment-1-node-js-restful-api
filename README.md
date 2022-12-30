@@ -13,6 +13,13 @@
 
 ## API/Command Line Instructions
 
+### Database Seeders
+_user and category seeders are both available from admin-only endpoints_
+1. user seeder endpoint: `/user/auth/admin/seeder/players`
+2. category seeder endpoint: `/user/auth/admin/seeder/categories`
+
+https://opentdb.com/api_category.php
+
 ### Migrate the Database
 #### Development
 ```node
@@ -81,3 +88,9 @@ __Note: more users added than required.__
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
 - filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
 - https://hackernoon.com/how-to-update-object-key-values-using-javascript
+- `npx run-func ./utils/axiosRequests.mjs getCategories`
+- `npx run-func ./utils/dateTimeCheck.mjs getCategories`
+- quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing: `npx run-func ./utils/dateTimeCheck.mjs quizDateValid 27 12 2022` and `npx run-func ./utils/dateTimeCheck.mjs quizEnddateValid 24 12 2022 30 12 2022`
+- https://stackoverflow.com/a/3367429 Get epoch for a specific date using Javascript
+- https://stackoverflow.com/a/61505926 MONTHS in JavaScript Dates starts in zero (0 = January, 11 = December)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it

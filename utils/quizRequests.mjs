@@ -3,6 +3,8 @@
  * @module quizRequests
  */
 import PRISMA from "./prisma.mjs";
+import checkDataType from "./checkDataType.js";
+import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.mjs";
 
 const createNewQuiz = async (reqdata) => {
@@ -13,7 +15,7 @@ const createNewQuiz = async (reqdata) => {
     endDate,
     difficulty,
     answerType,
-    questions,
+    numQuestions,
   } = reqdata;
   const dbStartDate = dbDateStringFromDate(startDate);
   const dbEndDate = dbDateStringFromDate(endDate);
@@ -23,7 +25,7 @@ const createNewQuiz = async (reqdata) => {
       name,
       answerType,
       difficulty,
-      numQuestions: Number(questions),
+      numQuestions,
       startDate: dbStartDate,
       endDate: dbEndDate,
     },
@@ -54,9 +56,9 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
           id: QUIZINFO.id,
           categoryId: QUIZDATA.categoryId,
           name: QUIZINFO.name,
-          questionCount: count,
           difficulty: QUIZINFO.difficulty,
           answerType: QUIZINFO.answerType,
+          questionCount: QUIZINFO.numQuestions,
           quizStartDate: QUIZINFO.startDate,
           quizEndDate: QUIZINFO.endDate,
         },
@@ -70,6 +72,36 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
     });
 };
 
+const updateQuizById = async (quizId, data) => {
+  const quiz = await PRISMA.quiz.findFirst({
+    where: { id: Number(quizId) },
+  });
+  if (!quiz) {
+    return false;
+  }
+  const updateRes = await PRISMA.quiz.update({
+    where: { id: Number(quizId) },
+    select: {
+      categoryId: true,
+      name: true,
+      difficulty: true,
+      answerType: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+    },
+    data: {
+      ...data,
+    },
+  });
+  const resTypeOfData = checkDataType(updateRes);
+  const resOk = resTypeOfData === "object";
+  if (resOk) {
+    return updateRes;
+  }
+  return resOk;
+};
+
 const createNewQuizAnswers = async (reqdata) => {
   console.log(reqdata);
 };
@@ -81,6 +113,7 @@ const addQuizPlayers = async (reqdata) => {
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
+  updateQuizById,
   createNewQuizQuestions,
   createNewQuizAnswers,
   addQuizPlayers,

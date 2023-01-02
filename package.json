@@ -39,7 +39,9 @@
     "helmet": "^6.0.0",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "swagger-jsdoc": "^6.2.7",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "c8": "^7.12.0",

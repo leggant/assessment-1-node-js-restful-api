@@ -4,7 +4,7 @@
  */
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import PRISMA from "./prisma.mjs";
+import PRISMA from "./prisma.js";
 import checkDataType from "./checkDataType.js";
 import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 import USERTYPE from "../api/v1/constants/userType.js";

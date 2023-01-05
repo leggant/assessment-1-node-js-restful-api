@@ -45,6 +45,12 @@ const quizEnddateValid = (
   return isValid;
 };
 
+/**
+ * check the current date against the quiz start and end date; return boolean if the date is within range/player can take part in the quiz
+ * @param {Date} quizStart quiz start date stored in the quiz table
+ * @param {Date} quizEnd quiz end date stored in the quiz table
+ * @returns {Boolean} canPartake - current date is permitted, player can answer quiz questions
+ */
 const playerCanParticipate = (quizStart, quizEnd) => {
   const dateNow = moment().format("YYYY-M-D");
   const start = moment(quizStart, "YYYY-M-D").format("YYYY-M-D");

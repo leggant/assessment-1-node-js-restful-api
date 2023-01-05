@@ -1,6 +1,6 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import PRISMA from "../../../utils/prisma.mjs";
+import PRISMA from "../../../utils/prisma.js";
 /**
  * A API User
  * @typedef {Object} User

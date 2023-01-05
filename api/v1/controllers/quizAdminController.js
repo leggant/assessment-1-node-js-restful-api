@@ -1,11 +1,11 @@
 import checkDataType from "../../../utils/checkDataType.js";
-import { createQuizOpenTDBRequest } from "../../../utils/axiosRequests.mjs";
+import { createQuizOpenTDBRequest } from "../../../utils/axiosRequests.js";
 import {
   createNewQuiz,
   createNewQuizQuestions,
   updateQuizById,
-} from "../../../utils/quizRequests.mjs";
-import PRISMA from "../../../utils/prisma.mjs";
+} from "../../../utils/quizRequests.js";
+import PRISMA from "../../../utils/prisma.js";
 
 const ctCreateQuiz = async (req, res) => {
   const { categoryId, difficulty, answerType, numQuestions } = req.body;

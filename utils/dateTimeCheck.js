@@ -18,7 +18,7 @@ const dbDateStringFromDate = (date) => {
 };
 
 const quizDateValid = (quizday, quizmonth, quizyear) => {
-  const dateNow = moment().format("YYYY-M-D");
+  const dateNow = moment();
   const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
   const difference = moment.duration(dateNow.diff(quizDate)).asDays();
   // eslint-disable-next-line no-unneeded-ternary

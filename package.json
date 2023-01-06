@@ -26,7 +26,6 @@
     "url": "https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant/issues"
   },
   "dependencies": {
-    "@js-temporal/polyfill": "0.4.3",
     "@prisma/client": "^4.8.0",
     "axios": "^1.2.0",
     "bcryptjs": "^2.4.3",

@@ -131,9 +131,21 @@ const getQuizQuestions = async (quizId) => {
   return quizQuestions;
 };
 
-const addPlayerAsQuizParticipant = async (quizId, playerId) => {
-  console.log(quizId);
-  console.log(playerId);
+const addPlayerAsQuizParticipant = async (quizId, userId) => {
+  const participant = await PRISMA.userParticipate.create({
+    data: {
+      userId,
+      quizId,
+    },
+  });
+  const score = await PRISMA.userScore.create({
+    data: {
+      userId,
+      quizId,
+      score: 0,
+    },
+  });
+  return { participant, score };
 };
 
 const addQuizPlayerAnswer = async (quizId, playerId) => {

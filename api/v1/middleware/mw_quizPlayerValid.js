@@ -1,7 +1,10 @@
 import moment from "moment";
 import USERTYPE from "../constants/userType.js";
 import PRISMA from "../../../utils/prisma.js";
-import { playerCanParticipate } from "../../../utils/dateTimeCheck.js";
+import {
+  playerCanParticipate,
+  quizDateFuture,
+} from "../../../utils/dateTimeCheck.js";
 
 const mwQuizPlayerValid = async (req, res, next) => {
   try {
@@ -32,7 +35,8 @@ const mwQuizPlayerValid = async (req, res, next) => {
           validQuiz.startDate,
           validQuiz.endDate,
         );
-        if (quizDatesOk) {
+        const quizDateIsInFuture = quizDateFuture(validQuiz.startDate);
+        if (quizDatesOk || quizDateIsInFuture) {
           req.quizPlayer = {
             quizId,
             playerId: req.user.id,

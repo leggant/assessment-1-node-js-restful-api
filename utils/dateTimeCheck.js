@@ -51,9 +51,9 @@ const quizEnddateValid = (
  * @returns {Boolean} canPartake - current date is permitted, player can answer quiz questions
  */
 const playerCanParticipate = (quizStart, quizEnd) => {
-  const dateNow = moment().format("YYYY-M-D");
-  const start = moment(quizStart, "YYYY-M-D").format("YYYY-M-D");
-  const end = moment(quizEnd, "YYYY-M-D").format("YYYY-M-D");
+  const dateNow = moment();
+  const start = moment(quizStart.toISOString());
+  const end = moment(quizEnd.toISOString());
   const sameOrAfter = moment(dateNow).isSameOrAfter(start);
   const sameOrBefore = moment(dateNow).isSameOrBefore(end);
   const canPartake = sameOrAfter && sameOrBefore;

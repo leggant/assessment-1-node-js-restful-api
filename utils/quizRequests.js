@@ -101,6 +101,36 @@ const updateQuizById = async (quizId, data) => {
   return resOk;
 };
 
+const getQuizQuestions = async (quizId) => {
+  const quizQuestions = await PRISMA.quiz.findFirstOrThrow({
+    where: {
+      id: quizId,
+    },
+    select: {
+      name: true,
+      categoryId: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      questions: {
+        select: {
+          id: true,
+          question: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+  return quizQuestions;
+};
+
 const addPlayerAsQuizParticipant = async (quizId, playerId) => {
   console.log(quizId);
   console.log(playerId);
@@ -119,8 +149,9 @@ const addPointToQuizPlayerScore = async (quizId, playerId) => {
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
-  updateQuizById,
   createNewQuizQuestions,
+  getQuizQuestions,
+  updateQuizById,
   addPlayerAsQuizParticipant,
   addQuizPlayerAnswer,
   addPointToQuizPlayerScore,

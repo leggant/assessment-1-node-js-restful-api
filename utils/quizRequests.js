@@ -4,7 +4,6 @@
  */
 import PRISMA from "./prisma.js";
 import checkDataType from "./checkDataType.js";
-import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
 
 const createNewQuiz = async (reqdata) => {

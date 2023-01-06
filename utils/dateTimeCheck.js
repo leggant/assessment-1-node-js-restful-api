@@ -1,5 +1,20 @@
 import moment from "moment";
 
+/**
+ * create a moment class object
+ * @param {Date|undefined} dateToParse
+ * @returns {moment.Moment} newDate - returns the date as a Moment class
+ */
+const createMomentDate = (dateToParse) => {
+  let newDate;
+  if (!dateToParse || dateToParse === undefined) {
+    newDate = moment();
+  }
+  const dateData = dateToParse.toISOString();
+  newDate = moment(dateData);
+  return newDate;
+};
+
 const splitDate = (dateToSplit) => {
   const split = dateToSplit.split("-");
   const year = split[0];
@@ -15,6 +30,12 @@ const dbDateStringFromDate = (date) => {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
   const dateres = new Date(`${data.month} ${data.day}, ${data.year} UTC`);
   return dateres;
+};
+
+const quizDateFuture = (quizDate) => {
+  const dateNow = moment();
+  const isFuture = moment(dateNow).isBefore(quizDate);
+  return isFuture;
 };
 
 const quizDateValid = (quizday, quizmonth, quizyear) => {
@@ -62,6 +83,8 @@ const playerCanParticipate = (quizStart, quizEnd) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export {
+  createMomentDate,
+  quizDateFuture,
   splitDate,
   dbDateStringFromDate,
   quizDateValid,

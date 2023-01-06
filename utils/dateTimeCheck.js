@@ -20,7 +20,7 @@ const dbDateStringFromDate = (date) => {
 const quizDateValid = (quizday, quizmonth, quizyear) => {
   const dateNow = moment();
   const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
-  const difference = moment.duration(dateNow.diff(quizDate)).asDays();
+  const difference = moment.duration(quizDate.diff(dateNow)).asDays();
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference <= 0 ? false : true;
   // console.info("quiz date is valid", isValid.valueOf());

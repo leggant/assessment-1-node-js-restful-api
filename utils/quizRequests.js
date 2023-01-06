@@ -102,12 +102,19 @@ const updateQuizById = async (quizId, data) => {
   return resOk;
 };
 
-const createNewQuizAnswers = async (reqdata) => {
-  console.log(reqdata);
+const addPlayerAsQuizParticipant = async (quizId, playerId) => {
+  console.log(quizId);
+  console.log(playerId);
 };
 
-const addQuizPlayers = async (reqdata) => {
-  console.log(reqdata);
+const addQuizPlayerAnswer = async (quizId, playerId) => {
+  console.log(quizId);
+  console.log(playerId);
+};
+
+const addPointToQuizPlayerScore = async (quizId, playerId) => {
+  console.log(quizId);
+  console.log(playerId);
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -115,6 +122,7 @@ export {
   createNewQuiz,
   updateQuizById,
   createNewQuizQuestions,
-  createNewQuizAnswers,
-  addQuizPlayers,
+  addPlayerAsQuizParticipant,
+  addQuizPlayerAnswer,
+  addPointToQuizPlayerScore,
 };

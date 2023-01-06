@@ -1,4 +1,3 @@
-import { Temporal } from "@js-temporal/polyfill";
 import moment from "moment";
 
 const splitDate = (dateToSplit) => {
@@ -19,11 +18,11 @@ const dbDateStringFromDate = (date) => {
 };
 
 const quizDateValid = (quizday, quizmonth, quizyear) => {
-  const now = Temporal.Now.plainDateISO();
-  const check = new Temporal.PlainDate(quizyear, quizmonth, quizday);
-  const res = check.since(now).days;
+  const dateNow = moment().format("YYYY-M-D");
+  const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
+  const difference = moment.duration(dateNow.diff(quizDate)).asDays();
   // eslint-disable-next-line no-unneeded-ternary
-  const isValid = res <= 0 ? false : true;
+  const isValid = difference <= 0 ? false : true;
   // console.info("quiz date is valid", isValid.valueOf());
   return isValid;
 };

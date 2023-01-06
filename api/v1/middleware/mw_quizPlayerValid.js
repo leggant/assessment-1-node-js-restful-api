@@ -7,7 +7,7 @@ const mwQuizPlayerValid = async (req, res, next) => {
   try {
     const isAdmin = req.user.role === USERTYPE.ADMIN;
     if (isAdmin) {
-      throw new Error("Basic Users Only.");
+      return res.status(403).json({ msg: "Basic Users Only." });
     }
     const quizId = Number(req.params.quizId);
     const validQuiz = await PRISMA.quiz.findFirst({
@@ -38,19 +38,23 @@ const mwQuizPlayerValid = async (req, res, next) => {
             playerId: req.user.id,
           };
         } else if (!quizDatesOk) {
-          throw new Error(
-            `QuiZ Id #${quizId} has expired. ${moment()} is not within: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
-          );
+          return res.status(422).json({
+            msg: `QuiZ Id #${quizId} Cannot Be Played. ${moment()} is not within the quiz date range: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
+          });
         }
       } else {
-        throw new Error("User Is Already A Participant In The Quiz.");
+        return res.status(422).json({
+          msg: `${req.user.userName} Is Already A Participant In The Quiz.`,
+        });
       }
     } else {
-      throw new Error(`Quiz With An ID of #${quizId} Was Not Found.`);
+      return res.status(404).json({
+        msg: `Quiz With An ID of #${quizId} Was Not Found.`,
+      });
     }
     return next();
   } catch (error) {
-    return res.status(404).json({ msg: error.message });
+    return res.status(500).json({ msg: "Server Error Occured" });
   }
 };
 

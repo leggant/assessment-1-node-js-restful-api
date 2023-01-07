@@ -5,6 +5,7 @@
 import PRISMA from "./prisma.js";
 import checkDataType from "./checkDataType.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
+import UnescapeString from "./unescapeString.js";
 
 const createNewQuiz = async (reqdata) => {
   const {
@@ -35,11 +36,13 @@ const createNewQuiz = async (reqdata) => {
 const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
   Promise.all(
     QUIZDATA.map((q) => {
+      const questionString = UnescapeString(q.question);
+      const answerString = UnescapeString(q.correct_answer);
       const createquestions = PRISMA.question.create({
         data: {
           quizId: QUIZINFO.id,
-          question: q.question,
-          correctAnswer: q.correct_answer,
+          question: questionString,
+          correctAnswer: answerString,
           incorrectAnswers: q.incorrect_answers,
         },
       });

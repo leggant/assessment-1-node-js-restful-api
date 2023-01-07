@@ -6,6 +6,7 @@ import {
   quizDateValid,
   quizEnddateValid,
   splitDate,
+  createMomentDate,
 } from "../../../utils/dateTimeCheck.js";
 
 const NewQuizSchema = [
@@ -73,11 +74,8 @@ const NewQuizSchema = [
     .withMessage("Correctly formated date required")
     .custom((start, { req }) => {
       const dateSplit = splitDate(req.body.startDate);
-      const isValid = quizDateValid(
-        dateSplit.day,
-        dateSplit.month,
-        dateSplit.year,
-      );
+      const moment = createMomentDate(dateSplit);
+      const isValid = quizDateValid(moment);
       if (!isValid) {
         throw new Error(
           "Quiz Start Date is Invalid. This must be a date in the future.",
@@ -94,15 +92,10 @@ const NewQuizSchema = [
     .withMessage("Correctly Formated Date Required")
     .custom((end, { req }) => {
       const startSplit = splitDate(req.body.startDate);
+      const startmoment = createMomentDate(startSplit);
       const endSplit = splitDate(req.body.endDate);
-      const isValid = quizEnddateValid(
-        startSplit.day,
-        startSplit.month,
-        startSplit.year,
-        endSplit.day,
-        endSplit.month,
-        endSplit.year,
-      );
+      const endmoment = createMomentDate(endSplit);
+      const isValid = quizEnddateValid(startmoment, endmoment);
       if (!isValid) {
         throw new Error(
           "Quiz Start/End Dates are Invalid. The start date must be in the future, and the end date must come after within 5 days.",

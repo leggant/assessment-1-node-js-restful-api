@@ -10,8 +10,7 @@ const createMomentDate = (dateToParse) => {
   if (!dateToParse || dateToParse === undefined) {
     newDate = moment();
   }
-  const dateData = dateToParse.toISOString();
-  newDate = moment(dateData);
+  newDate = moment(dateToParse);
   return newDate;
 };
 
@@ -38,9 +37,9 @@ const quizDateFuture = (quizDate) => {
   return isFuture;
 };
 
-const quizDateValid = (quizday, quizmonth, quizyear) => {
+const quizDateValid = (date) => {
   const dateNow = moment();
-  const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
+  const quizDate = moment(date);
   const difference = moment.duration(quizDate.diff(dateNow)).asDays();
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference <= 0 ? false : true;
@@ -48,16 +47,9 @@ const quizDateValid = (quizday, quizmonth, quizyear) => {
   return isValid;
 };
 
-const quizEnddateValid = (
-  quizday,
-  quizmonth,
-  quizyear,
-  endday,
-  endmonth,
-  endyear,
-) => {
-  const quizDate = moment(`${quizyear}-${quizmonth}-${quizday}`);
-  const endDate = moment(`${endyear}-${endmonth}-${endday}`);
+const quizEnddateValid = (start, end) => {
+  const quizDate = moment(start);
+  const endDate = moment(end);
   // https://momentjs.com/docs/#/displaying/difference/
   const difference = moment.duration(endDate.diff(quizDate)).asDays();
   // eslint-disable-next-line no-unneeded-ternary

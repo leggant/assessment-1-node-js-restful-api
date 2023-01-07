@@ -42,6 +42,7 @@ const mwQuizPlayerValid = async (req, res, next) => {
             quizId,
             userId,
             userName,
+            quizDatesOk,
           };
         } else if (!quizDatesOk) {
           return res.status(422).json({

@@ -104,6 +104,30 @@ const updateQuizById = async (quizId, data) => {
   return resOk;
 };
 
+const getQuizDetails = async (quizId) => {
+  const quizDetails = await PRISMA.quiz.findFirstOrThrow({
+    where: {
+      id: quizId,
+    },
+    select: {
+      name: true,
+      categoryId: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+  return quizDetails;
+};
+
 const getQuizQuestions = async (quizId) => {
   const quizQuestions = await PRISMA.quiz.findFirstOrThrow({
     where: {
@@ -165,6 +189,7 @@ const addPointToQuizPlayerScore = async (quizId, playerId) => {
 export {
   createNewQuiz,
   createNewQuizQuestions,
+  getQuizDetails,
   getQuizQuestions,
   updateQuizById,
   addPlayerAsQuizParticipant,

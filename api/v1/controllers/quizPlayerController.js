@@ -1,12 +1,19 @@
 import {
   addPlayerAsQuizParticipant,
   getQuizQuestions,
+  getQuizDetails,
 } from "../../../utils/quizRequests.js";
 
+/**
+ * controller method for basic users to add themselves to a current or future quiz
+ * @param {Request} req - http request that contains user, quizPlayer object
+ * @param {Response} res - http response return validation errors, request status
+ * @returns {Response} return json object with validation errors, quiz information, quiz questions if the current date is within the range of the quiz start and end dates.
+ */
 const ctAddQuizPlayer = async (req, res) => {
   // add player to quiz participant table
   // initialise player in score table
-  const { quizId, userId, userName } = req.quizPlayer;
+  const { quizId, userId, userName, quizDatesOk } = req.quizPlayer;
   const addPlayer = await addPlayerAsQuizParticipant(quizId, userId);
   if (!addPlayer.participant) {
     return res.status(400).json({
@@ -18,10 +25,18 @@ const ctAddQuizPlayer = async (req, res) => {
       msg: `${userName} was not successfully added to the quiz score board.`,
     });
   }
-  const quizQs = await getQuizQuestions(quizId);
+  // check the result of the current date/quiz start and end date
+  // validation performed by the middleware, passed to the controller
+  // in the req.quizPlayer object
+  let quizQs;
+  if (quizDatesOk) {
+    quizQs = await getQuizQuestions(quizId);
+  } else {
+    quizQs = await getQuizDetails(quizId);
+  }
   return res.status(201).json({
     msg: `${userName} was successfully added to the quiz #${quizId}.`,
-    quizQuestions: quizQs,
+    data: quizQs,
   });
 };
 

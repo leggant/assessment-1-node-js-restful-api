@@ -1,5 +1,8 @@
 {
   "setup": {
     "title": "Dev Environment Start Guide"
+  },
+  "api": {
+    "title": "API Endpoints"
   }
 }

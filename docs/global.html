@@ -194,6 +194,225 @@
 
           <h3 class="subsection-title">Methods</h3>
 
+          <h4 class="name" id="addTwoNums">
+            <span class="type-signature"></span>addTwoNums<span
+              class="signature"
+              >(a, b)</span
+            ><span class="type-signature"></span>
+          </h4>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>a</code></td>
+
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>b</code></td>
+
+                <td class="type">
+                  <span class="param-type">Number</span>
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_test_00-unit-test.test.js.html"
+                    >api/v1/test/00-unit-test.test.js</a
+                  >,
+                  <a href="api_v1_test_00-unit-test.test.js.html#line9"
+                    >line 9</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>the sum of a and b</p>
+          </div>
+
+          <h4 class="name" id="createMomentDate">
+            <span class="type-signature"></span>createMomentDate<span
+              class="signature"
+              >(dateToParse)</span
+            ><span class="type-signature"> &rarr; {moment.Moment}</span>
+          </h4>
+
+          <div class="description">
+            <p>create a moment class object</p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>dateToParse</code></td>
+
+                <td class="type">
+                  <span class="param-type">Date</span>
+                  |
+
+                  <span class="param-type">undefined</span>
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_dateTimeCheck.js.html"
+                    >utils/dateTimeCheck.js</a
+                  >, <a href="utils_dateTimeCheck.js.html#line8">line 8</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>newDate - returns the date as a Moment class</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">moment.Moment</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="ctAddQuizPlayer">
+            <span class="type-signature">(async) </span>ctAddQuizPlayer<span
+              class="signature"
+              >(req, res)</span
+            ><span class="type-signature"> &rarr; {Response}</span>
+          </h4>
+
+          <div class="description">
+            <p>
+              controller method for basic users to add themselves to a current
+              or future quiz
+            </p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>req</code></td>
+
+                <td class="type">
+                  <span class="param-type">Request</span>
+                </td>
+
+                <td class="description last">
+                  <p>http request that contains user, quizPlayer object</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>res</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last">
+                  <p>http response return validation errors, request status</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_quizPlayerController.js.html"
+                    >api/v1/controllers/quizPlayerController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_quizPlayerController.js.html#line14"
+                    >line 14</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>
+              return json object with validation errors, quiz information, quiz
+              questions if the current date is within the range of the quiz
+              start and end dates.
+            </p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+            </dd>
+          </dl>
+
           <h4 class="name" id="playerCanParticipate">
             <span class="type-signature"></span>playerCanParticipate<span
               class="signature"
@@ -256,7 +475,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line54">line 54</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line66">line 66</a>
                 </li>
               </ul>
             </dd>
@@ -512,6 +731,9 @@
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#addTwoNums">addTwoNums</a></li>
+        <li><a href="global.html#createMomentDate">createMomentDate</a></li>
+        <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
@@ -524,8 +746,8 @@
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Jan 06
-      2023 12:50:42 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 08
+      2023 20:38:26 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

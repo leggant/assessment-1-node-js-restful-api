@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: api/v1/controllers/quizPlayerController.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">
+        Source: api/v1/controllers/quizPlayerController.js
+      </h1>
+
+      <section>
+        <article>
+          <pre class="prettyprint source linenums"><code>import {
+  addPlayerAsQuizParticipant,
+  getQuizQuestions,
+  getQuizDetails,
+  getAllIncompleteQuizzes,
+} from "../../../utils/quizRequests.js";
+
+/**
+ * controller method for basic users to add themselves to a current or future quiz
+ * @param {Request} req - http request that contains user, quizPlayer object
+ * @param {Response} res - http response return validation errors, request status
+ * @returns {Response} return json object with validation errors, quiz information, quiz questions if the current date is within the range of the quiz start and end dates.
+ */
+const ctAddQuizPlayer = async (req, res) => {
+  // add player to quiz participant table
+  // initialise player in score table
+  const { quizId, userId, userName, quizDatesOk } = req.quizPlayer;
+  const addPlayer = await addPlayerAsQuizParticipant(quizId, userId);
+  if (!addPlayer.participant) {
+    return res.status(400).json({
+      msg: `${userName} was not successfully added as a participant.`,
+    });
+  }
+  if (!addPlayer.score) {
+    return res.status(400).json({
+      msg: `${userName} was not successfully added to the quiz score board.`,
+    });
+  }
+  // check the result of the current date/quiz start and end date
+  // validation performed by the middleware, passed to the controller
+  // in the req.quizPlayer object
+  let quizQs;
+  if (quizDatesOk) {
+    quizQs = await getQuizQuestions(quizId);
+  } else {
+    quizQs = await getQuizDetails(quizId);
+  }
+  return res.status(201).json({
+    msg: `${userName} was successfully added to the quiz #${quizId}.`,
+    data: quizQs,
+  });
+};
+
+const ctSubmitQuizAnswers = async (req, res) => {
+  console.log(req);
+  console.log(res);
+};
+
+const ctGetPlayersIncompleteQuizzes = async (req, res) => {
+  const quizzes = await getAllIncompleteQuizzes(req.user.id);
+  console.info(quizzes);
+  // if (!addPlayer.participant) {
+  //   return res.status(400).json({
+  //     msg: `${userName} was not successfully added as a participant.`,
+  //   });
+  // }
+  // if (!addPlayer.score) {
+  //   return res.status(400).json({
+  //     msg: `${userName} was not successfully added to the quiz score board.`,
+  //   });
+  // }
+  // // check the result of the current date/quiz start and end date
+  // // validation performed by the middleware, passed to the controller
+  // // in the req.quizPlayer object
+  // let quizQs;
+  // if (quizDatesOk) {
+  //   quizQs = await getQuizQuestions(quizId);
+  // } else {
+  //   quizQs = await getQuizDetails(quizId);
+  // }
+  // return res.status(201).json({
+  //   msg: `${userName} was successfully added to the quiz #${quizId}.`,
+  //   data: quizQs,
+  // });
+};
+
+const ctGetPlayerQuizResults = async (req, res) => {
+  console.log(req);
+  console.log(res);
+};
+
+const ctGetAllPlayerQuizResults = async (req, res) => {
+  console.log(req);
+  console.log(res);
+};
+
+export {
+  ctAddQuizPlayer,
+  ctSubmitQuizAnswers,
+  ctGetPlayerQuizResults,
+  ctGetAllPlayerQuizResults,
+  ctGetPlayersIncompleteQuizzes,
+};
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-PRISMA.html">PRISMA</a></li>
+        <li><a href="module-axiosRequests.html">axiosRequests</a></li>
+        <li><a href="module-quizRequests.html">quizRequests</a></li>
+        <li><a href="module-userRequests.html">userRequests</a></li>
+      </ul>
+      <h3>Classes</h3>
+      <ul>
+        <li><a href="dotenv.html">dotenv</a></li>
+        <li><a href="express.html">express</a></li>
+      </ul>
+      <h3>Tutorials</h3>
+      <ul>
+        <li><a href="tutorial-api.html">API Endpoints</a></li>
+        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
+      </ul>
+      <h3>Global</h3>
+      <ul>
+        <li><a href="global.html#API_VERSION">API_VERSION</a></li>
+        <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#addTwoNums">addTwoNums</a></li>
+        <li><a href="global.html#createMomentDate">createMomentDate</a></li>
+        <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li>
+          <a href="global.html#playerCanParticipate">playerCanParticipate</a>
+        </li>
+        <li><a href="global.html#register">register</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 08
+      2023 20:38:25 GMT+1300 (New Zealand Daylight Time)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

@@ -29,8 +29,8 @@
  */
 import PRISMA from "./prisma.js";
 import checkDataType from "./checkDataType.js";
-import checkIfObjectIsEmpty from "./checkEmptyObject.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
+import UnescapeString from "./unescapeString.js";
 
 const createNewQuiz = async (reqdata) => {
   const {
@@ -61,11 +61,13 @@ const createNewQuiz = async (reqdata) => {
 const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
   Promise.all(
     QUIZDATA.map((q) => {
+      const questionString = UnescapeString(q.question);
+      const answerString = UnescapeString(q.correct_answer);
       const createquestions = PRISMA.question.create({
         data: {
           quizId: QUIZINFO.id,
-          question: q.question,
-          correctAnswer: q.correct_answer,
+          question: questionString,
+          correctAnswer: answerString,
           incorrectAnswers: q.incorrect_answers,
         },
       });
@@ -127,21 +129,147 @@ const updateQuizById = async (quizId, data) => {
   return resOk;
 };
 
-const createNewQuizAnswers = async (reqdata) => {
-  console.log(reqdata);
+const getQuizDetails = async (quizId) => {
+  const quizDetails = await PRISMA.quiz.findFirstOrThrow({
+    where: {
+      id: quizId,
+    },
+    select: {
+      name: true,
+      categoryId: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+  return quizDetails;
 };
 
-const addQuizPlayers = async (reqdata) => {
-  console.log(reqdata);
+const getQuizQuestions = async (quizId) => {
+  const quizQuestions = await PRISMA.quiz.findFirstOrThrow({
+    where: {
+      id: quizId,
+    },
+    select: {
+      name: true,
+      categoryId: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      questions: {
+        select: {
+          id: true,
+          question: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+  return quizQuestions;
+};
+
+const getAllIncompleteQuizzes = async (userId) => {
+  // const quizzes =
+  //   await PRISMA.$queryRaw`SELECT * FROM "Quiz" WHERE "endDate" > now() INNER JOIN `;
+  const quizzes = await PRISMA.userParticipate.findMany({
+    where: {
+      userId,
+      quiz: {
+        userScores: {
+          every: {
+            userId: {
+              equals: userId,
+            },
+            score: {
+              equals: 0,
+            },
+          },
+        },
+      },
+    },
+    select: {
+      userId: true,
+      quizId: true,
+      quiz: {
+        select: {
+          name: true,
+          startDate: true,
+          endDate: true,
+          difficulty: true,
+          answerType: true,
+          userScores: {
+            select: {
+              score: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return quizzes;
+};
+
+const addPlayerAsQuizParticipant = async (quizId, userId) => {
+  const participant = await PRISMA.userParticipate.create({
+    data: {
+      userId,
+      quizId,
+    },
+  });
+  // this needs to be removed - score to be added when player has answered all questions
+  const score = await PRISMA.userScore.create({
+    data: {
+      userId,
+      quizId,
+      score: 0,
+    },
+  });
+  return { participant, score };
+};
+
+const addQuizPlayerAnswer = async (quizId, playerId) => {
+  console.log(quizId);
+  console.log(playerId);
+};
+
+const addPointToQuizPlayerScore = async (quizId, userId) => {
+  console.log(quizId);
+  console.log(userId);
+  const score = await PRISMA.userScore.create({
+    data: {
+      userId,
+      quizId,
+      score: 0,
+    },
+  });
 };
 
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
-  updateQuizById,
   createNewQuizQuestions,
-  createNewQuizAnswers,
-  addQuizPlayers,
+  getQuizDetails,
+  getQuizQuestions,
+  getAllIncompleteQuizzes,
+  updateQuizById,
+  addPlayerAsQuizParticipant,
+  addQuizPlayerAnswer,
+  addPointToQuizPlayerScore,
 };
 </code></pre>
         </article>
@@ -172,6 +300,9 @@ export {
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#addTwoNums">addTwoNums</a></li>
+        <li><a href="global.html#createMomentDate">createMomentDate</a></li>
+        <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
@@ -184,8 +315,8 @@ export {
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Jan 06
-      2023 12:50:42 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 08
+      2023 20:38:25 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

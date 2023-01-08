@@ -2,22 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-/**
- * @constant PATHS
- * @description import path strings to be appended to API endpoints
- * @example {
-AUTH: "user/auth",
-  QUIZ: {
-    USERQUIZ: "/quiz",
-    ADMINQUIZ: "/admin/quiz",
-  },
-};
- */
-import PATHS from "./api/v1/constants/paths.js";
+import morgan from "morgan";
 
-import loginRegisterRoutes from "./api/v1/routes/userAuthRouter.js";
-import userProfileRoutes from "./api/v1/routes/userProfileRouter.js";
-import userSeederRouter from "./api/v1/routes/seedUsersRouter.js";
+import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
+import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
+import adminQuizRouter from "./api/v1/routes/adminQuizRouter.js";
+import playerQuizRouter from "./api/v1/routes/playerQuizRouter.js";
+import seederRouter from "./api/v1/routes/seederRouter.js";
 /**
  * @constructor dotenv
  * @description initialise a instance of dotenv
@@ -34,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
  */
 const app = express();
+app.use(morgan("dev"));
 app.use(cors());
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
@@ -62,9 +54,11 @@ const SERVER_PORT = process.env.PORT;
 app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
   res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
 });
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, loginRegisterRoutes);
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userProfileRoutes);
-app.use(`/${BASE_PATH}/${API_VERSION}/${PATHS.AUTH}`, userSeederRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, loginRegisterRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, userProfileRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, adminQuizRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, playerQuizRouter);
+app.use(`/${BASE_PATH}/${API_VERSION}`, seederRouter);
 app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);
 });

@@ -17,14 +17,14 @@ const router = Router();
 
 // basic users
 router.get(
-  PATHS.USERDETAILS.USER,
+  PATHS.USER.PROFILE,
   mwAuth,
   mwTokenValid,
   mwUserProfileQuery,
   ctGetUser,
 );
 router.put(
-  PATHS.USERDETAILS.USER,
+  PATHS.USER.PROFILE,
   mwAuth,
   mwTokenValid,
   UpdateSchema,
@@ -33,7 +33,7 @@ router.put(
   ctUpdateUser,
 );
 router.delete(
-  PATHS.USERDETAILS.USER,
+  PATHS.USER.PROFILE,
   mwAuth,
   mwTokenValid,
   mwUserProfileQuery,
@@ -42,7 +42,7 @@ router.delete(
 
 // admin users
 router.get(
-  PATHS.USERDETAILS.ADMINUSERSEARCH,
+  PATHS.ADMIN.USERSEARCH,
   mwAuth,
   mwTokenValid,
   mwAdminUser,
@@ -50,7 +50,7 @@ router.get(
   ctGetUser,
 );
 router.put(
-  PATHS.USERDETAILS.ADMINUSERSEARCH,
+  PATHS.ADMIN.USERSEARCH,
   mwAuth,
   mwTokenValid,
   mwAdminUser,
@@ -60,7 +60,7 @@ router.put(
   ctGetUser,
 );
 router.delete(
-  PATHS.USERDETAILS.ADMINUSERSEARCH,
+  PATHS.ADMIN.USERSEARCH,
   mwAuth,
   mwAdminUser,
   mwUserProfileQuery,

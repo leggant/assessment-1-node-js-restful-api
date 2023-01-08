@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import PRISMA from "../../../utils/prisma.mjs";
+import PRISMA from "../../../utils/prisma.js";
 import checkDataType from "../../../utils/checkDataType.js";
 import USERTYPE from "../constants/userType.js";
 

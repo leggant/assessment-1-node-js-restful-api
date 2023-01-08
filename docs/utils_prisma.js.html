@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Module: PRISMA</title>
+    <title>JSDoc: Source: utils/prisma.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,35 +19,25 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Module: PRISMA</h1>
+      <h1 class="page-title">Source: utils/prisma.js</h1>
 
       <section>
-        <header></header>
-
         <article>
-          <div class="container-overview">
-            <div class="description">
-              <p>initialises a global instance of Prisma Client</p>
-            </div>
+          <pre
+            class="prettyprint source linenums"
+          ><code>import { PrismaClient } from "@prisma/client";
+/**
+ * Create a Prisma Client to be imported throughout the app/api.
+ * @constructor PrismaClient
+ * @constant PRISMA
+ * @description initialises a global instance of Prisma Client
+ * @example const PRISMA = new PrismaClient();
+ * @exports PRISMA export instance of prisma
+ */
+const PRISMA = new PrismaClient();
 
-            <dl class="details">
-              <dt class="tag-source">Source:</dt>
-              <dd class="tag-source">
-                <ul class="dummy">
-                  <li>
-                    <a href="utils_prisma.js.html">utils/prisma.js</a>,
-                    <a href="utils_prisma.js.html#line2">line 2</a>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-
-            <h3>Example</h3>
-
-            <pre
-              class="prettyprint"
-            ><code>const PRISMA = new PrismaClient();</code></pre>
-          </div>
+export default PRISMA;
+</code></pre>
         </article>
       </section>
     </div>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: utils/quizRequests.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: utils/quizRequests.js</h1>
+
+      <section>
+        <article>
+          <pre class="prettyprint source linenums"><code>/**
+ * User Related API Request Handler Methods
+ * @module quizRequests
+ */
+import PRISMA from "./prisma.js";
+import checkDataType from "./checkDataType.js";
+import checkIfObjectIsEmpty from "./checkEmptyObject.js";
+import { dbDateStringFromDate } from "./dateTimeCheck.js";
+
+const createNewQuiz = async (reqdata) => {
+  const {
+    categoryId,
+    name,
+    startDate,
+    endDate,
+    difficulty,
+    answerType,
+    numQuestions,
+  } = reqdata;
+  const dbStartDate = dbDateStringFromDate(startDate);
+  const dbEndDate = dbDateStringFromDate(endDate);
+  const newQuiz = await PRISMA.quiz.create({
+    data: {
+      categoryId,
+      name,
+      answerType,
+      difficulty,
+      numQuestions,
+      startDate: dbStartDate,
+      endDate: dbEndDate,
+    },
+  });
+  return newQuiz;
+};
+
+const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
+  Promise.all(
+    QUIZDATA.map((q) => {
+      const createquestions = PRISMA.question.create({
+        data: {
+          quizId: QUIZINFO.id,
+          question: q.question,
+          correctAnswer: q.correct_answer,
+          incorrectAnswers: q.incorrect_answers,
+        },
+      });
+      return createquestions;
+    }),
+  )
+    .then((data) => {
+      const count = Object.keys(data).length;
+      console.info(`${count} questions added to quiz ${QUIZINFO.name}`);
+      res.status(201).json({
+        msg: `${QUIZINFO.name} Successfully Created.`,
+        data: {
+          id: QUIZINFO.id,
+          categoryId: QUIZDATA.categoryId,
+          name: QUIZINFO.name,
+          difficulty: QUIZINFO.difficulty,
+          answerType: QUIZINFO.answerType,
+          questionCount: QUIZINFO.numQuestions,
+          quizStartDate: QUIZINFO.startDate,
+          quizEndDate: QUIZINFO.endDate,
+        },
+      });
+    })
+    .catch((e) => {
+      console.error(`Failed to create questions for quiz: ${QUIZINFO.name}`, e);
+      res
+        .status(401)
+        .json({ msg: `Failed to create questions for quiz: ${QUIZINFO.name}` });
+    });
+};
+
+const updateQuizById = async (quizId, data) => {
+  const quiz = await PRISMA.quiz.findFirst({
+    where: { id: Number(quizId) },
+  });
+  if (!quiz) {
+    return false;
+  }
+  const updateRes = await PRISMA.quiz.update({
+    where: { id: Number(quizId) },
+    select: {
+      categoryId: true,
+      name: true,
+      difficulty: true,
+      answerType: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+    },
+    data: {
+      ...data,
+    },
+  });
+  const resTypeOfData = checkDataType(updateRes);
+  const resOk = resTypeOfData === "object";
+  if (resOk) {
+    return updateRes;
+  }
+  return resOk;
+};
+
+const createNewQuizAnswers = async (reqdata) => {
+  console.log(reqdata);
+};
+
+const addQuizPlayers = async (reqdata) => {
+  console.log(reqdata);
+};
+
+// eslint-disable-next-line import/prefer-default-export
+export {
+  createNewQuiz,
+  updateQuizById,
+  createNewQuizQuestions,
+  createNewQuizAnswers,
+  addQuizPlayers,
+};
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-PRISMA.html">PRISMA</a></li>
+        <li><a href="module-axiosRequests.html">axiosRequests</a></li>
+        <li><a href="module-quizRequests.html">quizRequests</a></li>
+        <li><a href="module-userRequests.html">userRequests</a></li>
+      </ul>
+      <h3>Classes</h3>
+      <ul>
+        <li><a href="dotenv.html">dotenv</a></li>
+        <li><a href="express.html">express</a></li>
+      </ul>
+      <h3>Tutorials</h3>
+      <ul>
+        <li><a href="tutorial-api.html">API Endpoints</a></li>
+        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
+      </ul>
+      <h3>Global</h3>
+      <ul>
+        <li><a href="global.html#API_VERSION">API_VERSION</a></li>
+        <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li>
+          <a href="global.html#playerCanParticipate">playerCanParticipate</a>
+        </li>
+        <li><a href="global.html#register">register</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Fri Jan 06
+      2023 12:50:42 GMT+1300 (New Zealand Daylight Time)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

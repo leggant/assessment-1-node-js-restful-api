@@ -8,7 +8,7 @@ import {
   deleteUserByParam,
   clearBlockedTokens,
   clearBlockedUsers,
-} from "../../../utils/userRequests.mjs";
+} from "../../../utils/userRequests.js";
 
 const ctGetUser = async (req, res) => {
   try {

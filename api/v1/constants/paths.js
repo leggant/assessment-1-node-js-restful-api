@@ -15,8 +15,9 @@ const PATHS = {
   },
   QUIZ: {
     PLAYER: `${AUTHONLY}/quiz/:quizId`,
-    ADDPLAYER: `${AUTHONLY}/quiz/:quizId/player/:playerId`,
-    PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/player/:playerId`,
+    PLAYERUNFINISHEDQUIZZES: `${AUTHONLY}/quiz/incomplete`,
+    PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/player/:userName/results`,
+    SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/player/:userName/submit_answers`,
   },
 };
 

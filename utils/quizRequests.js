@@ -158,6 +158,47 @@ const getQuizQuestions = async (quizId) => {
   return quizQuestions;
 };
 
+const getAllIncompleteQuizzes = async (userId) => {
+  // const quizzes =
+  //   await PRISMA.$queryRaw`SELECT * FROM "Quiz" WHERE "endDate" > now() INNER JOIN `;
+  const quizzes = await PRISMA.userParticipate.findMany({
+    where: {
+      userId,
+      quiz: {
+        userScores: {
+          every: {
+            userId: {
+              equals: userId,
+            },
+            score: {
+              equals: 0,
+            },
+          },
+        },
+      },
+    },
+    select: {
+      userId: true,
+      quizId: true,
+      quiz: {
+        select: {
+          name: true,
+          startDate: true,
+          endDate: true,
+          difficulty: true,
+          answerType: true,
+          userScores: {
+            select: {
+              score: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return quizzes;
+};
+
 const addPlayerAsQuizParticipant = async (quizId, userId) => {
   const participant = await PRISMA.userParticipate.create({
     data: {
@@ -165,6 +206,7 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
       quizId,
     },
   });
+  // this needs to be removed - score to be added when player has answered all questions
   const score = await PRISMA.userScore.create({
     data: {
       userId,
@@ -180,9 +222,16 @@ const addQuizPlayerAnswer = async (quizId, playerId) => {
   console.log(playerId);
 };
 
-const addPointToQuizPlayerScore = async (quizId, playerId) => {
+const addPointToQuizPlayerScore = async (quizId, userId) => {
   console.log(quizId);
-  console.log(playerId);
+  console.log(userId);
+  const score = await PRISMA.userScore.create({
+    data: {
+      userId,
+      quizId,
+      score: 0,
+    },
+  });
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -191,6 +240,7 @@ export {
   createNewQuizQuestions,
   getQuizDetails,
   getQuizQuestions,
+  getAllIncompleteQuizzes,
   updateQuizById,
   addPlayerAsQuizParticipant,
   addQuizPlayerAnswer,

@@ -1,5 +1,5 @@
-import PRISMA from "../../../utils/prisma.mjs";
-import { getCategories } from "../../../utils/axiosRequests.mjs";
+import PRISMA from "../../../utils/prisma.js";
+import { getCategories } from "../../../utils/axiosRequests.js";
 
 const seedQuizCategories = async (req, res) => {
   const currentCategories = await PRISMA.category.count();

@@ -14,10 +14,10 @@ const PATHS = {
     PROFILE: `${AUTHONLY}/profile`,
   },
   QUIZ: {
-    PLAYER: `${AUTHONLY}/quiz`,
-    PLAYERQUERY: `${AUTHONLY}/quiz/:quizId`,
-    PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/player/:playerId`,
-    PLAYERTOTAL: `${AUTHONLY}/details/:userId/results`,
+    PLAYER: `${AUTHONLY}/quiz/:quizId`,
+    PLAYERUNFINISHEDQUIZZES: `${AUTHONLY}/quiz/incomplete`,
+    PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/player/:userName/results`,
+    SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/player/:userName/submit_answers`,
   },
 };
 

@@ -1,16 +1,16 @@
 import { body } from "express-validator";
-
 import PRISMA from "../../../utils/prisma.js";
 import QUIZCONSTS from "../constants/quiz.js";
 import {
   quizDateValid,
   quizEnddateValid,
   splitDate,
-  createMomentDate,
+  playerCanParticipate,
 } from "../../../utils/dateTimeCheck.js";
 
-const NewQuizSchema = [
-  body("categoryId")
+const PlayerSubmitQuizAnswersSchema = [
+  body("userId"),
+  body("quizId")
     .escape()
     .trim()
     .isNumeric()
@@ -57,13 +57,12 @@ const NewQuizSchema = [
     .withMessage("Quiz Answer Type Must Be Valid")
     .notEmpty()
     .withMessage("Quiz Answer Type is Required"),
-  body("numQuestions")
+  body("questions")
     .escape()
     .trim()
     .isNumeric()
     .withMessage("Number of questions, must have a numeric value")
     .isInt({ min: 10, max: 10 })
-    .toInt()
     .withMessage("Number of questions must equal 10.")
     .notEmpty()
     .withMessage("Number of questions is Required"),
@@ -74,8 +73,11 @@ const NewQuizSchema = [
     .withMessage("Correctly formated date required")
     .custom((start, { req }) => {
       const dateSplit = splitDate(req.body.startDate);
-      const moment = createMomentDate(dateSplit);
-      const isValid = quizDateValid(moment);
+      const isValid = quizDateValid(
+        dateSplit.day,
+        dateSplit.month,
+        dateSplit.year,
+      );
       if (!isValid) {
         throw new Error(
           "Quiz Start Date is Invalid. This must be a date in the future.",
@@ -92,10 +94,15 @@ const NewQuizSchema = [
     .withMessage("Correctly Formated Date Required")
     .custom((end, { req }) => {
       const startSplit = splitDate(req.body.startDate);
-      const startmoment = createMomentDate(startSplit);
       const endSplit = splitDate(req.body.endDate);
-      const endmoment = createMomentDate(endSplit);
-      const isValid = quizEnddateValid(startmoment, endmoment);
+      const isValid = quizEnddateValid(
+        startSplit.day,
+        startSplit.month,
+        startSplit.year,
+        endSplit.day,
+        endSplit.month,
+        endSplit.year,
+      );
       if (!isValid) {
         throw new Error(
           "Quiz Start/End Dates are Invalid. The start date must be in the future, and the end date must come after within 5 days.",
@@ -107,4 +114,4 @@ const NewQuizSchema = [
     .withMessage("Quiz End Date is Required"),
 ];
 
-export default NewQuizSchema;
+export default PlayerSubmitQuizAnswersSchema;

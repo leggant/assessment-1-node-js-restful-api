@@ -1,11 +1,11 @@
 import { body } from "express-validator";
-import PRISMA from "../../../utils/prisma.mjs";
+import PRISMA from "../../../utils/prisma.js";
 import QUIZCONSTS from "../constants/quiz.js";
 import {
   quizDateValid,
   quizEnddateValid,
   splitDate,
-} from "../../../utils/dateTimeCheck.mjs";
+} from "../../../utils/dateTimeCheck.js";
 
 const UpdateQuizSchema = [
   body("categoryId")

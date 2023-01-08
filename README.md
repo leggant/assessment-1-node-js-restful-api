@@ -79,7 +79,7 @@ __Note: more users added than required.__
 - :anchor: get first key/value from object https://stackoverflow.com/a/56969714
 - :anchor: testing axios functions from the commandline using `run-func` npm package 
   - https://stackoverflow.com/a/43598047 
-  - using the command: `npx run-func ./utils/axiosRequests.mjs getUsers` and 
+  - using the command: `npx run-func ./utils/axiosRequests.js getUsers` and 
   - `npx env-cmd -f .env.development npx run-func ./api/v1/controllers/seeder_controller.js seedUsers`
 - :anchor: get object count - https://www.geeksforgeeks.org/find-the-length-of-a-javascript-object
 - :anchor: get specific values from array of objects
@@ -88,9 +88,15 @@ __Note: more users added than required.__
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
 - filter objects by key: https://masteringjs.io/tutorials/fundamentals/filter-key
 - https://hackernoon.com/how-to-update-object-key-values-using-javascript
-- `npx run-func ./utils/axiosRequests.mjs getCategories`
-- `npx run-func ./utils/dateTimeCheck.mjs getCategories`
-- quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing: `npx run-func ./utils/dateTimeCheck.mjs quizDateValid 27 12 2022` and `npx run-func ./utils/dateTimeCheck.mjs quizEnddateValid 24 12 2022 30 12 2022`
+- `npx run-func ./utils/axiosRequests.js getCategories`
+- `npx run-func ./utils/dateTimeCheck.js getCategories`
+- quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing: `npx run-func ./utils/dateTimeCheck.js quizDateValid 27 12 2022` and `npx run-func ./utils/dateTimeCheck.js quizEnddateValid 24 12 2022 30 12 2022`
 - https://stackoverflow.com/a/3367429 Get epoch for a specific date using Javascript
 - https://stackoverflow.com/a/61505926 MONTHS in JavaScript Dates starts in zero (0 = January, 11 = December)
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
+- `npx run-func ./utils/dateTimeCheck.js playerCanParticipate 2022-12-30T20:26:46Z 2022-12-30T20:26:46Z`
+- `npx run-func ./utils/dateTimeCheck.js playerCanParticipate 2022-12-30T20:26:46Z 2022-12-30T20:26:46Z`
+- https://stackoverflow.com/a/65724578 
+- https://www.delftstack.com/howto/javascript/javascript-decode-html-entities/#decode-html-entities-using-vanilla-javascript
+- `npx run-func ./utils/unescapeString.js default "What&#039;s Harry Potter&#039;s dad&#039;s name?"` 
+- `npx run-func ./utils/unescapeString.js default "Who was the author of the 1954 novel, \"Lord of the Flies\"?"`

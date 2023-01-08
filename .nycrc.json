@@ -1,0 +1,15 @@
+{
+  "all": true,
+  "check-coverage": false,
+  "include": [
+    "utils/*.js",
+    "api/v1/**/*.js"
+  ],
+  "exclude": [
+    "prisma/*",
+    "requests/**/*",
+    "instructions/**/*"
+  ],
+  "reporter": ["text-summary", "html"],
+  "excludeNodeModules": true
+}

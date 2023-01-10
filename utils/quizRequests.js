@@ -217,9 +217,10 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
   return { participant, score };
 };
 
-const addQuizPlayerAnswer = async (quizId, playerId) => {
-  console.log(quizId);
-  console.log(playerId);
+const submitAllPlayerAnswers = async (player, quiz, answers) => {
+  console.info(player);
+  console.info(quiz);
+  console.info(answers);
 };
 
 const addPointToQuizPlayerScore = async (quizId, userId) => {
@@ -243,6 +244,6 @@ export {
   getAllIncompleteQuizzes,
   updateQuizById,
   addPlayerAsQuizParticipant,
-  addQuizPlayerAnswer,
+  submitAllPlayerAnswers,
   addPointToQuizPlayerScore,
 };

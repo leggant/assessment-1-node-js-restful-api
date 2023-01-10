@@ -42,8 +42,8 @@ const ctAddQuizPlayer = async (req, res) => {
 };
 
 const ctSubmitQuizAnswers = async (req, res) => {
-  console.log(req);
-  console.log(res);
+  console.log(req.quizPlayer);
+  console.log(req.quizInfo);
 };
 
 const ctGetPlayersIncompleteQuizzes = async (req, res) => {

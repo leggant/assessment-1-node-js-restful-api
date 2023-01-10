@@ -3,13 +3,14 @@
   "check-coverage": false,
   "include": [
     "utils/*.js",
-    "api/v1/**/*.js"
+    "api/v1/**/*.js",
+    "app.js"
   ],
   "exclude": [
     "prisma/*",
     "requests/**/*",
     "instructions/**/*"
   ],
-  "reporter": ["text-summary", "html"],
+  "reporter": ["text", "text-summary"],
   "excludeNodeModules": true
 }

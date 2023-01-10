@@ -74,7 +74,7 @@
     "migrate:prod": "npx env-cmd -f .env.production npx prisma migrate deploy",
     "reset:dev": "npx env-cmd -f .env.development npx prisma migrate reset --force",
     "reset:prod": "npx env-cmd -f .env.production npx prisma migrate reset --force",
-    "test": "env-cmd -f .env.development npx nyc@latest mocha ./api/v1/test --timeout 10000 --exit",
+    "test": "env-cmd -f .env.development npx c8 mocha ./api/v1/test --timeout 10000 --exit",
     "pre:check": "npx prettier --check . --with-node-modules --debug-check",
     "pre:write": "npx pretty-quick --staged",
     "lint:check": "npx eslint .",

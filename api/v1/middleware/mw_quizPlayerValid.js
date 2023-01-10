@@ -46,7 +46,7 @@ const mwQuizPlayerValid = async (req, res, next) => {
           };
         } else if (!quizDatesOk) {
           return res.status(422).json({
-            msg: `QuiZ Id #${quizId} Cannot Be Played. ${moment()} is not within the quiz date range: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
+            msg: `Quiz Id #${quizId} Cannot Be Played. ${moment()} is not within the quiz date range: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
           });
         }
       } else {

@@ -100,3 +100,5 @@ __Note: more users added than required.__
 - https://www.delftstack.com/howto/javascript/javascript-decode-html-entities/#decode-html-entities-using-vanilla-javascript
 - `npx run-func ./utils/unescapeString.js default "What&#039;s Harry Potter&#039;s dad&#039;s name?"` 
 - `npx run-func ./utils/unescapeString.js default "Who was the author of the 1954 novel, \"Lord of the Flies\"?"`
+- `npx run-func ./utils/calculatePlayerScore.js default`
+- https://stackoverflow.com/a/14854851 - jsdoc array of objects

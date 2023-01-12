@@ -206,15 +206,7 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
       quizId,
     },
   });
-  // this needs to be removed - score to be added when player has answered all questions
-  const score = await PRISMA.userScore.create({
-    data: {
-      userId,
-      quizId,
-      score: 0,
-    },
-  });
-  return { participant, score };
+  return participant;
 };
 
 const submitAllPlayerAnswers = async (player, quiz, answers) => {

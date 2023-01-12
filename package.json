@@ -63,7 +63,7 @@
   },
   "scripts": {
     "watch": "env-cmd -f .env.development nodemon",
-    "start:dev": "env-cmd -f .env.development node app.js",
+    "studio": "env-cmd -f .env.development npx prisma studio",
     "start": "node app.js",
     "push:dev": "npx env-cmd -f .env.development npx prisma db push",
     "push:prod": "npx env-cmd -f .env.production npx prisma db push",

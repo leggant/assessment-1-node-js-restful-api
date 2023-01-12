@@ -35,6 +35,8 @@ router.post(
 router.post(
   PATHS.QUIZ.SUBMITANSWERS,
   mwAuth,
+  PlayerSubmitQuizAnswersSchema,
+  validateSchema,
   mwTokenValid,
   mwPlayerAddedToQuiz,
   mwCurrentDateValid,

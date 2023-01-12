@@ -1,4 +1,6 @@
 import crypto from "crypto";
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 import PRISMA from "../../../utils/prisma.js";
 import { getUsers } from "../../../utils/axiosRequests.js";
 
@@ -14,8 +16,10 @@ const seedUsers = async (req, res) => {
   });
   console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
   Promise.all(
-    USERDATA.users.map((user) => {
+    USERDATA.users.map(async (user) => {
       const random = crypto.randomBytes(15).toString("hex");
+      const salt = await bcryptjs.genSalt();
+      const hashedPassword = await bcryptjs.hash(user.password, salt);
       const imageurl = `https://avatars.dicebear.com/api/human/:${random}.svg?radius=50&size=200`;
       const createusers = PRISMA.user.create({
         data: {
@@ -23,7 +27,7 @@ const seedUsers = async (req, res) => {
           lastName: user.lastName,
           userName: user.userName,
           email: user.email,
-          password: user.password,
+          password: hashedPassword,
           role: user.role,
           profileImgURL: imageurl,
         },

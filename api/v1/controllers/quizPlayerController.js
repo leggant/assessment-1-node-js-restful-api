@@ -10,21 +10,15 @@ import {
  * controller method for basic users to add themselves to a current or future quiz
  * @param {Request} req - http request that contains user, quizPlayer object
  * @param {Response} res - http response return validation errors, request status
- * @returns {Response} return json object with validation errors, quiz information, quiz questions if the current date is within the range of the quiz start and end dates.
+ * @returns {Response} res - return json object with validation errors, quiz information, quiz questions if the current date is within the range of the quiz start and end dates.
  */
 const ctAddQuizPlayer = async (req, res) => {
   // add player to quiz participant table
-  // initialise player in score table
   const { quizId, userId, userName, quizDatesOk } = req.quizPlayer;
   const addPlayer = await addPlayerAsQuizParticipant(quizId, userId);
   if (!addPlayer.participant) {
     return res.status(400).json({
       msg: `${userName} was not successfully added as a participant.`,
-    });
-  }
-  if (!addPlayer.score) {
-    return res.status(400).json({
-      msg: `${userName} was not successfully added to the quiz score board.`,
     });
   }
   // check the result of the current date/quiz start and end date
@@ -85,15 +79,9 @@ const ctGetPlayerQuizResults = async (req, res) => {
   console.log(res);
 };
 
-const ctGetAllPlayerQuizResults = async (req, res) => {
-  console.log(req);
-  console.log(res);
-};
-
 export {
   ctAddQuizPlayer,
   ctSubmitQuizAnswers,
   ctGetPlayerQuizResults,
-  ctGetAllPlayerQuizResults,
   ctGetPlayersIncompleteQuizzes,
 };

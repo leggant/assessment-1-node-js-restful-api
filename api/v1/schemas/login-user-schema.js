@@ -17,7 +17,6 @@ const LoginSchema = [
       .normalizeEmail(),
   ]),
   body("password")
-    .escape()
     .trim()
     .isStrongPassword({ minLength: 8, minNumbers: 1, minSymbols: 1 })
     .withMessage(

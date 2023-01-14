@@ -8,7 +8,7 @@
 ## Entity Relationship Diagram
 :anchor: __[Made with Lucidchart](https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea)__
 <p>
-  <img src="./docs/imgs/App_Dev_API_ERD.png?raw=true" width="850" title="hover text">
+  <img src="./docs/imgs/App_Dev_API_ERD.png" width="850" title="hover text">
 </p>
 
 ## API/Command Line Instructions
@@ -21,6 +21,7 @@ _user and category seeders are both available from admin-only endpoints_
 https://opentdb.com/api_category.php
 
 ### Migrate the Database
+#### Seeder GISTS
 #### Development
 ```node
 npm run migrate:dev
@@ -102,3 +103,5 @@ __Note: more users added than required.__
 - `npx run-func ./utils/unescapeString.js default "Who was the author of the 1954 novel, \"Lord of the Flies\"?"`
 - `npx run-func ./utils/calculatePlayerScore.js default`
 - https://stackoverflow.com/a/14854851 - jsdoc array of objects
+- remove special chars from string https://stackoverflow.com/a/16913929
+- `npx run-func ./utils/compareAnswerStrings.js default "Bobs Burgers, \"Lord of the Flies\"?" "Family Guy, \"Lord of the Flies\"?"`

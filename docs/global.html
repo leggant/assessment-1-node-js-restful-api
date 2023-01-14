@@ -153,6 +153,36 @@
             </dd>
           </dl>
 
+          <h4 class="name" id="USERDATA">
+            <span class="type-signature">(async, constant) </span>USERDATA<span
+              class="type-signature"
+            ></span>
+          </h4>
+
+          <div class="description">
+            <p>
+              get all users previously added to the database with the seeder
+              GIST endpoints
+            </p>
+          </div>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userSeederController.js.html"
+                    >api/v1/controllers/userSeederController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_userSeederController.js.html#line7"
+                    >line 7</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
           <h4 class="name" id="hashedPassword">
             <span class="type-signature">(constant) </span>hashedPassword<span
               class="type-signature"
@@ -186,6 +216,37 @@
                   >,
                   <a href="api_v1_controllers_userAuthController.js.html#line66"
                     >line 66</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="score">
+            <span class="type-signature">(constant) </span>score<span
+              class="type-signature"
+            >
+              :Number</span
+            >
+          </h4>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Number</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_calculatePlayerScore.js.html"
+                    >utils/calculatePlayerScore.js</a
+                  >,
+                  <a href="utils_calculatePlayerScore.js.html#line20"
+                    >line 20</a
                   >
                 </li>
               </ul>
@@ -258,6 +319,166 @@
           <div class="param-desc">
             <p>the sum of a and b</p>
           </div>
+
+          <h4 class="name" id="calculatePlayerScore">
+            <span class="type-signature"></span>calculatePlayerScore<span
+              class="signature"
+              >(storedAnswers, submittedAnswers)</span
+            ><span class="type-signature"> &rarr; {Number}</span>
+          </h4>
+
+          <div class="description">
+            <p>
+              compare submitted answers, return score based on correct answers
+            </p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>storedAnswers</code></td>
+
+                <td class="type">
+                  <span class="param-type"
+                    >Array.&lt;{id: Number, answer: (Boolean|String)}></span
+                  >
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>submittedAnswers</code></td>
+
+                <td class="type">
+                  <span class="param-type"
+                    >Array.&lt;{id: Number, answer: (Boolean|String)}></span
+                  >
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_calculatePlayerScore.js.html"
+                    >utils/calculatePlayerScore.js</a
+                  >,
+                  <a href="utils_calculatePlayerScore.js.html#line16"
+                    >line 16</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>score - total player to be added to the database</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Number</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="compareAnswerStrings">
+            <span class="type-signature"></span>compareAnswerStrings<span
+              class="signature"
+              >(userAnswer, storedAnswer)</span
+            ><span class="type-signature"> &rarr; {Boolean}</span>
+          </h4>
+
+          <div class="description">
+            <p>compare two string values, check for a match</p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>userAnswer</code></td>
+
+                <td class="type">
+                  <span class="param-type">String</span>
+                </td>
+
+                <td class="description last">
+                  <p>the answer submitted by the user</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>storedAnswer</code></td>
+
+                <td class="type">
+                  <span class="param-type">String</span>
+                </td>
+
+                <td class="description last">
+                  <p>the answer stored in the database</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_compareAnswerStrings.js.html"
+                    >utils/compareAnswerStrings.js</a
+                  >,
+                  <a href="utils_compareAnswerStrings.js.html#line7">line 7</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>result - return true/false the answers match</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Boolean</span>
+            </dd>
+          </dl>
 
           <h4 class="name" id="createMomentDate">
             <span class="type-signature"></span>createMomentDate<span
@@ -388,8 +609,8 @@
                     >api/v1/controllers/quizPlayerController.js</a
                   >,
                   <a
-                    href="api_v1_controllers_quizPlayerController.js.html#line14"
-                    >line 14</a
+                    href="api_v1_controllers_quizPlayerController.js.html#line15"
+                    >line 15</a
                   >
                 </li>
               </ul>
@@ -400,11 +621,94 @@
 
           <div class="param-desc">
             <p>
-              return json object with validation errors, quiz information, quiz
-              questions if the current date is within the range of the quiz
+              res - return json object with validation errors, quiz information,
+              quiz questions if the current date is within the range of the quiz
               start and end dates.
             </p>
           </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="mwPlayerAddedToQuiz">
+            <span class="type-signature">(async) </span>mwPlayerAddedToQuiz<span
+              class="signature"
+              >(req, res, next)</span
+            ><span class="type-signature"> &rarr; {Response}</span>
+          </h4>
+
+          <div class="description">
+            <p>middleware confirming the player has been added to the quiz</p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>req</code></td>
+
+                <td class="type">
+                  <span class="param-type">Request</span>
+                </td>
+
+                <td class="description last"><p>HTTP request</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>res</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last"><p>HTTP response</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>next</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last"><p>HTTP response</p></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html"
+                    >api/v1/middleware/mw_playerAddedToQuiz.js</a
+                  >,
+                  <a
+                    href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line11"
+                    >line 11</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
 
           <dl>
             <dt>Type</dt>
@@ -731,14 +1035,25 @@
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#USERDATA">USERDATA</a></li>
         <li><a href="global.html#addTwoNums">addTwoNums</a></li>
+        <li>
+          <a href="global.html#calculatePlayerScore">calculatePlayerScore</a>
+        </li>
+        <li>
+          <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
+        </li>
         <li><a href="global.html#createMomentDate">createMomentDate</a></li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
         <li>
+          <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
+        </li>
+        <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
         <li><a href="global.html#register">register</a></li>
+        <li><a href="global.html#score">score</a></li>
       </ul>
     </nav>
 
@@ -746,8 +1061,8 @@
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 08
-      2023 20:38:26 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 15
+      2023 12:35:33 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

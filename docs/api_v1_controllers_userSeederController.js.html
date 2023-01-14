@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Source: app.js</title>
+    <title>JSDoc: Source: api/v1/controllers/userSeederController.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,78 +19,73 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Source: app.js</h1>
+      <h1 class="page-title">
+        Source: api/v1/controllers/userSeederController.js
+      </h1>
 
       <section>
         <article>
           <pre
             class="prettyprint source linenums"
-          ><code>import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan";
+          ><code>import crypto from "crypto";
+import bcryptjs from "bcryptjs";
+import PRISMA from "../../../utils/prisma.js";
+import { getUsers } from "../../../utils/axiosRequests.js";
 
-import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
-import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
-import adminQuizRouter from "./api/v1/routes/adminQuizRouter.js";
-import playerQuizRouter from "./api/v1/routes/playerQuizRouter.js";
-import seederRouter from "./api/v1/routes/seederRouter.js";
-/**
- * @constructor dotenv
- * @description initialise a instance of dotenv
- * @example dotenv.config();
- */
-dotenv.config();
-/**
- * @constructor express
- * @description initialise a global instance of ExpressJS
- * @example const app = express();
-app.use(cors());
-app.use(helmet());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
- */
-const app = express();
-app.use(morgan("dev"));
-app.use(cors());
-app.use(helmet());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-/**
- * Defines the base value for all API routes
- * @constant {string} BASE_PATH
- * @default api
- * @type {string}
- */
-const BASE_PATH = "api";
-/**
- * Defines the current version of the API. This is provided by an environment variable
- * @default v1
- * @type {string}
- */
-const API_VERSION = process.env.API_VERSION || "v1";
-app.use(`/${BASE_PATH}/${API_VERSION}/docs`, express.static("docs"));
-/**
- * Set the server port. The default port in the development env is 3000
- * @default 3000
- * @type {number}
- */
-const SERVER_PORT = process.env.PORT;
+const seedUsers = async (req, res) => {
+  /**
+   * get all users previously added to the database with the seeder GIST endpoints
+   * @async
+   * @function getUsers
+   * @constant USERDATA
+   */
+  const USERDATA = await getUsers();
+  const userNames = USERDATA.users.map(({ userName }) => userName);
+  const deleteUsers = await PRISMA.user.deleteMany({
+    where: {
+      userName: {
+        in: userNames,
+      },
+    },
+  });
+  console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
+  Promise.all(
+    USERDATA.users.map(async (user) => {
+      const random = crypto.randomBytes(15).toString("hex");
+      const salt = await bcryptjs.genSalt();
+      const hashedPassword = await bcryptjs.hash(user.password, salt);
+      const imageurl = `https://avatars.dicebear.com/api/human/:${random}.svg?radius=50&amp;size=200`;
+      const createusers = PRISMA.user.create({
+        data: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          userName: user.userName,
+          email: user.email,
+          password: hashedPassword,
+          role: user.role,
+          profileImgURL: imageurl,
+        },
+      });
+      return createusers;
+    }),
+  )
+    .then((data) => {
+      const count = Object.keys(data).length;
+      console.info(`[SEED] ${count} user records successfully created`);
+      return res
+        .status(201)
+        .json({ msg: `[SEED] ${count} user records successfully created` });
+    })
+    .catch((e) => {
+      console.error("[SEED] Failed to create user records", e);
+      return res
+        .status(401)
+        .json({ msg: "[SEED] Failed to create user records", e });
+    });
+};
 
-app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
-  res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
-});
-app.use(`/${BASE_PATH}/${API_VERSION}`, loginRegisterRouter);
-app.use(`/${BASE_PATH}/${API_VERSION}`, userProfileRouter);
-app.use(`/${BASE_PATH}/${API_VERSION}`, adminQuizRouter);
-app.use(`/${BASE_PATH}/${API_VERSION}`, playerQuizRouter);
-app.use(`/${BASE_PATH}/${API_VERSION}`, seederRouter);
-app.listen(SERVER_PORT, () => {
-  console.log(`Server is listening on port ${SERVER_PORT}`);
-});
-
-export default app;
+// eslint-disable-next-line import/prefer-default-export
+export { seedUsers };
 </code></pre>
         </article>
       </section>

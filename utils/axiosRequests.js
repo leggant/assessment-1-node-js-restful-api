@@ -19,7 +19,7 @@ headers: {'X-Custom-Header': 'foobar'}
  */
 const GISTAXIOS = axios.create({
   baseURL:
-    "https://gist.githubusercontent.com/leggant/0bba24ff5402123c0a1301df853c5541/raw/1749009d0d9ef6d14dd67939d6d5b734a2621c0c",
+    "https://gist.githubusercontent.com/leggant/7ee6b8ba7543c7ff61d4f236a8f7bfb5/raw/3e2f02e902f247e0c5bbdce473675bca570eac42",
   method: "GET",
 });
 /**

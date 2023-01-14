@@ -170,7 +170,7 @@ const deleteUserById = async (token, id) => {
 
 const deleteUserByParam = async (token, params) => {
   const search = Object.values(params);
-  const userSearch = await PRISMA.user.findFirstOrThrow({
+  const userSearch = await PRISMA.user.findFirst({
     where: {
       OR: [
         {
@@ -186,7 +186,7 @@ const deleteUserByParam = async (token, params) => {
       ],
     },
   });
-  if (userSearch.role === USERTYPE.ADMIN) {
+  if (!userSearch || userSearch.role === USERTYPE.ADMIN) {
     return false;
   }
   const user = await PRISMA.user.delete({

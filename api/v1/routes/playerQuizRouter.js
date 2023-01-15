@@ -15,7 +15,9 @@ import mwQuizPlayerValid from "../middleware/mw_quizPlayerValid.js";
 import mwPlayerAddedToQuiz from "../middleware/mw_playerAddedToQuiz.js";
 import mwCurrentDateValid from "../middleware/mw_currentDateValid.js";
 import mwQuizValid from "../middleware/mw_quizValid.js";
+
 import PlayerSubmitQuizAnswersSchema from "../schemas/player-submit-answers-schema.js";
+import QuizParamSchema from "../schemas/param-quiz-schema.js";
 
 const router = Router();
 
@@ -30,6 +32,8 @@ router.post(
   PATHS.QUIZ.PLAYER,
   mwAuth,
   mwTokenValid,
+  QuizParamSchema,
+  validateSchema,
   mwQuizValid,
   mwQuizPlayerValid,
   ctAddQuizPlayer,
@@ -39,6 +43,8 @@ router.get(
   PATHS.QUIZ.QUESTIONS,
   mwAuth,
   mwTokenValid,
+  QuizParamSchema,
+  validateSchema,
   mwQuizValid,
   mwPlayerAddedToQuiz,
   mwCurrentDateValid,
@@ -48,11 +54,13 @@ router.get(
 router.post(
   PATHS.QUIZ.SUBMITANSWERS,
   mwAuth,
-  PlayerSubmitQuizAnswersSchema,
-  validateSchema,
   mwTokenValid,
+  QuizParamSchema,
+  validateSchema,
   mwPlayerAddedToQuiz,
   mwCurrentDateValid,
+  PlayerSubmitQuizAnswersSchema,
+  validateSchema,
   ctSubmitQuizAnswers,
 );
 

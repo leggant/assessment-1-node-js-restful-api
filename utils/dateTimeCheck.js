@@ -45,7 +45,7 @@ const quizDateValid = (date) => {
   const dateNow = moment();
   const quizDate = moment(date);
   const isAfter = moment(quizDate).isAfter(dateNow);
-  console.info("quiz date is valid", isAfter.valueOf());
+  // console.info("quiz date is valid", isAfter.valueOf());
   return isAfter;
 };
 

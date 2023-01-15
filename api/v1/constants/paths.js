@@ -7,7 +7,6 @@ const PATHS = {
     CATEGORYSEEDER: `${AUTHONLY}/admin/seeder/categories`,
     QUIZ: `${AUTHONLY}/admin/quiz`,
     QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
-    QUIZPLAYER: `${AUTHONLY}/admin/quiz/:quizId/player/:playerId`,
     USERSEARCH: `${AUTHONLY}/admin/details/:searchField/:searchValue`,
   },
   USER: {
@@ -17,7 +16,7 @@ const PATHS = {
     PLAYER: `${AUTHONLY}/quiz/:quizId`,
     QUESTIONS: `${AUTHONLY}/quiz/:quizId/questions`,
     PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/results`,
-    SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/submit_answers`,
+    SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/submit`,
     PLAYERUNFINISHEDQUIZZES: `${AUTHONLY}/quiz/incomplete`,
   },
 };

@@ -77,8 +77,8 @@ const createQuizOpenTDBRequest = async (query) => {
   const reqString = `${CREATEQUIZ}?category=${query.category}&amount=${query.amount}&difficulty=${query.difficulty}&type=${query.answerType}`;
   const data = await QUIZAXIOS.get(reqString)
     .then((resData) => {
-      const dataRes = resData.data;
-      return dataRes.results;
+      const dataRes = resData;
+      return dataRes.data;
     })
     .catch((err) => {
       console.error(err.message);

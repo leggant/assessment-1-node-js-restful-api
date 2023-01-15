@@ -18,8 +18,17 @@ const ctCreateQuiz = async (req, res) => {
     answerType,
     amount: numQuestions,
   });
-  // create questions from the quizData object, newQuizItem.id quiz id
-  await createNewQuizQuestions(quizData, newQuizItem, res);
+  const requestCode = quizData.response_code;
+  if (requestCode === 1) {
+    return res.status(404).json({ msg: "No Quiz Question Data Found." });
+  }
+  if (requestCode === 2) {
+    return res.status(422).json({ msg: "Invalid Quiz Parameters." });
+  }
+  if (requestCode !== 0) {
+    return res.status(400).json({ msg: "Quiz Data Request Error." });
+  }
+  return createNewQuizQuestions(quizData.results, newQuizItem, res);
 };
 
 const ctGetQuizById = async (req, res) => {

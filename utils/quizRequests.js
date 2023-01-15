@@ -38,12 +38,16 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
     QUIZDATA.map((q) => {
       const questionString = UnescapeString(q.question);
       const answerString = UnescapeString(q.correct_answer);
+      const possibleAnswerArray = [];
+      possibleAnswerArray.push(...q.incorrect_answers, answerString);
+      possibleAnswerArray.sort();
       const createquestions = PRISMA.question.create({
         data: {
           quizId: QUIZINFO.id,
           question: questionString,
           correctAnswer: answerString,
           incorrectAnswers: q.incorrect_answers,
+          possibleAnswers: possibleAnswerArray,
         },
       });
       return createquestions;
@@ -145,6 +149,8 @@ const getQuizQuestions = async (quizId) => {
         select: {
           id: true,
           question: true,
+          correctAnswer: true,
+          incorrectAnswers: true,
         },
       },
       category: {

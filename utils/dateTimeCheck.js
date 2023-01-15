@@ -36,22 +36,24 @@ const quizDateFuture = (quizDate) => {
   const isFuture = moment(dateNow).isBefore(quizDate);
   return isFuture;
 };
-
+/**
+ * check if the user input quiz date is valid
+ * @param {Date} date
+ * @returns {Boolean}
+ */
 const quizDateValid = (date) => {
   const dateNow = moment();
   const quizDate = moment(date);
-  const difference = moment.duration(quizDate.diff(dateNow)).asDays();
-  // eslint-disable-next-line no-unneeded-ternary
-  const isValid = difference <= 0 ? false : true;
-  // console.info("quiz date is valid", isValid.valueOf());
-  return isValid;
+  const isAfter = moment(quizDate).isAfter(dateNow);
+  console.info("quiz date is valid", isAfter.valueOf());
+  return isAfter;
 };
 
 const quizEnddateValid = (start, end) => {
   const quizDate = moment(start);
   const endDate = moment(end);
   // https://momentjs.com/docs/#/displaying/difference/
-  const difference = moment.duration(endDate.diff(quizDate)).asDays();
+  const difference = moment.duration(endDate.diff(quizDate)).days();
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference > 0 && difference <= 5 ? true : false;
   return isValid;

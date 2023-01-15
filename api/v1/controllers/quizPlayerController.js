@@ -36,6 +36,17 @@ const ctAddQuizPlayer = async (req, res) => {
   });
 };
 
+const ctGetQuizQuestions = async (req, res) => {
+  const quiz = req.quizInfo.data;
+  const quizQuestions = await getQuizQuestions(quiz.quizId);
+  if (!quizQuestions) {
+    return res.status(404).json({
+      msg: `Quiz with ID# ${quiz.quizId} was not found.`,
+    });
+  }
+  return res.status(200).json(quizQuestions.questions);
+};
+
 const ctSubmitQuizAnswers = async (req, res) => {
   // console.log(req.quizPlayer);
   // console.log(req.quizInfo);
@@ -81,6 +92,7 @@ const ctGetPlayerQuizResults = async (req, res) => {
 
 export {
   ctAddQuizPlayer,
+  ctGetQuizQuestions,
   ctSubmitQuizAnswers,
   ctGetPlayerQuizResults,
   ctGetPlayersIncompleteQuizzes,

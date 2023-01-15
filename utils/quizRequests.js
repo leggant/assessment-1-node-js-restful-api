@@ -129,7 +129,7 @@ const getQuizDetails = async (quizId) => {
 };
 
 const getQuizQuestions = async (quizId) => {
-  const quizQuestions = await PRISMA.quiz.findFirstOrThrow({
+  const quizQuestions = await PRISMA.quiz.findFirst({
     where: {
       id: quizId,
     },

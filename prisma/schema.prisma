@@ -103,6 +103,7 @@ model Question {
   question            String
   correctAnswer       String
   incorrectAnswers    Json
+  possibleAnswers     Json?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   quiz                Quiz?                @relation(fields: [quizId], references: [id], onDelete: Cascade)

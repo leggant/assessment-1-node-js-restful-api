@@ -105,7 +105,7 @@ const updateQuizById = async (quizId, data) => {
 };
 
 const getQuizDetails = async (quizId) => {
-  const quizDetails = await PRISMA.quiz.findFirstOrThrow({
+  const quizDetails = await PRISMA.quiz.findFirst({
     where: {
       id: quizId,
     },

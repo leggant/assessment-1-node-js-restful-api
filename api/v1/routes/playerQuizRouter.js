@@ -25,11 +25,12 @@ router.get(
   mwTokenValid,
   ctGetPlayersIncompleteQuizzes,
 );
-
+// add player to a quiz
 router.post(
   PATHS.QUIZ.PLAYER,
   mwAuth,
   mwTokenValid,
+  mwQuizValid,
   mwQuizPlayerValid,
   ctAddQuizPlayer,
 );
@@ -43,6 +44,7 @@ router.get(
   mwCurrentDateValid,
   ctGetQuizQuestions,
 );
+// submit player answers
 router.post(
   PATHS.QUIZ.SUBMITANSWERS,
   mwAuth,

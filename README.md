@@ -105,3 +105,5 @@ __Note: more users added than required.__
 - https://stackoverflow.com/a/14854851 - jsdoc array of objects
 - remove special chars from string https://stackoverflow.com/a/16913929
 - `npx run-func ./utils/compareAnswerStrings.js default "Bobs Burgers, \"Lord of the Flies\"?" "Family Guy, \"Lord of the Flies\"?"`
+- array flattening: https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods
+- 

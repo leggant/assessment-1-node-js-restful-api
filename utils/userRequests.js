@@ -222,10 +222,12 @@ const clearBlockedTokens = async () => {
     },
   });
   if (deleteBlockedTokens.length) {
+    // https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods
+    const blocked = deleteBlockedTokens.flatMap((user) => user.token).flat(1);
     const clearAll = await PRISMA.blockedToken.deleteMany({
       where: {
         token: {
-          in: deleteBlockedTokens[0].token,
+          in: blocked,
         },
       },
     });
@@ -246,10 +248,12 @@ const clearBlockedUsers = async () => {
     },
   });
   if (deleteBlockedUsers.length) {
+    // https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods
+    const blocked = deleteBlockedUsers.flatMap((user) => user.uid).flat(1);
     const clearAll = await PRISMA.blockedUser.deleteMany({
       where: {
         uid: {
-          in: deleteBlockedUsers[0].uid,
+          in: blocked,
         },
       },
     });

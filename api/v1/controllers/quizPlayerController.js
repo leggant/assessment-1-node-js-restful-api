@@ -16,7 +16,7 @@ const ctAddQuizPlayer = async (req, res) => {
   // add player to quiz participant table
   const { quizId, userId, userName, quizDatesOk } = req.quizPlayer;
   const addPlayer = await addPlayerAsQuizParticipant(quizId, userId);
-  if (!addPlayer.participant) {
+  if (!addPlayer) {
     return res.status(400).json({
       msg: `${userName} was not successfully added as a participant.`,
     });

@@ -7,6 +7,18 @@ import checkDataType from "./checkDataType.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
 import UnescapeString from "./unescapeString.js";
 
+const dataGenerator = {
+  possibleAnswerArray: [],
+  eString: (stringVal) => {
+    const escaped = UnescapeString(stringVal);
+    return escaped;
+  },
+  pStringArray: (possibleAnswers, answer) => {
+    const possibleAnswerArray = [...possibleAnswers, answer];
+    return possibleAnswerArray.sort();
+  },
+};
+
 const createNewQuiz = async (reqdata) => {
   const {
     categoryId,
@@ -34,28 +46,22 @@ const createNewQuiz = async (reqdata) => {
 };
 
 const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
-  Promise.all(
-    QUIZDATA.map((q) => {
-      const questionString = UnescapeString(q.question);
-      const answerString = UnescapeString(q.correct_answer);
-      const possibleAnswerArray = [];
-      possibleAnswerArray.push(...q.incorrect_answers, answerString);
-      possibleAnswerArray.sort();
-      const createquestions = PRISMA.question.create({
-        data: {
-          quizId: QUIZINFO.id,
-          question: questionString,
-          correctAnswer: answerString,
-          incorrectAnswers: q.incorrect_answers,
-          possibleAnswers: possibleAnswerArray,
-        },
-      });
-      return createquestions;
-    }),
-  )
-    .then((data) => {
-      const count = Object.keys(data).length;
-      console.info(`${count} questions added to quiz ${QUIZINFO.name}`);
+  const qData = Array.from(QUIZDATA).map((questions) => ({
+    quizId: QUIZINFO.id,
+    question: dataGenerator.eString(questions.question),
+    correctAnswer: dataGenerator.eString(questions.correct_answer),
+    incorrectAnswers: questions.incorrect_answers,
+    possibleAnswers: dataGenerator.pStringArray(
+      questions.incorrect_answers,
+      questions.correct_answer,
+    ),
+  }));
+  await PRISMA.question
+    .createMany({
+      data: qData,
+    })
+    .then((qResult) => {
+      console.info(`${qResult.count} questions added to quiz ${QUIZINFO.name}`);
       res.status(201).json({
         msg: `${QUIZINFO.name} Successfully Created.`,
         data: {
@@ -72,9 +78,9 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
     })
     .catch((e) => {
       console.error(`Failed to create questions for quiz: ${QUIZINFO.name}`, e);
-      res
-        .status(401)
-        .json({ msg: `Failed to create questions for quiz: ${QUIZINFO.name}` });
+      res.status(401).json({
+        msg: `Failed to create questions for quiz: ${QUIZINFO.name}`,
+      });
     });
 };
 

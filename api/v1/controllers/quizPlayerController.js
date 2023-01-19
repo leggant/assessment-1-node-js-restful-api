@@ -3,8 +3,10 @@ import {
   getQuizQuestions,
   getQuizDetails,
   getAllIncompleteQuizzes,
+  getQuizMultiChoiceQuestions,
   submitAllPlayerAnswers,
 } from "../../../utils/quizRequests.js";
+import QUIZCONSTS from "../constants/quiz.js";
 
 /**
  * controller method for basic users to add themselves to a current or future quiz
@@ -38,7 +40,10 @@ const ctAddQuizPlayer = async (req, res) => {
 
 const ctGetQuizQuestions = async (req, res) => {
   const quiz = req.quizInfo.data;
-  const quizQuestions = await getQuizQuestions(quiz.quizId);
+  const multichoice = quiz.quiz.answerType === QUIZCONSTS.ANSTYPE.MULTI;
+  const quizQuestions = multichoice
+    ? await getQuizMultiChoiceQuestions(quiz.quizId)
+    : await getQuizQuestions(quiz.quizId);
   if (!quizQuestions) {
     return res.status(404).json({
       msg: `Quiz with ID# ${quiz.quizId} was not found.`,
@@ -50,39 +55,12 @@ const ctGetQuizQuestions = async (req, res) => {
 const ctSubmitQuizAnswers = async (req, res) => {
   // console.log(req.quizPlayer);
   // console.log(req.quizInfo);
-  const submitAnswers = await submitAllPlayerAnswers(
-    req.quizPlayer,
-    req.quizInfo,
-    req.body,
-  );
+  const submitAnswers = await submitAllPlayerAnswers(req.quizInfo, req.body);
 };
 
 const ctGetPlayersIncompleteQuizzes = async (req, res) => {
   const quizzes = await getAllIncompleteQuizzes(req.user.id);
   console.info(quizzes);
-  // if (!addPlayer.participant) {
-  //   return res.status(400).json({
-  //     msg: `${userName} was not successfully added as a participant.`,
-  //   });
-  // }
-  // if (!addPlayer.score) {
-  //   return res.status(400).json({
-  //     msg: `${userName} was not successfully added to the quiz score board.`,
-  //   });
-  // }
-  // // check the result of the current date/quiz start and end date
-  // // validation performed by the middleware, passed to the controller
-  // // in the req.quizPlayer object
-  // let quizQs;
-  // if (quizDatesOk) {
-  //   quizQs = await getQuizQuestions(quizId);
-  // } else {
-  //   quizQs = await getQuizDetails(quizId);
-  // }
-  // return res.status(201).json({
-  //   msg: `${userName} was successfully added to the quiz #${quizId}.`,
-  //   data: quizQs,
-  // });
 };
 
 const ctGetPlayerQuizResults = async (req, res) => {

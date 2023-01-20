@@ -69,9 +69,7 @@ const playerCanParticipate = (quizStart, quizEnd) => {
   const dateNow = moment();
   const start = moment(quizStart.toISOString());
   const end = moment(quizEnd.toISOString());
-  const sameOrAfter = moment(dateNow).isSameOrAfter(start);
-  const sameOrBefore = moment(dateNow).isSameOrBefore(end);
-  const canPartake = sameOrAfter && sameOrBefore;
+  const canPartake = dateNow.isBetween(start, end);
   return canPartake;
 };
 

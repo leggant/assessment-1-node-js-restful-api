@@ -7,7 +7,8 @@ import {
 
 const mwQuizValid = async (req, res, next) => {
   try {
-    const quizId = Number(req.params.quizId);
+    // eslint-disable-next-line prefer-destructuring
+    const quizId = req.params.quizId;
     // eslint-disable-next-line prefer-destructuring
     const validQuiz = await PRISMA.quiz.findFirst({
       where: {

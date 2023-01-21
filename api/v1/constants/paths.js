@@ -17,7 +17,6 @@ const PATHS = {
     QUESTIONS: `${AUTHONLY}/quiz/:quizId/questions`,
     PLAYERRESULTS: `${AUTHONLY}/quiz/:quizId/results`,
     SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/submit`,
-    PLAYERUNFINISHEDQUIZZES: `${AUTHONLY}/quiz/incomplete`,
   },
 };
 

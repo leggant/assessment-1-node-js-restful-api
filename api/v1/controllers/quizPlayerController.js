@@ -1,12 +1,11 @@
 import {
-  addPlayerAsQuizParticipant,
-  getQuizQuestions,
-  getQuizDetails,
-  getAllIncompleteQuizzes,
-  getQuizCorrectAnswers,
-  getQuizMultiChoiceQuestions,
-  submitAllPlayerAnswers,
   parsePlayerAnswers,
+  submitAllPlayerAnswers,
+  getQuizCorrectAnswers,
+  getQuizDetails,
+  getQuizQuestions,
+  getQuizMultiChoiceQuestions,
+  addPlayerAsQuizParticipant,
 } from "../../../utils/quizRequests.js";
 import QUIZCONSTS from "../constants/quiz.js";
 
@@ -55,21 +54,16 @@ const ctGetQuizQuestions = async (req, res) => {
 };
 
 const ctSubmitQuizAnswers = async (req, res) => {
-  const answers = await getQuizCorrectAnswers(req.quizInfo.data.quizId);
+  const storedAnswers = await getQuizCorrectAnswers(req.quizInfo.data.quizId);
+  // eslint-disable-next-line prefer-destructuring
+  const quizInfo = req.quizInfo;
+  const submittedAnswers = req.body;
   const { parsedResults, finalScore } = await parsePlayerAnswers(
-    req.body,
-    answers,
+    quizInfo,
+    submittedAnswers,
+    storedAnswers,
   );
-  const submit = await submitAllPlayerAnswers(
-    req.quizInfo,
-    parsedResults,
-    finalScore,
-  );
-};
-
-const ctGetPlayersIncompleteQuizzes = async (req, res) => {
-  const quizzes = await getAllIncompleteQuizzes(req.user.id);
-  console.info(quizzes);
+  const submit = await submitAllPlayerAnswers(parsedResults, finalScore);
 };
 
 const ctGetPlayerQuizResults = async (req, res) => {
@@ -82,5 +76,4 @@ export {
   ctGetQuizQuestions,
   ctSubmitQuizAnswers,
   ctGetPlayerQuizResults,
-  ctGetPlayersIncompleteQuizzes,
 };

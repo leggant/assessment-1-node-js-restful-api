@@ -60,8 +60,11 @@ const ctSubmitQuizAnswers = async (req, res) => {
     req.body,
     answers,
   );
-  console.info(finalScore);
-  console.info(parsedResults);
+  const submit = await submitAllPlayerAnswers(
+    req.quizInfo,
+    parsedResults,
+    finalScore,
+  );
 };
 
 const ctGetPlayersIncompleteQuizzes = async (req, res) => {

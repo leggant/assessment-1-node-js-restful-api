@@ -272,7 +272,11 @@ const parsePlayerAnswers = async (userAnswers, answers) => {
   return { parsedResults, finalScore };
 };
 
-const submitAllPlayerAnswers = async (quiz, player, answers) => {};
+const submitAllPlayerAnswers = async (info, answers, score) => {
+  console.info(info);
+  console.info(answers);
+  console.info(score);
+};
 
 const getQuizCorrectAnswers = async (quizId) => {
   const quizAnswerList = await PRISMA.quiz.findFirst({

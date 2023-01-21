@@ -16,7 +16,6 @@ const unescapeArray = (stringDataArray) => {
     const x = unescapeString(item);
     data.push(x);
   });
-  console.log(data);
   return data;
 };
 // eslint-disable-next-line import/prefer-default-export

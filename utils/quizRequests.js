@@ -6,6 +6,7 @@ import PRISMA from "./prisma.js";
 import checkDataType from "./checkDataType.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
 import { unescapeString, unescapeArray } from "./unescapeData.js";
+import compareAnswerStrings from "./compareAnswerStrings.js";
 
 const dataGenerator = {
   eString: (stringVal) => {
@@ -248,14 +249,30 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
   return participant;
 };
 
-const submitAllPlayerAnswers = async (quiz, userAnswers, answers) => {
-  const { quizId, userId } = quiz.data;
+const parsePlayerAnswers = async (userAnswers, answers) => {
   const answer = userAnswers.quizAnswers;
   const storedAnswers = await answers.questions;
-  console.info(quizId, userId);
-  console.info(answer);
-  console.info(storedAnswers);
+  const parsedResults = [];
+  let score = 0;
+  storedAnswers.forEach((xAnswer, i) => {
+    const qID = xAnswer.id;
+    const uAnswer = answer[i].answer;
+    const sAnswer = xAnswer.correctAnswer;
+    const match = compareAnswerStrings(uAnswer, sAnswer);
+    score = match ? score + 1 : score;
+    parsedResults.push({
+      questionId: qID,
+      answer: sAnswer,
+      userAnswer: uAnswer,
+      correctAnswer: match.valueOf(),
+      currentScore: score,
+    });
+  });
+  const finalScore = score;
+  return { parsedResults, finalScore };
 };
+
+const submitAllPlayerAnswers = async (quiz, player, answers) => {};
 
 const getQuizCorrectAnswers = async (quizId) => {
   const quizAnswerList = await PRISMA.quiz.findFirst({
@@ -297,6 +314,7 @@ export {
   getAllIncompleteQuizzes,
   updateQuizById,
   addPlayerAsQuizParticipant,
+  parsePlayerAnswers,
   submitAllPlayerAnswers,
   addPointToQuizPlayerScore,
 };

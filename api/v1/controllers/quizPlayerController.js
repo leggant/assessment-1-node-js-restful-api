@@ -3,8 +3,10 @@ import {
   getQuizQuestions,
   getQuizDetails,
   getAllIncompleteQuizzes,
+  getQuizCorrectAnswers,
   getQuizMultiChoiceQuestions,
   submitAllPlayerAnswers,
+  parsePlayerAnswers,
 } from "../../../utils/quizRequests.js";
 import QUIZCONSTS from "../constants/quiz.js";
 
@@ -53,9 +55,13 @@ const ctGetQuizQuestions = async (req, res) => {
 };
 
 const ctSubmitQuizAnswers = async (req, res) => {
-  // console.log(req.quizPlayer);
-  // console.log(req.quizInfo);
-  const submitAnswers = await submitAllPlayerAnswers(req.quizInfo, req.body);
+  const answers = await getQuizCorrectAnswers(req.quizInfo.data.quizId);
+  const { parsedResults, finalScore } = await parsePlayerAnswers(
+    req.body,
+    answers,
+  );
+  console.info(finalScore);
+  console.info(parsedResults);
 };
 
 const ctGetPlayersIncompleteQuizzes = async (req, res) => {

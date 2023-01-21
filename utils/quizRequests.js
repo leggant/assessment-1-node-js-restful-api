@@ -253,7 +253,8 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
   return participant;
 };
 
-const parsePlayerAnswers = async (userAnswers, answers) => {
+const parsePlayerAnswers = async (quiz, userAnswers, answers) => {
+  const { quizId, userId } = quiz.data;
   const answer = userAnswers.quizAnswers;
   const storedAnswers = await answers.questions;
   const parsedResults = [];
@@ -265,21 +266,36 @@ const parsePlayerAnswers = async (userAnswers, answers) => {
     const match = compareAnswerStrings(uAnswer, sAnswer);
     score = match ? score + 1 : score;
     parsedResults.push({
+      userId,
+      quizId,
       questionId: qID,
-      answer: sAnswer,
-      userAnswer: uAnswer,
+      answer: uAnswer,
       correctAnswer: match.valueOf(),
-      currentScore: score,
     });
   });
-  const finalScore = score;
+  const finalScore = [
+    {
+      userId,
+      quizId,
+      score,
+    },
+  ];
   return { parsedResults, finalScore };
 };
 
-const submitAllPlayerAnswers = async (info, answers, score) => {
-  console.info(info);
-  console.info(answers);
-  console.info(score);
+const submitAllPlayerAnswers = async (answers, result) => {
+  const submitAnswers = await PRISMA.userQuestionAnswer.createMany({
+    data: answers,
+  });
+  const { userId, quizId, score } = result[0];
+  const submitScore = await PRISMA.userScore.create({
+    data: {
+      userId,
+      quizId,
+      score,
+    },
+  });
+  return { submitAnswers, submitScore };
 };
 
 const getQuizCorrectAnswers = async (quizId) => {
@@ -299,30 +315,17 @@ const getQuizCorrectAnswers = async (quizId) => {
   return quizAnswerList;
 };
 
-const addPointToQuizPlayerScore = async (quizId, userId) => {
-  console.log(quizId);
-  console.log(userId);
-  const score = await PRISMA.userScore.create({
-    data: {
-      userId,
-      quizId,
-      score: 0,
-    },
-  });
-};
-
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
-  createNewQuizQuestions,
-  getQuizDetails,
-  getQuizQuestions,
-  getQuizMultiChoiceQuestions,
-  getQuizCorrectAnswers,
-  getAllIncompleteQuizzes,
-  updateQuizById,
-  addPlayerAsQuizParticipant,
   parsePlayerAnswers,
   submitAllPlayerAnswers,
-  addPointToQuizPlayerScore,
+  createNewQuizQuestions,
+  addPlayerAsQuizParticipant,
+  getQuizDetails,
+  getQuizQuestions,
+  getQuizCorrectAnswers,
+  getAllIncompleteQuizzes,
+  getQuizMultiChoiceQuestions,
+  updateQuizById,
 };

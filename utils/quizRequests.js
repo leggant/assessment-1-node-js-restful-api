@@ -248,9 +248,30 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
   return participant;
 };
 
-const submitAllPlayerAnswers = async (quiz, answers) => {
-  console.info(quiz);
-  console.info(answers);
+const submitAllPlayerAnswers = async (quiz, userAnswers, answers) => {
+  const { quizId, userId } = quiz.data;
+  const answer = userAnswers.quizAnswers;
+  const storedAnswers = await answers.questions;
+  console.info(quizId, userId);
+  console.info(answer);
+  console.info(storedAnswers);
+};
+
+const getQuizCorrectAnswers = async (quizId) => {
+  const quizAnswerList = await PRISMA.quiz.findFirst({
+    where: {
+      id: quizId,
+    },
+    select: {
+      questions: {
+        select: {
+          id: true,
+          correctAnswer: true,
+        },
+      },
+    },
+  });
+  return quizAnswerList;
 };
 
 const addPointToQuizPlayerScore = async (quizId, userId) => {
@@ -272,6 +293,7 @@ export {
   getQuizDetails,
   getQuizQuestions,
   getQuizMultiChoiceQuestions,
+  getQuizCorrectAnswers,
   getAllIncompleteQuizzes,
   updateQuizById,
   addPlayerAsQuizParticipant,

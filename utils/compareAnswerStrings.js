@@ -6,8 +6,14 @@
  */
 const compareAnswerStrings = (userAnswer, storedAnswer) => {
   // https://stackoverflow.com/a/16913929
-  const uAnswer = userAnswer.toLowerCase().replace(/[^a-z0-9 ]/g, "");
-  const sAnswer = storedAnswer.toLowerCase().replace(/[^a-z0-9 ]/g, "");
+  const uAnswer = userAnswer
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .replace(" ", "");
+  const sAnswer = storedAnswer
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .replace(" ", "");
   const result = uAnswer === sAnswer;
   return result;
 };

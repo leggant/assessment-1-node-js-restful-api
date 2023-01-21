@@ -33,7 +33,7 @@ const dbDateStringFromDate = (date) => {
 
 const quizDateFuture = (quizDate) => {
   const dateNow = moment();
-  const isFuture = moment(dateNow).isBefore(quizDate);
+  const isFuture = dateNow.isBefore(quizDate);
   return isFuture;
 };
 /**
@@ -44,7 +44,7 @@ const quizDateFuture = (quizDate) => {
 const quizDateValid = (date) => {
   const dateNow = moment();
   const quizDate = moment(date);
-  const isAfter = moment(quizDate).isAfter(dateNow);
+  const isAfter = quizDate.isAfter(dateNow);
   // console.info("quiz date is valid", isAfter.valueOf());
   return isAfter;
 };
@@ -69,7 +69,8 @@ const playerCanParticipate = (quizStart, quizEnd) => {
   const dateNow = moment();
   const start = moment(quizStart.toISOString());
   const end = moment(quizEnd.toISOString());
-  const canPartake = dateNow.isBetween(start, end);
+  // https://stackoverflow.com/a/29495647
+  const canPartake = dateNow.isBetween(start, end, "days", "[)");
   return canPartake;
 };
 

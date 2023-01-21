@@ -87,6 +87,8 @@ model UserQuestionAnswer {
   user          User     @relation(fields: [userId], references: [id])
   quiz          Quiz     @relation(fields: [quizId], references: [id], onDelete: NoAction)
   question      Question @relation(fields: [questionId], references: [id], onDelete: NoAction)
+
+  @@unique([userId, quizId, questionId])
 }
 
 model Category {

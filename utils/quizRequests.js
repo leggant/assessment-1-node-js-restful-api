@@ -3,9 +3,10 @@
  * @module quizRequests
  */
 import PRISMA from "./prisma.js";
-import checkDataType from "./checkDataType.js";
+import QUIZCONSTS from "../api/v1/constants/quiz.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
 import { unescapeString, unescapeArray } from "./unescapeData.js";
+import checkDataType from "./checkDataType.js";
 import compareAnswerStrings from "./compareAnswerStrings.js";
 
 const dataGenerator = {
@@ -49,7 +50,10 @@ const createNewQuiz = async (reqdata) => {
 const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
   const qData = Array.from(QUIZDATA).map((questions) => ({
     quizId: QUIZINFO.id,
-    question: dataGenerator.eString(questions.question),
+    question:
+      QUIZINFO.answerType === QUIZCONSTS.ANSTYPE.TRUEFALSE
+        ? dataGenerator.eString(`${questions.question} True or False?`)
+        : dataGenerator.eString(questions.question),
     correctAnswer: dataGenerator.eString(questions.correct_answer),
     incorrectAnswers: questions.incorrect_answers,
     possibleAnswers: dataGenerator.pStringArray(

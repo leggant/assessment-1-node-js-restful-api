@@ -9,8 +9,6 @@ import PRISMA from "../../../utils/prisma.js";
 
 const ctCreateQuiz = async (req, res) => {
   const { categoryId, difficulty, answerType, numQuestions } = req.body;
-  // create a new quiz, get the quiz db id
-  const newQuizItem = await createNewQuiz(req.body);
   // valid request - get quiz data from the 3rd party api
   const quizData = await createQuizOpenTDBRequest({
     category: categoryId,
@@ -28,6 +26,8 @@ const ctCreateQuiz = async (req, res) => {
   if (requestCode !== 0) {
     return res.status(400).json({ msg: "Quiz Data Request Error." });
   }
+  // create a new quiz, get the quiz db id
+  const newQuizItem = await createNewQuiz(req.body);
   return createNewQuizQuestions(quizData.results, newQuizItem, res);
 };
 

@@ -1,124 +1,48 @@
 import { body, param } from "express-validator";
 import PRISMA from "../../../utils/prisma.js";
-import QUIZCONSTS from "../constants/quiz.js";
-import {
-  quizDateValid,
-  quizEnddateValid,
-  splitDate,
-  playerCanParticipate,
-} from "../../../utils/dateTimeCheck.js";
 
 const PlayerSubmitQuizAnswersSchema = [
   param("quizId")
     .escape()
     .trim()
-    .notEmpty()
-    .withMessage("Quiz ID is a required param")
     .isNumeric()
-    .withMessage("Quiz ID must be a integer")
-    .toInt(),
-  // body("quizId")
-  //   .escape()
-  //   .trim()
-  //   .isNumeric()
-  //   .toInt()
-  //   .withMessage("ID must be an integer value")
-  //   .notEmpty()
-  //   .withMessage("Category ID Is Required")
-  //   .custom(async (categoryId, { req }) => {
-  //     const categories = await PRISMA.category.findUniqueOrThrow({
-  //       where: {
-  //         id: Number(req.body.categoryId),
-  //       },
-  //       select: {
-  //         id: true,
-  //       },
-  //     });
-  //     if (categories.id !== Number(req.body.categoryId)) {
-  //       throw new Error("Invalid Category ID");
-  //     }
-  //     return true;
-  //   }),
-  // body("name")
-  //   .escape()
-  //   .trim()
-  //   .matches(/[a-zA-Z\s]/gi)
-  //   .withMessage(
-  //     "Quiz name must contain letters only. No numbers or special characters",
-  //   )
-  //   .isLength({ min: 5, max: 30 })
-  //   .withMessage("Quiz Name Must Be Between 5 and 30 characters")
-  //   .notEmpty({ ignore_whitespace: true })
-  //   .withMessage("Quiz Name Is Required"),
-  // body("difficulty")
-  //   .escape()
-  //   .trim()
-  //   .isIn([QUIZCONSTS.LEVEL.EASY, QUIZCONSTS.LEVEL.MED, QUIZCONSTS.LEVEL.HARD])
-  //   .withMessage("Quiz Level Must Be Valid")
-  //   .notEmpty()
-  //   .withMessage("Quiz Level is Required"),
-  // body("answerType")
-  //   .escape()
-  //   .trim()
-  //   .isIn([QUIZCONSTS.ANSTYPE.MULTI, QUIZCONSTS.ANSTYPE.TRUEFALSE])
-  //   .withMessage("Quiz Answer Type Must Be Valid")
-  //   .notEmpty()
-  //   .withMessage("Quiz Answer Type is Required"),
-  // body("questions")
-  //   .escape()
-  //   .trim()
-  //   .isNumeric()
-  //   .withMessage("Number of questions, must have a numeric value")
-  //   .isInt({ min: 10, max: 10 })
-  //   .withMessage("Number of questions must equal 10.")
-  //   .notEmpty()
-  //   .withMessage("Number of questions is Required"),
-  // body("startDate")
-  //   .escape()
-  //   .trim()
-  //   .isDate()
-  //   .withMessage("Correctly formated date required")
-  //   .custom((start, { req }) => {
-  //     const dateSplit = splitDate(req.body.startDate);
-  //     const isValid = quizDateValid(
-  //       dateSplit.day,
-  //       dateSplit.month,
-  //       dateSplit.year,
-  //     );
-  //     if (!isValid) {
-  //       throw new Error(
-  //         "Quiz Start Date is Invalid. This must be a date in the future.",
-  //       );
-  //     }
-  //     return true;
-  //   })
-  //   .notEmpty()
-  //   .withMessage("Quiz Start Date is Required."),
-  // body("endDate")
-  //   .escape()
-  //   .trim()
-  //   .isDate()
-  //   .withMessage("Correctly Formated Date Required")
-  //   .custom((end, { req }) => {
-  //     const startSplit = splitDate(req.body.startDate);
-  //     const endSplit = splitDate(req.body.endDate);
-  //     const isValid = quizEnddateValid(
-  //       startSplit.day,
-  //       startSplit.month,
-  //       startSplit.year,
-  //       endSplit.day,
-  //       endSplit.month,
-  //       endSplit.year,
-  //     );
-  //     if (!isValid) {
-  //       throw new Error(
-  //         "Quiz Start/End Dates are Invalid. The start date must be in the future, and the end date must come after within 5 days.",
-  //       );
-  //     }
-  //     return true;
-  //   })
-  //   .notEmpty()
-  //   .withMessage("Quiz End Date is Required"),
+    .toInt()
+    .withMessage("quizId param must have an integer value")
+    .notEmpty()
+    .withMessage("quizId is required"),
+  body("quizAnswers").custom(async (quizAnswers, { req }) => {
+    const len = quizAnswers.length;
+    if (len !== 10) {
+      throw new Error("There Must be 10 Answers Provided");
+    }
+    const user = req.quizPlayer;
+    const checkPlayer = await PRISMA.userScore.findFirst({
+      where: {
+        AND: [{ userId: user.userId }, { quizId: user.quizId }],
+      },
+    });
+    if (checkPlayer) {
+      throw new Error("Player Has Already Participated In This Quiz.");
+    }
+    const entries = Object.entries(quizAnswers);
+    entries.forEach((x, i) => {
+      const keyval = Object.keys(x[1])[0];
+      const ansval = Object.values(x[1])[0];
+      const ansOk = typeof ansval === "string";
+      const keyok = keyval === "answer";
+      if (!keyok) {
+        throw new Error(
+          "Each answer object provided must have 'answer' as the key - i.e. { 'answer' : 'your answer' }",
+        );
+      }
+      if (!ansOk) {
+        throw new Error(
+          "Each answer must contain a sting data type value - i.e. { 'answer' : 'true' }",
+        );
+      }
+    });
+    return true;
+  }),
 ];
 
 export default PlayerSubmitQuizAnswersSchema;

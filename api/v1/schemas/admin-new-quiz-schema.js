@@ -73,9 +73,7 @@ const NewQuizSchema = [
     .isDate()
     .withMessage("Correctly formated date required")
     .custom((start, { req }) => {
-      const dateSplit = splitDate(req.body.startDate);
-      const moment = createMomentDate(dateSplit);
-      const isValid = quizDateValid(moment);
+      const isValid = quizDateValid(req.body.startDate);
       if (!isValid) {
         throw new Error(
           "Quiz Start Date is Invalid. This must be a date in the future.",
@@ -91,11 +89,7 @@ const NewQuizSchema = [
     .isDate()
     .withMessage("Correctly Formated Date Required")
     .custom((end, { req }) => {
-      const startSplit = splitDate(req.body.startDate);
-      const startmoment = createMomentDate(startSplit);
-      const endSplit = splitDate(req.body.endDate);
-      const endmoment = createMomentDate(endSplit);
-      const isValid = quizEnddateValid(startmoment, endmoment);
+      const isValid = quizEnddateValid(req.body.startDate, req.body.endDate);
       if (!isValid) {
         throw new Error(
           "Quiz Start/End Dates are Invalid. The start date must be in the future, and the end date must come after within 5 days.",

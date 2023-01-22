@@ -90,7 +90,7 @@ const ctDeleteUser = async (req, res) => {
     if (!reqStatus) {
       return res
         .status(404)
-        .json({ msg: "Request User Could Not Be Found/Could Not Be Deleted." });
+        .json({ msg: "Request User Could Not Be Found + Not Deleted." });
     }
     return res.status(200).json({ msg: "User Deleted Successfully" });
   } catch (err) {

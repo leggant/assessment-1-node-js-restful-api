@@ -19,7 +19,7 @@ headers: {'X-Custom-Header': 'foobar'}
  */
 const GISTAXIOS = axios.create({
   baseURL:
-    "https://gist.githubusercontent.com/leggant/0bba24ff5402123c0a1301df853c5541/raw/1749009d0d9ef6d14dd67939d6d5b734a2621c0c",
+    "https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2",
   method: "GET",
 });
 /**
@@ -77,8 +77,8 @@ const createQuizOpenTDBRequest = async (query) => {
   const reqString = `${CREATEQUIZ}?category=${query.category}&amount=${query.amount}&difficulty=${query.difficulty}&type=${query.answerType}`;
   const data = await QUIZAXIOS.get(reqString)
     .then((resData) => {
-      const dataRes = resData.data;
-      return dataRes.results;
+      const dataRes = resData;
+      return dataRes.data;
     })
     .catch((err) => {
       console.error(err.message);

@@ -1,6 +1,21 @@
 import crypto from "crypto";
+import bcryptjs from "bcryptjs";
 import PRISMA from "../../../utils/prisma.js";
 import { getUsers } from "../../../utils/axiosRequests.js";
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+const dataGenerator = {
+  imageurl: () => {
+    const random = crypto.randomBytes(15).toString("hex");
+    const imageurl = `https://avatars.dicebear.com/api/human/:${random}.svg?radius=50&size=200`;
+    return imageurl;
+  },
+  hashedPassword: async (password) => {
+    const salt = await bcryptjs.genSalt();
+    const hashedPassword = await bcryptjs.hash(password, salt);
+    return hashedPassword;
+  },
+};
 
 const seedUsers = async (req, res) => {
   const USERDATA = await getUsers();
@@ -14,36 +29,35 @@ const seedUsers = async (req, res) => {
   });
   console.info(`[SEED] ${deleteUsers.count} user records deleted.`);
   Promise.all(
-    USERDATA.users.map((user) => {
-      const random = crypto.randomBytes(15).toString("hex");
-      const imageurl = `https://avatars.dicebear.com/api/human/:${random}.svg?radius=50&size=200`;
-      const createusers = PRISMA.user.create({
-        data: {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          userName: user.userName,
-          email: user.email,
-          password: user.password,
-          role: user.role,
-          profileImgURL: imageurl,
-        },
+    Array.from(USERDATA.users).map(async (user) => ({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+      email: user.email,
+      password: await dataGenerator.hashedPassword(user.password),
+      role: user.role,
+      profileImgURL: await dataGenerator.imageurl(),
+    })),
+  ).then(async (userDataMap) => {
+    await PRISMA.user
+      .createMany({
+        data: userDataMap,
+      })
+      .then((userSeederRes) => {
+        console.info(
+          `[SEED] ${userSeederRes.count} user records successfully created`,
+        );
+        return res.status(201).json({
+          msg: `[SEED] ${userSeederRes.count} user records successfully created`,
+        });
+      })
+      .catch((e) => {
+        console.error("[SEED] Failed to create user records", e);
+        return res
+          .status(401)
+          .json({ msg: "[SEED] Failed to create user records", e });
       });
-      return createusers;
-    }),
-  )
-    .then((data) => {
-      const count = Object.keys(data).length;
-      console.info(`[SEED] ${count} user records successfully created`);
-      return res
-        .status(201)
-        .json({ msg: `[SEED] ${count} user records successfully created` });
-    })
-    .catch((e) => {
-      console.error("[SEED] Failed to create user records", e);
-      return res
-        .status(401)
-        .json({ msg: "[SEED] Failed to create user records", e });
-    });
+  });
 };
 
 // eslint-disable-next-line import/prefer-default-export

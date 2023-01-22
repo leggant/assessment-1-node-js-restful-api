@@ -58,6 +58,11 @@ const ctSubmitQuizAnswers = async (req, res) => {
   const quizData = req.quizInfo.data;
   const { userName } = req.quizPlayer;
   const correctAnswers = await getQuizCorrectAnswers(quizData.quizId);
+  if (!correctAnswers) {
+    return res
+      .status(404)
+      .json({ msg: `No Answers Found For Quiz #${quizData.quizId}` });
+  }
   // eslint-disable-next-line prefer-destructuring
   const submittedAnswers = req.body;
   const { parsedResults, finalScore } = await parsePlayerAnswers(
@@ -65,8 +70,20 @@ const ctSubmitQuizAnswers = async (req, res) => {
     submittedAnswers,
     correctAnswers,
   );
+  if (!parsedResults.length || !finalScore.length) {
+    return res.status(422).json({
+      msg: `Error Parsing Players Answers For Quiz #${quizData.quizId}`,
+    });
+  }
   await submitAllPlayerAnswers(parsedResults, finalScore);
   const avg = await getQuizAverageScore(quizData.quizId);
+  if (!avg.score) {
+    return res.status(201).json({
+      msg: `${userName} has successfully participated in ${quizData.quiz.name}.`,
+      userScore: finalScore[0].score,
+      quizAverageScore: "Error Occurred Calculating This Value.",
+    });
+  }
   return res.status(201).json({
     msg: `${userName} has successfully participated in ${quizData.quiz.name}.`,
     data: {

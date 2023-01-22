@@ -88,7 +88,7 @@ const ctSubmitQuizAnswers = async (req, res) => {
     msg: `${userName} has successfully participated in ${quizData.quiz.name}.`,
     data: {
       userScore: finalScore[0].score,
-      quizAverageScore: avg.score,
+      quizAverageScore: Number(avg.score.toFixed(3)),
     },
   });
 };

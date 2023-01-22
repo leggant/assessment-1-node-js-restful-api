@@ -1,9 +1,10 @@
 import {
-  parsePlayerAnswers,
-  submitAllPlayerAnswers,
-  getQuizCorrectAnswers,
   getQuizDetails,
   getQuizQuestions,
+  parsePlayerAnswers,
+  getQuizAverageScore,
+  getQuizCorrectAnswers,
+  submitAllPlayerAnswers,
   getQuizMultiChoiceQuestions,
   addPlayerAsQuizParticipant,
 } from "../../../utils/quizRequests.js";
@@ -54,16 +55,25 @@ const ctGetQuizQuestions = async (req, res) => {
 };
 
 const ctSubmitQuizAnswers = async (req, res) => {
-  const storedAnswers = await getQuizCorrectAnswers(req.quizInfo.data.quizId);
+  const quizData = req.quizInfo.data;
+  const { userName } = req.quizPlayer;
+  const correctAnswers = await getQuizCorrectAnswers(quizData.quizId);
   // eslint-disable-next-line prefer-destructuring
-  const quizInfo = req.quizInfo;
   const submittedAnswers = req.body;
   const { parsedResults, finalScore } = await parsePlayerAnswers(
-    quizInfo,
+    quizData,
     submittedAnswers,
-    storedAnswers,
+    correctAnswers,
   );
-  const submit = await submitAllPlayerAnswers(parsedResults, finalScore);
+  await submitAllPlayerAnswers(parsedResults, finalScore);
+  const avg = await getQuizAverageScore(quizData.quizId);
+  return res.status(201).json({
+    msg: `${userName} has successfully participated in ${quizData.quiz.name}.`,
+    data: {
+      userScore: finalScore[0].score,
+      quizAverageScore: avg.score,
+    },
+  });
 };
 
 const ctGetPlayerQuizResults = async (req, res) => {

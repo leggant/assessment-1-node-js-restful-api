@@ -6,6 +6,7 @@ import {
   ctAddQuizPlayer,
   ctGetQuizQuestions,
   ctSubmitQuizAnswers,
+  ctGetPlayerQuizResults,
 } from "../controllers/quizPlayerController.js";
 
 import mwQuizValid from "../middleware/mw_quizValid.js";
@@ -42,6 +43,17 @@ router.get(
   mwPlayerAddedToQuiz,
   mwCurrentDateValid,
   ctGetQuizQuestions,
+);
+// get quiz results
+router.get(
+  PATHS.QUIZ.PLAYERRESULTS,
+  mwAuth,
+  mwTokenValid,
+  // QuizParamSchema,
+  // validateSchema,
+  mwQuizValid,
+  mwPlayerAddedToQuiz,
+  ctGetPlayerQuizResults,
 );
 // submit player answers
 router.post(

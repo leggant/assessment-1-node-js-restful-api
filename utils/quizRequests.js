@@ -204,45 +204,6 @@ const getQuizMultiChoiceQuestions = async (quizId) => {
   return quizQuestions;
 };
 
-const getAllIncompleteQuizzes = async (userId) => {
-  const quizzes = await PRISMA.userParticipate.findMany({
-    where: {
-      userId,
-      quiz: {
-        userScores: {
-          every: {
-            userId: {
-              equals: userId,
-            },
-            score: {
-              equals: 0,
-            },
-          },
-        },
-      },
-    },
-    select: {
-      userId: true,
-      quizId: true,
-      quiz: {
-        select: {
-          name: true,
-          startDate: true,
-          endDate: true,
-          difficulty: true,
-          answerType: true,
-          userScores: {
-            select: {
-              score: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  return quizzes;
-};
-
 const addPlayerAsQuizParticipant = async (quizId, userId) => {
   const participant = await PRISMA.userParticipate.create({
     data: {
@@ -328,7 +289,6 @@ export {
   getQuizQuestions,
   getQuizCorrectAnswers,
   getPlayerAverageScore,
-  getAllIncompleteQuizzes,
   getQuizMultiChoiceQuestions,
   updateQuizById,
 };

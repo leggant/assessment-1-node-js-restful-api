@@ -23,10 +23,10 @@ const router = Router();
 router.post(
   PATHS.ADMIN.QUIZ,
   mwAuth,
-  CreateSchema,
-  validateSchema,
   mwTokenValid,
   mwAdminUser,
+  CreateSchema,
+  validateSchema,
   ctCreateQuiz,
 );
 

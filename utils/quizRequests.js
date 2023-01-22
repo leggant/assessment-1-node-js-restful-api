@@ -315,6 +315,8 @@ const getQuizCorrectAnswers = async (quizId) => {
   return quizAnswerList;
 };
 
+const getPlayerAverageScore = async (playerId) => {};
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
@@ -325,6 +327,7 @@ export {
   getQuizDetails,
   getQuizQuestions,
   getQuizCorrectAnswers,
+  getPlayerAverageScore,
   getAllIncompleteQuizzes,
   getQuizMultiChoiceQuestions,
   updateQuizById,

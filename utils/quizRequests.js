@@ -3,9 +3,23 @@
  * @module quizRequests
  */
 import PRISMA from "./prisma.js";
-import checkDataType from "./checkDataType.js";
+import QUIZCONSTS from "../api/v1/constants/quiz.js";
 import { dbDateStringFromDate } from "./dateTimeCheck.js";
-import UnescapeString from "./unescapeString.js";
+import { unescapeString, unescapeArray } from "./unescapeData.js";
+import checkDataType from "./checkDataType.js";
+import compareAnswerStrings from "./compareAnswerStrings.js";
+
+const dataGenerator = {
+  eString: (stringVal) => {
+    const escaped = unescapeString(stringVal);
+    return escaped;
+  },
+  pStringArray: (incorrectAnswers, answer) => {
+    const incorrect = unescapeArray(incorrectAnswers);
+    const possibleAnswerArray = [...incorrect, answer];
+    return possibleAnswerArray.sort();
+  },
+};
 
 const createNewQuiz = async (reqdata) => {
   const {
@@ -34,24 +48,25 @@ const createNewQuiz = async (reqdata) => {
 };
 
 const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
-  Promise.all(
-    QUIZDATA.map((q) => {
-      const questionString = UnescapeString(q.question);
-      const answerString = UnescapeString(q.correct_answer);
-      const createquestions = PRISMA.question.create({
-        data: {
-          quizId: QUIZINFO.id,
-          question: questionString,
-          correctAnswer: answerString,
-          incorrectAnswers: q.incorrect_answers,
-        },
-      });
-      return createquestions;
-    }),
-  )
-    .then((data) => {
-      const count = Object.keys(data).length;
-      console.info(`${count} questions added to quiz ${QUIZINFO.name}`);
+  const qData = Array.from(QUIZDATA).map((questions) => ({
+    quizId: QUIZINFO.id,
+    question:
+      QUIZINFO.answerType === QUIZCONSTS.ANSTYPE.TRUEFALSE
+        ? dataGenerator.eString(`${questions.question} True or False?`)
+        : dataGenerator.eString(questions.question),
+    correctAnswer: dataGenerator.eString(questions.correct_answer),
+    incorrectAnswers: questions.incorrect_answers,
+    possibleAnswers: dataGenerator.pStringArray(
+      questions.incorrect_answers,
+      dataGenerator.eString(questions.correct_answer),
+    ),
+  }));
+  await PRISMA.question
+    .createMany({
+      data: qData,
+    })
+    .then((qResult) => {
+      console.info(`${qResult.count} questions added to quiz ${QUIZINFO.name}`);
       res.status(201).json({
         msg: `${QUIZINFO.name} Successfully Created.`,
         data: {
@@ -68,27 +83,24 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
     })
     .catch((e) => {
       console.error(`Failed to create questions for quiz: ${QUIZINFO.name}`, e);
-      res
-        .status(401)
-        .json({ msg: `Failed to create questions for quiz: ${QUIZINFO.name}` });
+      res.status(401).json({
+        msg: `Failed to create questions for quiz: ${QUIZINFO.name}`,
+      });
     });
 };
 
 const updateQuizById = async (quizId, data) => {
   const quiz = await PRISMA.quiz.findFirst({
-    where: { id: Number(quizId) },
+    where: { id: quizId },
   });
   if (!quiz) {
     return false;
   }
   const updateRes = await PRISMA.quiz.update({
-    where: { id: Number(quizId) },
+    where: { id: quizId },
     select: {
       categoryId: true,
       name: true,
-      difficulty: true,
-      answerType: true,
-      numQuestions: true,
       startDate: true,
       endDate: true,
     },
@@ -105,7 +117,7 @@ const updateQuizById = async (quizId, data) => {
 };
 
 const getQuizDetails = async (quizId) => {
-  const quizDetails = await PRISMA.quiz.findFirstOrThrow({
+  const quizDetails = await PRISMA.quiz.findFirst({
     where: {
       id: quizId,
     },
@@ -129,28 +141,28 @@ const getQuizDetails = async (quizId) => {
 };
 
 const getQuizQuestions = async (quizId) => {
-  const quizQuestions = await PRISMA.quiz.findFirstOrThrow({
+  const quizQuestions = await PRISMA.quiz.findFirst({
     where: {
       id: quizId,
     },
     select: {
       name: true,
-      categoryId: true,
       answerType: true,
       difficulty: true,
       numQuestions: true,
       startDate: true,
       endDate: true,
-      questions: {
-        select: {
-          id: true,
-          question: true,
-        },
-      },
+      categoryId: true,
       category: {
         select: {
           id: true,
           name: true,
+        },
+      },
+      questions: {
+        select: {
+          id: true,
+          question: true,
         },
       },
     },
@@ -158,45 +170,35 @@ const getQuizQuestions = async (quizId) => {
   return quizQuestions;
 };
 
-const getAllIncompleteQuizzes = async (userId) => {
-  // const quizzes =
-  //   await PRISMA.$queryRaw`SELECT * FROM "Quiz" WHERE "endDate" > now() INNER JOIN `;
-  const quizzes = await PRISMA.userParticipate.findMany({
+const getQuizMultiChoiceQuestions = async (quizId) => {
+  const quizQuestions = await PRISMA.quiz.findFirst({
     where: {
-      userId,
-      quiz: {
-        userScores: {
-          every: {
-            userId: {
-              equals: userId,
-            },
-            score: {
-              equals: 0,
-            },
-          },
-        },
-      },
+      id: quizId,
     },
     select: {
-      userId: true,
-      quizId: true,
-      quiz: {
+      name: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      categoryId: true,
+      category: {
         select: {
+          id: true,
           name: true,
-          startDate: true,
-          endDate: true,
-          difficulty: true,
-          answerType: true,
-          userScores: {
-            select: {
-              score: true,
-            },
-          },
+        },
+      },
+      questions: {
+        select: {
+          id: true,
+          question: true,
+          possibleAnswers: true,
         },
       },
     },
   });
-  return quizzes;
+  return quizQuestions;
 };
 
 const addPlayerAsQuizParticipant = async (quizId, userId) => {
@@ -206,43 +208,95 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
       quizId,
     },
   });
-  // this needs to be removed - score to be added when player has answered all questions
-  const score = await PRISMA.userScore.create({
+  return participant;
+};
+
+const parsePlayerAnswers = async (quiz, userAnswers, answers) => {
+  const { quizId, userId } = quiz;
+  const answer = userAnswers.quizAnswers;
+  const storedAnswers = await answers.questions;
+  const parsedResults = [];
+  let score = 0;
+  storedAnswers.forEach((xAnswer, i) => {
+    const qID = xAnswer.id;
+    const uAnswer = answer[i].answer;
+    const sAnswer = xAnswer.correctAnswer;
+    const match = compareAnswerStrings(uAnswer, sAnswer);
+    score = match ? score + 1 : score;
+    parsedResults.push({
+      userId,
+      quizId,
+      questionId: qID,
+      answer: uAnswer,
+      correctAnswer: match.valueOf(),
+    });
+  });
+  const finalScore = [
+    {
+      userId,
+      quizId,
+      score,
+    },
+  ];
+  return { parsedResults, finalScore };
+};
+
+const submitAllPlayerAnswers = async (answers, result) => {
+  const submitAnswers = await PRISMA.userQuestionAnswer.createMany({
+    data: answers,
+  });
+  const { userId, quizId, score } = result[0];
+  const submitScore = await PRISMA.userScore.create({
     data: {
       userId,
       quizId,
-      score: 0,
+      score,
     },
   });
-  return { participant, score };
+  return { submitAnswers, submitScore };
 };
 
-const addQuizPlayerAnswer = async (quizId, playerId) => {
-  console.log(quizId);
-  console.log(playerId);
+const getQuizCorrectAnswers = async (quizId) => {
+  const quizAnswerList = await PRISMA.quiz.findFirst({
+    where: {
+      id: quizId,
+    },
+    select: {
+      questions: {
+        select: {
+          id: true,
+          correctAnswer: true,
+        },
+      },
+    },
+  });
+  return quizAnswerList;
 };
 
-const addPointToQuizPlayerScore = async (quizId, userId) => {
-  console.log(quizId);
-  console.log(userId);
-  const score = await PRISMA.userScore.create({
-    data: {
-      userId,
+const getQuizAverageScore = async (quizId) => {
+  const quizAvg = await PRISMA.userScore.aggregate({
+    where: {
       quizId,
-      score: 0,
+    },
+    _avg: {
+      score: true,
     },
   });
+  const obj = Object.entries(quizAvg);
+  return obj[0][1];
 };
 
 // eslint-disable-next-line import/prefer-default-export
 export {
   createNewQuiz,
+  parsePlayerAnswers,
+  submitAllPlayerAnswers,
   createNewQuizQuestions,
+  addPlayerAsQuizParticipant,
   getQuizDetails,
   getQuizQuestions,
-  getAllIncompleteQuizzes,
+  getQuizAverageScore,
+  getQuizCorrectAnswers,
+  getQuizMultiChoiceQuestions,
   updateQuizById,
-  addPlayerAsQuizParticipant,
-  addQuizPlayerAnswer,
-  addPointToQuizPlayerScore,
 };

@@ -12,7 +12,8 @@ const mwQuizPlayerValid = async (req, res, next) => {
     if (isAdmin) {
       return res.status(403).json({ msg: "Basic Users Only." });
     }
-    const quizId = Number(req.params.quizId);
+    // eslint-disable-next-line prefer-destructuring
+    const quizId = req.params.quizId;
     const userId = req.user.id;
     // eslint-disable-next-line prefer-destructuring
     const userName = req.user.userName;
@@ -46,7 +47,7 @@ const mwQuizPlayerValid = async (req, res, next) => {
           };
         } else if (!quizDatesOk) {
           return res.status(422).json({
-            msg: `QuiZ Id #${quizId} Cannot Be Played. ${moment()} is not within the quiz date range: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
+            msg: `Quiz Id #${quizId} Cannot Be Played. ${moment()} is not within the quiz date range: ${validQuiz.startDate.toDateString()}-${validQuiz.endDate.toDateString()}`,
           });
         }
       } else {

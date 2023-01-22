@@ -108,7 +108,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password, userName } = req.body;
-    const user = await PRISMA.user.findFirstOrThrow({
+    const user = await PRISMA.user.findFirst({
       where: {
         OR: [
           {
@@ -129,7 +129,7 @@ const login = async (req, res) => {
       const errorMessage = email
         ? "No User Associated With The Provided Email. Please Register"
         : "No User Associated With The Provided User Name. Please Register";
-      return res.status(401).json({ msg: errorMessage });
+      return res.status(404).json({ msg: errorMessage });
     }
 
     /**

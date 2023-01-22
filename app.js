@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import compression from "compression";
 
 import loginRegisterRouter from "./api/v1/routes/userAuthRouter.js";
 import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
@@ -29,6 +30,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
+app.use(compression());
 app.use(express.json());
 /**
  * Defines the base value for all API routes

@@ -147,22 +147,22 @@ const getQuizQuestions = async (quizId) => {
     },
     select: {
       name: true,
-      categoryId: true,
       answerType: true,
       difficulty: true,
       numQuestions: true,
       startDate: true,
       endDate: true,
-      questions: {
-        select: {
-          id: true,
-          question: true,
-        },
-      },
+      categoryId: true,
       category: {
         select: {
           id: true,
           name: true,
+        },
+      },
+      questions: {
+        select: {
+          id: true,
+          question: true,
         },
       },
     },
@@ -177,23 +177,23 @@ const getQuizMultiChoiceQuestions = async (quizId) => {
     },
     select: {
       name: true,
-      categoryId: true,
       answerType: true,
       difficulty: true,
       numQuestions: true,
       startDate: true,
       endDate: true,
+      categoryId: true,
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       questions: {
         select: {
           id: true,
           question: true,
           possibleAnswers: true,
-        },
-      },
-      category: {
-        select: {
-          id: true,
-          name: true,
         },
       },
     },

@@ -33,12 +33,38 @@ const ctCreateQuiz = async (req, res) => {
 
 const ctGetQuizById = async (req, res) => {
   const quizres = await PRISMA.quiz.findFirst({
-    where: { id: Number(req.params.quizId) },
-    include: {
-      questions: true,
-      userScores: true,
-      userParticipateQuiz: true,
-      userQuestionAnswers: true,
+    where: { id: req.params.quizId },
+    select: {
+      id: true,
+      categoryId: true,
+      name: true,
+      answerType: true,
+      difficulty: true,
+      numQuestions: true,
+      startDate: true,
+      endDate: true,
+      questions: {
+        select: {
+          id: true,
+          quizId: true,
+          question: true,
+          possibleAnswers: true,
+          correctAnswer: true,
+        },
+      },
+      userParticipateQuiz: {
+        select: {
+          userId: true,
+          quizId: true,
+        },
+      },
+      userScores: {
+        select: {
+          id: true,
+          userId: true,
+          score: true,
+        },
+      },
     },
   });
   if (quizres) {
@@ -66,8 +92,7 @@ const ctGetAllQuizzes = async (req, res) => {
 
 const ctUpdateQuizById = async (req, res) => {
   try {
-    const quizId = Number(req.params.quizId);
-    const updateResult = await updateQuizById(quizId, req.body);
+    const updateResult = await updateQuizById(req.params.quizId, req.body);
     const ok = checkDataType(updateResult);
     if (ok === "boolean") {
       return res
@@ -87,24 +112,48 @@ const ctUpdateQuizById = async (req, res) => {
 
 const ctDeleteQuizById = async (req, res) => {
   const quizres = await PRISMA.quiz.findFirst({
-    where: { id: Number(req.params.quizId) },
+    where: { id: req.params.quizId },
     include: {
       questions: true,
+      userQuestionAnswers: true,
+      userScores: true,
     },
   });
-  if (quizres) {
+  if (!quizres) {
+    return res
+      .status(404)
+      .json({ msg: `Quiz ID #${req.params.quizId} Was Not Found` });
+  }
+  if (quizres.userQuestionAnswers.length || quizres.userScores.length) {
+    return res
+      .status(422)
+      .json({ msg: "Quiz has been played; Cannot be deleted." });
+  }
+  try {
     await PRISMA.quiz
       .delete({
-        where: { id: quizres.id },
+        where: {
+          id: req.params.quizId,
+        },
         include: {
-          questions: true,
+          questions: {
+            where: {
+              quizId: req.params.quizId,
+            },
+          },
         },
       })
-      .then((result) => {
-        res.status(202).json({ msg: `${result.name} Deleted Successfully.` });
+      .catch((error) => {
+        res.status(406).json({
+          msg: `Error: Quiz ID #${req.params.quizId} Not Deleted.`,
+          error,
+        });
       });
-  } else {
-    res.status(404).json({ msg: "Quiz Not Found." });
+    return res
+      .status(200)
+      .json({ msg: `Quiz ID #${req.params.quizId} Deleted.` });
+  } catch (error) {
+    return res.status(500).json({ msg: "Server Error", error });
   }
 };
 

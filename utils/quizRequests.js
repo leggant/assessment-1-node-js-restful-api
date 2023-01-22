@@ -91,19 +91,16 @@ const createNewQuizQuestions = async (QUIZDATA, QUIZINFO, res) => {
 
 const updateQuizById = async (quizId, data) => {
   const quiz = await PRISMA.quiz.findFirst({
-    where: { id: Number(quizId) },
+    where: { id: quizId },
   });
   if (!quiz) {
     return false;
   }
   const updateRes = await PRISMA.quiz.update({
-    where: { id: Number(quizId) },
+    where: { id: quizId },
     select: {
       categoryId: true,
       name: true,
-      difficulty: true,
-      answerType: true,
-      numQuestions: true,
       startDate: true,
       endDate: true,
     },
@@ -215,7 +212,7 @@ const addPlayerAsQuizParticipant = async (quizId, userId) => {
 };
 
 const parsePlayerAnswers = async (quiz, userAnswers, answers) => {
-  const { quizId, userId } = quiz.data;
+  const { quizId, userId } = quiz;
   const answer = userAnswers.quizAnswers;
   const storedAnswers = await answers.questions;
   const parsedResults = [];
@@ -276,7 +273,18 @@ const getQuizCorrectAnswers = async (quizId) => {
   return quizAnswerList;
 };
 
-const getPlayerAverageScore = async (playerId) => {};
+const getQuizAverageScore = async (quizId) => {
+  const quizAvg = await PRISMA.userScore.aggregate({
+    where: {
+      quizId,
+    },
+    _avg: {
+      score: true,
+    },
+  });
+  const obj = Object.entries(quizAvg);
+  return obj[0][1];
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export {
@@ -287,8 +295,8 @@ export {
   addPlayerAsQuizParticipant,
   getQuizDetails,
   getQuizQuestions,
+  getQuizAverageScore,
   getQuizCorrectAnswers,
-  getPlayerAverageScore,
   getQuizMultiChoiceQuestions,
   updateQuizById,
 };

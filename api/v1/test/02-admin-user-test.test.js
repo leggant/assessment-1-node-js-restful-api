@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
 const BASE = "/api/v1";
 
-describe("auth", () => {
+describe("Admin User Register and Login Auth Tests", () => {
   it("should register admin user with valid input if they do not exist", (done) => {
     chai
       .request(app)

@@ -12,16 +12,22 @@ const testA =
   "What type of dog is &#039;Handsome Dan&#039;, the mascot of Yale University?";
 const testB =
   "whattypeofdogis&#039;HandsomeDan&#039;,themascotofyaleuniversity?";
+const testC =
+  "##WHICH#dog#is&#039;HandsomeDan&#039;,themascotofOTAGOuniversity?";
 
-describe("unit test example", () => {
-  it("should return the ...", (done) => {
-    // expect(compare(1, 2)).to.be.equal(3, "");
-    assert.isTrue(compare(testA, testB), "Two String Parsed As Equal");
+describe("Test Answer Comparison Utility Function", () => {
+  it("Parsed Strings Are The Same/True", (done) => {
+    assert.isTrue(
+      compare(testA, testB),
+      `\nThe parsed (user) input string:\n${testA}\nis not equal to the (stored) string:\n${testB}\n`,
+    );
     done();
   });
-
-  // it("should return the incorrect result for addTwoNums", (done) => {
-  //   expect(compareAnswerStrings(1, 2)).to.not.equal(4, "");
-  //   done();
-  // });
+  it("Parsed Strings Are Not The Same/True", (done) => {
+    assert.isFalse(
+      compare(testA, testC),
+      `\nThe parsed (user) input string:\n${testA}\nis equal to the (stored) string:\n${testC}\n`,
+    );
+    done();
+  });
 });

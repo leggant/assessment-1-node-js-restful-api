@@ -53,7 +53,6 @@ const dbDateStringFromDate = (date) => {
 
 /**
  * check the current date relative to the quiz date
- * @summary true or false the current date is before the quiz date
  * @param {Date} quizDate
  * @returns {Boolean} isFuture - return true if the current date is before the quiz date
  */

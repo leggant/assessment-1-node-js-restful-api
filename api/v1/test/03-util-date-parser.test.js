@@ -1,16 +1,11 @@
-import { assert, expect } from "chai";
+import { assert } from "chai";
 import { describe, it } from "mocha";
 import moment from "moment";
 import * as dateparser from "../../../utils/dateTimeCheck.js";
 
-/**
- * @constant {{ split: String, quizStart: String, quizEnd: String }} testDates
- */
-const testDates = { split: "2023-01-10", quizStart: "", quizEnd: "" };
-
 describe("Test dateTimeCheck.js Utility Functions", () => {
   it("test split date string function", (done) => {
-    const vals = dateparser.splitDate(testDates.split);
+    const vals = dateparser.splitDate("2023-01-10");
     assert.containsAllKeys(
       vals,
       ["year", "month", "day"],

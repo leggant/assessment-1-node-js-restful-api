@@ -1,33 +1,37 @@
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import { describe, it } from "mocha";
-import compareAnswerStrings from "../../../utils/compareAnswerStrings.js";
+import moment from "moment";
+import * as dateparser from "../../../utils/dateTimeCheck.js";
 
 /**
- * @param {String} a - users input answer
- * @param {String} b - answer stored in the database
- * @returns {Boolean} Answers Matched
+ * @constant {{ split: String, quizStart: String, quizEnd: String }} testDates
  */
-const compare = (a, b) => compareAnswerStrings(a, b);
-const testA =
-  "What type of dog is &#039;Handsome Dan&#039;, the mascot of Yale University?";
-const testB =
-  "whattypeofdogis&#039;HandsomeDan&#039;,themascotofyaleuniversity?";
-const testC =
-  "##WHICH#dog#is&#039;HandsomeDan&#039;,themascotofOTAGOuniversity?";
+const testDates = { split: "2023-01-10", quizStart: "", quizEnd: "" };
+const testNow = dateparser.createMomentDate();
 
-describe("Test Answer Comparison Utility Function", () => {
-  it("Parsed Strings Are The Same/True", (done) => {
-    assert.isTrue(
-      compare(testA, testB),
-      `\nThe parsed (user) input string:\n${testA}\nis not equal to the (stored) string:\n${testB}\n`,
+describe("Test dateTimeCheck.js Utility Functions", () => {
+  it("test split date string function", (done) => {
+    const vals = dateparser.splitDate(testDates.split);
+    assert.containsAllKeys(
+      vals,
+      ["year", "month", "day"],
+      "An Error Occured, Split String Keys Not Returned",
     );
     done();
   });
-  it("Parsed Strings Are Not The Same/True", (done) => {
-    assert.isFalse(
-      compare(testA, testC),
-      `\nThe parsed (user) input string:\n${testA}\nis equal to the (stored) string:\n${testC}\n`,
+  it("Validate Quiz Date/Current Date Are Within A Valid Range", (done) => {
+    const qStart = testNow.add(2, "day").toDate();
+    assert.isTrue(
+      dateparser.quizDateValid(qStart),
+      "Quiz Date Does Not Start After The Current Date",
     );
+    done();
+  });
+  it("Gets UTC Date From A String", (done) => {
+    const xday = testNow.add(2, "day").format("Y-M-D");
+    const result = dateparser.dbDateStringFromDate(xday);
+    assert.isTrue(moment.isDate(result), "Returned Value Is Not A Valid Date");
+    assert.isOk(dateparser.dbDateStringFromDate(xday));
     done();
   });
 });

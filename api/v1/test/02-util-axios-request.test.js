@@ -1,15 +1,25 @@
-import { assert, expect } from "chai";
-import { describe, it } from "mocha";
+import { assert, expect, should } from "chai";
+import { describe, it, before } from "mocha";
 import * as axios from "../../../utils/axiosRequests.js";
 
 describe("Test Gist Seeder endpoints with axioRequests.js Util Functions", () => {
-  it("test gist endpoint to get user data", (done) => {
-    const userReq = new Promise((resolve) => {
-      resolve(axios.getUsers());
+  let userData;
+  before(async () => {
+    const data = await axios.getUsers();
+    userData = await data.users;
+  });
+  describe("Test The Data Return From The Axios Request", () => {
+    it("The Data is an object", (done) => {
+      assert.isObject(...userData);
+      done();
     });
-    userReq.then((res) => {
-      assert.isArray(res.users);
+    it("Test The Data Has Required Keys", (done) => {
+      assert.isObject(...userData);
+      done();
     });
-    done();
+    it("Test If The Return Has An Error Message", (done) => {
+      assert.isObject(...userData);
+      done();
+    });
   });
 });

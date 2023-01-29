@@ -5,6 +5,7 @@ import USERTYPE from "../constants/userType.js";
 
 describe("Test Gist Seeder endpoints with axioRequests.js Util Functions", () => {
   let userData;
+  let categories;
   before(async () => {
     const data = await axios.getUsers();
     userData = await data.users;
@@ -41,6 +42,23 @@ describe("Test Gist Seeder endpoints with axioRequests.js Util Functions", () =>
     it("Test Usernames and Email Addresses match", (done) => {
       const check = userData.every((obj) => obj.email.startsWith(obj.userName));
       assert.isTrue(check);
+      done();
+    });
+  });
+  before(async () => {
+    categories = await axios.getCategories();
+  });
+  describe("Test The Category Data Is Returned From The Axios Request Module", () => {
+    it("The Data is an object", (done) => {
+      assert.isObject(...categories);
+      done();
+    });
+    it("Test The Data Has Required Keys", (done) => {
+      expect(...categories).to.have.all.keys(["id", "name"]);
+      done();
+    });
+    it("Test The Data Has Required Keys", (done) => {
+      expect(...categories).to.have.all.keys(["id", "name"]);
       done();
     });
   });

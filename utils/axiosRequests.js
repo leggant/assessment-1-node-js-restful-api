@@ -41,8 +41,9 @@ const getUsers = async () => {
         return { users };
       }),
     )
-    .catch((err) => {
-      console.error(err.message);
+    .catch((error) => {
+      console.error(error.message);
+      return error;
     });
   return data;
 };
@@ -65,8 +66,9 @@ const getCategories = async () => {
       const dataRes = resData.data;
       return dataRes.trivia_categories;
     })
-    .catch((err) => {
-      console.error(err.message);
+    .catch((error) => {
+      console.error(error.message);
+      return error;
     });
   return data;
 };

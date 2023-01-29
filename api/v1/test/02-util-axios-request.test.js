@@ -44,6 +44,10 @@ describe("Test Gist Seeder endpoints with axioRequests.js Util Functions", () =>
       assert.isTrue(check);
       done();
     });
+    it("Test An Error Has Not Been Returned", (done) => {
+      expect(userData).to.not.be.an.instanceOf(Error);
+      done();
+    });
   });
   before(async () => {
     categories = await axios.getCategories();
@@ -57,8 +61,8 @@ describe("Test Gist Seeder endpoints with axioRequests.js Util Functions", () =>
       expect(...categories).to.have.all.keys(["id", "name"]);
       done();
     });
-    it("Test The Data Has Required Keys", (done) => {
-      expect(...categories).to.have.all.keys(["id", "name"]);
+    it("Test An Error Has Not Been Returned", (done) => {
+      expect(categories).to.not.be.an.instanceOf(Error);
       done();
     });
   });

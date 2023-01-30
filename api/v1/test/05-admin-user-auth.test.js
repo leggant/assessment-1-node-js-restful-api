@@ -60,6 +60,7 @@ describe("Admin User Registration and Login Tests", () => {
         .end((_, res) => {
           chai.expect(res.status).to.be.equal(200);
           chai.expect(res.body).to.be.a("object");
+          chai.expect(res.body.token, { type: "bearer" });
           chai
             .expect(res.body.msg)
             .to.be.equal(`${ADMINTESTUSER.userName} - successfully logged in`);
@@ -130,20 +131,6 @@ describe("Admin User Registration and Login Tests", () => {
             ],
             "correct error params passed",
           );
-          // chai.expect(res.body.errors[0]).to.include(
-          //   {
-          //     value: "fail",
-          //     msg: "Password must have at least 8 characters, one number and one special character",
-          //     param: "password",
-          //     location: "body",
-          //   },
-          //   {
-          //     value: "fail",
-          //     msg: "Password must be 8 char min and 16 char max lengths",
-          //     param: "password",
-          //     location: "body",
-          //   },
-          // );
           done();
         });
     });

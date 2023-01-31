@@ -12,7 +12,7 @@ let token;
 
 describe("Basic User Registration and Login Tests", () => {
   describe("Basic User Registration Tests", () => {
-    it("should register basic user with valid input if they do not exist", (done) => {
+    it("Register basic user with valid input, if they do not exist", (done) => {
       chai
         .request(app)
         .post(`${BASE}${PATHS.REGISTER}`)
@@ -28,9 +28,7 @@ describe("Basic User Registration and Login Tests", () => {
           done();
         });
     });
-  });
-  describe("Basic User Registration Tests With Error Responses", () => {
-    it("should refuse to register an basic user if the user already exists", (done) => {
+    it("Fail to register an basic user that already exists", (done) => {
       chai
         .request(app)
         .post(`${BASE}${PATHS.REGISTER}`)
@@ -48,7 +46,7 @@ describe("Basic User Registration and Login Tests", () => {
     });
   });
   describe("Basic User Login Tests", () => {
-    it("should login basic user with valid input", (done) => {
+    it("Login basic user with valid input", (done) => {
       const { email, password } = BASICTESTUSER;
       chai
         .request(app)
@@ -67,9 +65,7 @@ describe("Basic User Registration and Login Tests", () => {
           done();
         });
     });
-  });
-  describe("Basic User Login Tests With Error Handling", () => {
-    it("should output login validation errors due to invalid request input", (done) => {
+    it("Login validation errors due to invalid request input", (done) => {
       chai
         .request(app)
         .post(`${BASE}${PATHS.LOGIN}`)
@@ -80,6 +76,10 @@ describe("Basic User Registration and Login Tests", () => {
         .end((_, res) => {
           chai.expect(res.status).to.be.equal(400);
           chai.expect(res.body).to.be.a("object");
+          chai.assert.notExists(
+            res.body.token,
+            "login should fail, no token should be returned",
+          );
           chai
             .expect(res.body.errors[0])
             .to.have.all.keys("msg", "param", "nestedErrors");
@@ -99,7 +99,7 @@ describe("Basic User Registration and Login Tests", () => {
           done();
         });
     });
-    it("should output login validation error due to invalid password", (done) => {
+    it("Login validation error due to invalid password", (done) => {
       const { email } = BASICTESTUSER;
       chai
         .request(app)
@@ -134,7 +134,7 @@ describe("Basic User Registration and Login Tests", () => {
           done();
         });
     });
-    it("should output login validation error due to invalid email format", (done) => {
+    it("Login validation error due to invalid email format", (done) => {
       const { password, userName } = BASICTESTUSER;
       chai
         .request(app)

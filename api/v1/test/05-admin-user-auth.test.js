@@ -7,15 +7,12 @@ import { ADMINTESTUSER } from "../../../utils/unitTestDataRequests.js";
 
 chai.use(chaiHttp);
 
-const BASE = "/api/v1";
-let token;
-
 describe("Admin User Registration and Login Tests", () => {
-  describe("Admin User Registration Tests", () => {
-    it("Register admin user with valid input, if they do not exist", (done) => {
+  describe(`POST: ${PATHS.BASE}${PATHS.REGISTER}`, () => {
+    it("Should register admin user, if they do not exist", (done) => {
       chai
         .request(app)
-        .post(`${BASE}${PATHS.REGISTER}`)
+        .post(`${PATHS.BASE}${PATHS.REGISTER}`)
         .send(ADMINTESTUSER)
         .end((_, res) => {
           chai.expect(res.status).to.be.equal(201);
@@ -28,10 +25,10 @@ describe("Admin User Registration and Login Tests", () => {
           done();
         });
     });
-    it("Fail to register an admin user that already exists", (done) => {
+    it("Should fail to register an admin user that already exists", (done) => {
       chai
         .request(app)
-        .post(`${BASE}${PATHS.REGISTER}`)
+        .post(`${PATHS.BASE}${PATHS.REGISTER}`)
         .send(ADMINTESTUSER)
         .end((_, res) => {
           chai.expect(res.status).to.be.equal(409);
@@ -45,12 +42,12 @@ describe("Admin User Registration and Login Tests", () => {
         });
     });
   });
-  describe("Admin User Login Tests", () => {
-    it("Login admin user with valid input", (done) => {
+  describe(`POST: ${PATHS.BASE}${PATHS.LOGIN}`, () => {
+    it("Should login admin user", (done) => {
       const { email, password } = ADMINTESTUSER;
       chai
         .request(app)
-        .post(`${BASE}${PATHS.LOGIN}`)
+        .post(`${PATHS.BASE}${PATHS.LOGIN}`)
         .send({
           email,
           password,
@@ -65,10 +62,10 @@ describe("Admin User Registration and Login Tests", () => {
           done();
         });
     });
-    it("Login validation errors due to invalid request input", (done) => {
+    it("Should return validation errors due to invalid request input", (done) => {
       chai
         .request(app)
-        .post(`${BASE}${PATHS.LOGIN}`)
+        .post(`${PATHS.BASE}${PATHS.LOGIN}`)
         .send({
           email: "thisshould",
           password: "fail",
@@ -99,11 +96,11 @@ describe("Admin User Registration and Login Tests", () => {
           done();
         });
     });
-    it("Login validation error due to invalid password", (done) => {
+    it("Should return validation error due to invalid password", (done) => {
       const { email } = ADMINTESTUSER;
       chai
         .request(app)
-        .post(`${BASE}${PATHS.LOGIN}`)
+        .post(`${PATHS.BASE}${PATHS.LOGIN}`)
         .send({
           email,
           password: "fail",
@@ -134,11 +131,11 @@ describe("Admin User Registration and Login Tests", () => {
           done();
         });
     });
-    it("Login validation error due to invalid email format", (done) => {
+    it("Should return validation error due to invalid email format", (done) => {
       const { password, userName } = ADMINTESTUSER;
       chai
         .request(app)
-        .post(`${BASE}${PATHS.LOGIN}`)
+        .post(`${PATHS.BASE}${PATHS.LOGIN}`)
         .send({
           email: userName,
           password,

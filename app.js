@@ -34,22 +34,22 @@ app.use(compression());
 app.use(express.json());
 /**
  * Defines the base value for all API routes
- * @constant {string} BASE_PATH
  * @default api
- * @type {string}
+ * @type {string} BASE_PATH
  */
 const BASE_PATH = "api";
 /**
  * Defines the current version of the API. This is provided by an environment variable
  * @default v1
- * @type {string}
+ * @type {String} API_VERSION
  */
-const API_VERSION = process.env.API_VERSION || "v1";
+// eslint-disable-next-line prefer-destructuring
+const API_VERSION = process.env.API_VERSION;
 app.use(`/${BASE_PATH}/${API_VERSION}/docs`, express.static("docs"));
 /**
  * Set the server port. The default port in the development env is 3000
  * @default 3000
- * @type {number}
+ * @type {number} SERVER_PORT
  */
 const SERVER_PORT = process.env.PORT;
 

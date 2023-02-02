@@ -1,5 +1,6 @@
 const AUTHONLY = "/user/auth";
 const PATHS = {
+  BASE: `/api/${process.env.API_VERSION}`,
   REGISTER: `${AUTHONLY}/register`,
   LOGIN: `${AUTHONLY}/login`,
   ADMIN: {

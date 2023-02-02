@@ -106,4 +106,5 @@ __Note: more users added than required.__
 - remove special chars from string https://stackoverflow.com/a/16913929
 - `npx run-func ./utils/compareAnswerStrings.js default "Bobs Burgers, \"Lord of the Flies\"?" "Family Guy, \"Lord of the Flies\"?"`
 - array flattening: https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods
+- `npx run-func ./utils/unitTestDataRequests.js testDate`
 - 

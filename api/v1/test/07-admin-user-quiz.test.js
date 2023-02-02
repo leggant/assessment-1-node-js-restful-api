@@ -61,7 +61,7 @@ describe("Admin User Quiz Requests", () => {
               name: `${TESTQUIZZES[0].name}`,
               difficulty: `${TESTQUIZZES[0].difficulty}`,
               answerType: `${TESTQUIZZES[0].answerType}`,
-              questionCount: Number(TESTQUIZZES[0].numQuestions),
+              questionCount: TESTQUIZZES[0].numQuestions,
               quizStartDate,
               quizEndDate,
             });
@@ -72,7 +72,39 @@ describe("Admin User Quiz Requests", () => {
   /**
    * Test GET request - get a quiz by id
    */
-  describe(`GET: ${PATHS.BASE}${PATHS.ADMIN.QUIZQUERY}`, () => {});
+  describe(`GET: Query Quiz Data By ID`, () => {
+    it("Should Delete The New Quiz By Id", (done) => {
+      chai
+        .request(app)
+        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .auth(token, { type: "bearer" })
+        .end((_error, qRes) => {
+          console.log(qRes);
+          chai.expect(qRes).status(200);
+          chai.expect(qRes.body).to.be.an("object");
+          chai.expect(qRes.body.data).to.be.an("object");
+          chai
+            .expect(qRes.body.data.questions)
+            .to.be.an("array")
+            .to.have.lengthOf(10);
+          chai
+            .expect(qRes)
+            .to.have.header("content-type", "application/json; charset=utf-8");
+          chai.expect(qRes).to.have.header("x-content-type-options", "nosniff");
+          chai.expect(qRes).to.have.header("x-xss-protection", "0");
+          chai
+            .expect(qRes)
+            .to.have.header(
+              "content-security-policy",
+              "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+            );
+          // chai
+          //   .expect(deleteRes.body)
+          //   .to.have.property("msg", `Quiz ID #${quizId} Deleted.`);
+          done();
+        });
+    });
+  });
   /**
    * Test GET request - get all quizzes
    */

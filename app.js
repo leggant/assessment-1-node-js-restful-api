@@ -45,7 +45,7 @@ const BASE_PATH = "api";
  */
 // eslint-disable-next-line prefer-destructuring
 const API_VERSION = process.env.API_VERSION;
-app.use(`/${BASE_PATH}/${API_VERSION}/docs`, express.static("docs"));
+app.use(`/docs/${BASE_PATH}/${API_VERSION}`, express.static("docs"));
 /**
  * Set the server port. The default port in the development env is 3000
  * @default 3000

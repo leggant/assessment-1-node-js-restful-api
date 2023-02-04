@@ -262,33 +262,9 @@ const clearBlockedUsers = async () => {
   return 0;
 };
 
-const getAllUsers = async (PRISMAX, res, req, type, includes) => {
-  try {
-    let data;
-    if (includes) {
-      data = await PRISMAX.findMany({
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      data = await PRISMAX.findMany();
-    }
-    if (data.length === 0) {
-      return res.status(200).json({ msg: `No ${type}s found` });
-    }
-    return res.json({ data });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
 export {
   getSingleUserById,
   getSingleUserByParam,
-  getAllUsers,
   updateUserById,
   updateUserByParam,
   deleteUserById,

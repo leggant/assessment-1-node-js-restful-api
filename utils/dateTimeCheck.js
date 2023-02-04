@@ -6,23 +6,6 @@ import moment from "moment";
 
 // * @typedef {import('./File1.js').MyObject1} MyObject1
 /**
- * create a moment class object
- * @param {Date|undefined} dateToParse
- * @constant {moment.Moment} newDate
- * @returns {moment.Moment} newDate - returns the date as a Moment class
- */
-const createMomentDate = (dateToParse) => {
-  /**
-   * @constant {moment.Moment} newDate
-   */
-  let newDate;
-  if (!dateToParse || dateToParse === undefined) {
-    newDate = moment();
-  }
-  newDate = moment(dateToParse);
-  return newDate;
-};
-/**
  * take a date from a user request, split it into day, month and year
  * @param {String} dateToSplit - date string set by the admin user quiz create request
  * @returns {{year: String, month: String, day: String}} - object contains each part of a date in seperate strings
@@ -122,7 +105,6 @@ const playerCanParticipate = (quizStart, quizEnd) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  createMomentDate,
   quizDateFuture,
   splitDate,
   dbDateStringFromDate,

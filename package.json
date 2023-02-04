@@ -82,7 +82,8 @@
     "pre:check": "npx prettier --check . --with-node-modules --debug-check",
     "resolve:dev": "npx env-cmd -f .env.development npx prisma migrate resolve --applied",
     "resolve:prod": "npx env-cmd -f .env.production npx prisma migrate resolve --applied",
-    "test": "env-cmd -f .env.development npx c8 mocha ./api/v1/test --timeout 10000 --exit"
+    "test": "env-cmd -f .env.development npx c8 mocha ./api/v1/test --timeout 10000 --exit",
+    "test:prod": "env-cmd -f .env.production npx c8 mocha ./api/v1/test --timeout 10000 --exit"
   },
   "config": {
     "commitizen": {

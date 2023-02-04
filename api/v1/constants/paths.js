@@ -9,6 +9,7 @@ const PATHS = {
     QUIZ: `${AUTHONLY}/admin/quiz`,
     QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
     USERSEARCH: `${AUTHONLY}/admin/details/:searchField/:searchValue`,
+    USERSEARCHTEST: `${AUTHONLY}/admin/details/`,
   },
   USER: {
     PROFILE: `${AUTHONLY}/profile`,

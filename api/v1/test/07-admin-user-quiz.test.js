@@ -5,7 +5,7 @@ import app from "../../../app.js";
 import PATHS from "../constants/paths.js";
 import {
   ADMINTESTUSER,
-  BASICTESTUSER,
+  BASICTESTUSER1,
   TESTQUIZZES,
 } from "../../../utils/unitTestDataRequests.js";
 
@@ -44,8 +44,8 @@ describe("Admin User Quiz Requests", () => {
       .request(app)
       .post(`${PATHS.BASE}${PATHS.LOGIN}`)
       .send({
-        email: BASICTESTUSER.email,
-        password: BASICTESTUSER.password,
+        email: BASICTESTUSER1.email,
+        password: BASICTESTUSER1.password,
       })
       .end((err2, loginRes2) => {
         // eslint-disable-next-line prefer-destructuring
@@ -174,6 +174,16 @@ describe("Admin User Quiz Requests", () => {
           done();
         });
     });
+    it("Should Block Basic Users Querying Quiz By Id", (done) => {
+      chai
+        .request(app)
+        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .auth(basicUserToken, { type: "bearer" })
+        .end((error10x, bRes) => {
+          chai.expect(bRes).status(401);
+          done();
+        });
+    });
   });
   /**
    * Test GET request - get all quizzes
@@ -205,12 +215,22 @@ describe("Admin User Quiz Requests", () => {
           done();
         });
     });
+    it("Should Block Basic User Accessing All Quiz Information", (done) => {
+      chai
+        .request(app)
+        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}`)
+        .auth(basicUserToken, { type: "bearer" })
+        .end((error20x, bRes2) => {
+          chai.expect(bRes2).status(401);
+          done();
+        });
+    });
   });
   /**
    * Test PUT request - Update a quiz by id
    */
   describe(`PUT: Update Quiz Name by ID`, () => {
-    it("Should Update The New Quizzes Name", (done) => {
+    it("Should Update The New Quiz Name", (done) => {
       chai
         .request(app)
         .put(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)

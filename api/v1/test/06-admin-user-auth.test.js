@@ -1,14 +1,33 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import { describe, it } from "mocha";
+import { describe, it, before } from "mocha";
 import app from "../../../app.js";
 import PATHS from "../constants/paths.js";
-import { ADMINTESTUSER } from "../../../utils/unitTestDataRequests.js";
+import {
+  ADMINTESTUSER,
+  BASICTESTUSER1,
+  BASICTESTUSER2,
+} from "../../../utils/unitTestDataRequests.js";
+
+/**
+ * @type {String} token - admin user token returned from the login request
+ */
+let token;
 
 chai.use(chaiHttp);
 
 describe("Admin User Registration and Login Tests", () => {
-  describe(`POST: ${PATHS.BASE}${PATHS.REGISTER}`, () => {
+  before((done) => {
+    chai
+      .request(app)
+      .post(`${PATHS.BASE}${PATHS.REGISTER}`)
+      .send(BASICTESTUSER2)
+      .end((_, res) => {
+        chai.expect(res).status(201);
+        done();
+      });
+  });
+  describe(`Admin User Registration Request Tests`, () => {
     it("Should register admin user, if they do not exist", (done) => {
       chai
         .request(app)
@@ -42,7 +61,7 @@ describe("Admin User Registration and Login Tests", () => {
         });
     });
   });
-  describe(`POST: ${PATHS.BASE}${PATHS.LOGIN}`, () => {
+  describe(`Admin User Login Request Tests`, () => {
     it("Should login admin user", (done) => {
       const { email, password } = ADMINTESTUSER;
       chai
@@ -53,6 +72,8 @@ describe("Admin User Registration and Login Tests", () => {
           password,
         })
         .end((_, res) => {
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.token;
           chai.expect(res.status).to.be.equal(200);
           chai.expect(res.body).to.be.a("object");
           chai.expect(res.body.token, { type: "bearer" });
@@ -150,6 +171,55 @@ describe("Admin User Registration and Login Tests", () => {
             msg: "Invalid value(s)",
             param: "_error",
           });
+          done();
+        });
+    });
+  });
+  describe("Admin User Profile Request Tests", () => {
+    it("Should return Admin Users Profile Data", (done) => {
+      chai
+        .request(app)
+        .get(`${PATHS.BASE}${PATHS.USER.PROFILE}`)
+        .auth(token, { type: "bearer" })
+        .end((_, profileRes) => {
+          console.log(profileRes);
+          chai.expect(profileRes).status(200);
+          done();
+        });
+    });
+    it("Should return Basic Users Profile Data by username query", (done) => {
+      chai
+        .request(app)
+        .get(
+          `${PATHS.BASE}${PATHS.ADMIN.USERSEARCHTEST}userName/${BASICTESTUSER1.userName}`,
+        )
+        .auth(token, { type: "bearer" })
+        .end((_, basicProfileRes) => {
+          chai.expect(basicProfileRes).status(200);
+          done();
+        });
+    });
+    it("Should return Basic Users Profile Data by email query", (done) => {
+      chai
+        .request(app)
+        .get(
+          `${PATHS.BASE}${PATHS.ADMIN.USERSEARCHTEST}email/${BASICTESTUSER1.email}`,
+        )
+        .auth(token, { type: "bearer" })
+        .end((_, basicProfileResEmail) => {
+          chai.expect(basicProfileResEmail).status(200);
+          done();
+        });
+    });
+    it("Should Delete a Basic Users Profile", (done) => {
+      chai
+        .request(app)
+        .delete(
+          `${PATHS.BASE}${PATHS.ADMIN.USERSEARCHTEST}email/${BASICTESTUSER2.email}`,
+        )
+        .auth(token, { type: "bearer" })
+        .end((_, deleteProfileResEmail) => {
+          chai.expect(deleteProfileResEmail).status(200);
           done();
         });
     });

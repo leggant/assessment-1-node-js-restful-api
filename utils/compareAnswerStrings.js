@@ -18,4 +18,7 @@ const compareAnswerStrings = (userAnswer, storedAnswer) => {
   return result;
 };
 
+/**
+ * @exports compareAnswerStrings
+ */
 export default compareAnswerStrings;

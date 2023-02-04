@@ -1,23 +1,34 @@
 /**
+ * date parsing, comparison and validation utilities which utilise moment.js
  * @author @leggant
- * @description date parsing, comparison and validation utilities which utilise moment.js
  */
+
 import moment from "moment";
 
-// * @typedef {import('./File1.js').MyObject1} MyObject1
 /**
  * take a date from a user request, split it into day, month and year
  * @param {String} dateToSplit - date string set by the admin user quiz create request
- * @returns {{year: String, month: String, day: String}} - object contains each part of a date in seperate strings
+ * @example dateToSplit -2023-02-30
+ * @returns {{year: String, month: String, day: String}} object contains each part of a date in seperate strings
  */
 const splitDate = (dateToSplit) => {
   /**
    * @constant {Array.String} split
+
    */
   const split = dateToSplit.split("-");
+  /**
+   * @constant {String} year - first array item
+   */
   const year = split[0];
+  /**
+   * @constant {String} month - second array item
+   */
   let month = split[1];
   month = month.charAt(0) === "0" ? month.substring(1) : month;
+  /**
+   * @constant {String} day - last array item
+   */
   let day = split[2];
   day = day.charAt(0) === "0" ? day.substring(1) : day;
   return { year, month, day };

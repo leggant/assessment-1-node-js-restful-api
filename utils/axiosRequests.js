@@ -32,12 +32,32 @@ const GISTAXIOS = axios.create({
 const GISTADMIN = "/admin_user.json";
 const GISTBASIC = "/basic_user.json";
 
+/**
+ * axios request function to collect user data from GitHub Gist endpoints
+ * @async
+ * @function getUsers
+ * @returns {Response|Error}
+ */
 const getUsers = async () => {
   try {
+    /**
+     * axios' implementation of Promise.all. this will combine both the admin and basic user
+     * endpoint requests into a single async/await
+     * @constant {Object} res - users return from the completed axios.all request
+     * @returns {Object} res
+     */
     const res = await axios
       .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
       .then(
+        /**
+         * when the data has resolved, use the axios spread function to decouple the response objects;
+         * order here must be the same used in the axios.all array
+         */
         axios.spread((admin, basic) => {
+          /**
+           * merge the admin and basic users into a single array
+           * return this back to the res constant
+           */
           const users = admin.data.concat(basic.data);
           return { users };
         }),
@@ -45,7 +65,7 @@ const getUsers = async () => {
     return res;
   } catch (error) {
     console.error(error.message);
-    return error.message;
+    return error;
   }
 };
 
@@ -86,4 +106,9 @@ const createQuizOpenTDBRequest = async (query) => {
   }
 };
 
+/**
+ * @exports getUsers
+ * @exports getCategories
+ * @exports createQuizOpenTDBRequest
+ */
 export { getUsers, getCategories, createQuizOpenTDBRequest };

@@ -43,12 +43,9 @@ const ctGetUser = async (req, res) => {
   }
 };
 
-const ctGetAllUsers = async (req, res) => {
-  console.log("Hit get all users");
-};
-
 const ctUpdateUser = async (req, res) => {
   try {
+    // eslint-disable-next-line prefer-destructuring
     const user = req.user;
     const updates = req.body;
     const updateRes = await updateUserById(user, updates);
@@ -100,4 +97,4 @@ const ctDeleteUser = async (req, res) => {
   }
 };
 
-export { ctGetUser, ctGetAllUsers, ctUpdateUser, ctDeleteUser };
+export { ctGetUser, ctUpdateUser, ctDeleteUser };

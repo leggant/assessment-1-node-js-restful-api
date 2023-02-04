@@ -93,14 +93,4 @@ const ctSubmitQuizAnswers = async (req, res) => {
   });
 };
 
-const ctGetPlayerQuizResults = async (req, res) => {
-  console.log(req);
-  console.log(res);
-};
-
-export {
-  ctAddQuizPlayer,
-  ctGetQuizQuestions,
-  ctSubmitQuizAnswers,
-  ctGetPlayerQuizResults,
-};
+export { ctAddQuizPlayer, ctGetQuizQuestions, ctSubmitQuizAnswers };

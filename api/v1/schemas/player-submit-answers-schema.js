@@ -25,7 +25,7 @@ const PlayerSubmitQuizAnswersSchema = [
       throw new Error("Player Has Already Participated In This Quiz.");
     }
     const entries = Object.entries(quizAnswers);
-    entries.forEach((x, i) => {
+    entries.forEach((x) => {
       const keyval = Object.keys(x[1])[0];
       const ansval = Object.values(x[1])[0];
       const ansOk = typeof ansval === "string";

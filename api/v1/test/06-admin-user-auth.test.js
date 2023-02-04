@@ -10,7 +10,7 @@ import {
 } from "../../../utils/unitTestDataRequests.js";
 
 /**
- * @type {String} token - admin user token returned from the login request
+ * @constant {String} token - admin user token returned from the login request
  */
 let token;
 

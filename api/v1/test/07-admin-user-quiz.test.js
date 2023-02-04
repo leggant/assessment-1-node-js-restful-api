@@ -13,15 +13,15 @@ chai.use(chaiHttp);
 
 describe("Admin User Quiz Requests", () => {
   /**
-   * @type {String} token - admin user token returned from the before function login request (preflight)
+   * @constant {String} token - admin user token returned from the before function login request (preflight)
    */
   let token;
   /**
-   * @type {String} basicUserToken - basic user token returned from the before function login request (preflight)
+   * @constant {String} basicUserToken - basic user token returned from the before function login request (preflight)
    */
   let basicUserToken;
   /**
-   * @type {Number} quizId - quiz id returned from the create new quiz test
+   * @constant {Number} quizId - quiz id returned from the create new quiz test
    */
   let quizId;
   /**

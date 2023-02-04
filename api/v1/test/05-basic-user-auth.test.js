@@ -6,7 +6,7 @@ import PATHS from "../constants/paths.js";
 import { BASICTESTUSER1 } from "../../../utils/unitTestDataRequests.js";
 
 /**
- * @type {String} basicUserToken - basic user token returned from the before function login request (preflight)
+ * @constant {String} basicUserToken - basic user token returned from the before function login request (preflight)
  */
 let basicUserToken;
 

@@ -17,23 +17,23 @@ const ADMINTESTUSER = {
 const BASICTESTUSER1 = {
   firstName: "Jane",
   lastName: "Doe",
-  email: "jednz002@op.ac.nz",
-  userName: "jednz002",
+  email: "jednz003@op.ac.nz",
+  userName: "jednz003",
   role: USERTYPE.BASIC,
-  password: "Yogi##@4tdfg",
-  confirmPassword: "Yogi##@4tdfg",
-  profileImgURL: "https://testuser.me/api/portraits/women/5.jpg",
+  password: "Yogi##@4tdfgx",
+  confirmPassword: "Yogi##@4tdfgx",
+  profileImgURL: "https://testuser.me/api/portraits/women/6.jpg",
 };
 
 const BASICTESTUSER2 = {
-  firstName: "Yogi",
+  firstName: "Bella",
   lastName: "Legg",
-  email: "yoginz@op.ac.nz",
-  userName: "yoginz",
+  email: "bellanz03@op.ac.nz",
+  userName: "bellanz03",
   role: USERTYPE.BASIC,
   password: "Yogi##@4tdfg",
   confirmPassword: "Yogi##@4tdfg",
-  profileImgURL: "https://testuser.me/api/portraits/men/12.jpg",
+  profileImgURL: "https://testuser.me/api/portraits/women/20.jpg",
 };
 
 const validTestDate = () => {
@@ -104,11 +104,12 @@ const deleteTestAdminUser = async () => {
   }
 };
 const deleteTestBasicUser = async () => {
+  const userNames = [BASICTESTUSER1.userName, BASICTESTUSER2.userName];
   try {
     await PRISMA.user.deleteMany({
       where: {
         userName: {
-          in: [BASICTESTUSER1.userName, BASICTESTUSER2.userName],
+          in: userNames,
         },
       },
     });

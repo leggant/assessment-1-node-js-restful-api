@@ -23,16 +23,23 @@
 
       <section>
         <article>
-          <pre
-            class="prettyprint source linenums"
-          ><code>import moment from "moment";
+          <pre class="prettyprint source linenums"><code>/**
+ * @author @leggant
+ * @description date parsing, comparison and validation utilities which utilise moment.js
+ */
+import moment from "moment";
 
+// * @typedef {import('./File1.js').MyObject1} MyObject1
 /**
  * create a moment class object
  * @param {Date|undefined} dateToParse
+ * @constant {moment.Moment} newDate
  * @returns {moment.Moment} newDate - returns the date as a Moment class
  */
 const createMomentDate = (dateToParse) => {
+  /**
+   * @constant {moment.Moment} newDate
+   */
   let newDate;
   if (!dateToParse || dateToParse === undefined) {
     newDate = moment();
@@ -40,8 +47,15 @@ const createMomentDate = (dateToParse) => {
   newDate = moment(dateToParse);
   return newDate;
 };
-
+/**
+ * take a date from a user request, split it into day, month and year
+ * @param {String} dateToSplit - date string set by the admin user quiz create request
+ * @returns {{year: String, month: String, day: String}} - object contains each part of a date in seperate strings
+ */
 const splitDate = (dateToSplit) => {
+  /**
+   * @constant {Array.String} split
+   */
   const split = dateToSplit.split("-");
   const year = split[0];
   let month = split[1];
@@ -50,7 +64,11 @@ const splitDate = (dateToSplit) => {
   day = day.charAt(0) === "0" ? day.substring(1) : day;
   return { year, month, day };
 };
-
+/**
+ * create a database compatible date from a string
+ * @param {String} date - input date string
+ * @returns {Date} dateres - UTC Date
+ */
 const dbDateStringFromDate = (date) => {
   const data = splitDate(date);
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
@@ -58,28 +76,53 @@ const dbDateStringFromDate = (date) => {
   return dateres;
 };
 
+/**
+ * check the current date relative to the quiz date
+ * @param {Date} quizDate
+ * @returns {Boolean} isFuture - return true if the current date is before the quiz date
+ */
 const quizDateFuture = (quizDate) => {
+  /**
+   * @constant {moment.Moment} dateNow - current date
+   */
   const dateNow = moment();
   const isFuture = dateNow.isBefore(quizDate);
   return isFuture;
 };
+
 /**
  * check if the user input quiz date is valid
- * @param {Date} date
- * @returns {Boolean}
+ * @param {Date} qdate
+ * @returns {Boolean} isAfter - return true if the quiz occurs after the current date
  */
-const quizDateValid = (date) => {
+const quizDateValid = (qdate) => {
+  /**
+   * @constant {moment.Moment} dateNow
+   */
   const dateNow = moment();
-  const quizDate = moment(date);
+  /**
+   * @function moment(qDate)
+   * @return {moment.Moment} quizDate
+   */
+  const quizDate = moment(qdate);
   const isAfter = quizDate.isAfter(dateNow);
-  // console.info("quiz date is valid", isAfter.valueOf());
   return isAfter;
 };
 
+/**
+ * evaluate if the quiz end date is within 5 days of the start date
+ * @param {Date} start - stored/input quiz start date
+ * @param {Date} end - stored/input quiz end date
+ * @see {@link https://momentjs.com/docs/#/displaying/difference|MomentJS}
+ * @returns {Boolean} isValid
+ */
 const quizEnddateValid = (start, end) => {
   const quizDate = moment(start);
   const endDate = moment(end);
   // https://momentjs.com/docs/#/displaying/difference/
+  /**
+   * @constant {Number} difference - number of days between the start and end dates
+   */
   const difference = moment.duration(endDate.diff(quizDate)).days();
   // eslint-disable-next-line no-unneeded-ternary
   const isValid = difference > 0 &amp;&amp; difference &lt;= 5 ? true : false;
@@ -91,6 +134,7 @@ const quizEnddateValid = (start, end) => {
  * @param {Date} quizStart quiz start date stored in the quiz table
  * @param {Date} quizEnd quiz end date stored in the quiz table
  * @returns {Boolean} canPartake - current date is permitted, player can answer quiz questions
+ * @see {@link https://stackoverflow.com/a/29495647} additional info
  */
 const playerCanParticipate = (quizStart, quizEnd) => {
   const dateNow = moment();
@@ -140,22 +184,37 @@ export {
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
-        <li><a href="global.html#addTwoNums">addTwoNums</a></li>
+        <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
-        <li><a href="global.html#createMomentDate">createMomentDate</a></li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#dateNow">dateNow</a></li>
+        <li>
+          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+        </li>
+        <li><a href="global.html#decoded">decoded</a></li>
+        <li><a href="global.html#difference">difference</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#momentqDate">moment</a></li>
+        <li>
+          <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
+        </li>
+        <li><a href="global.html#newDate">newDate</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
+        <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
+        <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
         <li><a href="global.html#register">register</a></li>
+        <li><a href="global.html#split">split</a></li>
+        <li><a href="global.html#splitDate">splitDate</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
+        <li><a href="global.html#unescapeString">unescapeString</a></li>
       </ul>
     </nav>
 
@@ -163,8 +222,8 @@ export {
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Jan 22
-      2023 18:39:19 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02
+      2023 22:15:37 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

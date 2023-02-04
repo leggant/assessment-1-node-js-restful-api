@@ -46,6 +46,7 @@
     "c8": "^7.12.0",
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
+    "chai-json-schema": "^1.5.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -63,23 +64,25 @@
     "prisma": "^4.8.0"
   },
   "scripts": {
-    "watch": "env-cmd -f .env.development nodemon",
-    "studio": "env-cmd -f .env.development npx prisma studio",
     "start": "node app.js",
+    "prepare": "husky install",
+    "lint:check": "npx eslint .",
+    "watch:dev": "env-cmd -f .env.development nodemon",
+    "watch:prod": "env-cmd -f .env.production nodemon",
+    "doc": "jsdoc -c jsdoc.json && npx pretty-quick ./docs/*",
+    "studio:dev": "env-cmd -f .env.development npx prisma studio",
+    "studio:prod": "env-cmd -f .env.development npx prisma studio",
     "push:dev": "npx env-cmd -f .env.development npx prisma db push",
     "push:prod": "npx env-cmd -f .env.production npx prisma db push",
-    "resolve:dev": "npx env-cmd -f .env.development npx prisma migrate resolve --applied",
-    "resolve:prod": "npx env-cmd -f .env.production npx prisma migrate resolve --applied",
     "migrate:dev": "npx env-cmd -f .env.development npx prisma migrate dev",
     "migrate:prod": "npx env-cmd -f .env.production npx prisma migrate deploy",
     "reset:dev": "npx env-cmd -f .env.development npx prisma migrate reset --force",
     "reset:prod": "npx env-cmd -f .env.production npx prisma migrate reset --force",
-    "test": "env-cmd -f .env.development npx c8 mocha ./api/v1/test --timeout 10000 --exit",
-    "pre:check": "npx prettier --check . --with-node-modules --debug-check",
     "pre:write": "npx pretty-quick --staged",
-    "lint:check": "npx eslint .",
-    "doc": "jsdoc -c jsdoc.json && npx pretty-quick ./docs/*",
-    "prepare": "husky install"
+    "pre:check": "npx prettier --check . --with-node-modules --debug-check",
+    "resolve:dev": "npx env-cmd -f .env.development npx prisma migrate resolve --applied",
+    "resolve:prod": "npx env-cmd -f .env.production npx prisma migrate resolve --applied",
+    "test": "env-cmd -f .env.development npx c8 mocha ./api/v1/test --timeout 10000 --exit"
   },
   "config": {
     "commitizen": {

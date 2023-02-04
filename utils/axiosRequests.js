@@ -33,18 +33,20 @@ const GISTADMIN = "/admin_user.json";
 const GISTBASIC = "/basic_user.json";
 
 const getUsers = async () => {
-  const data = await axios
-    .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
-    .then(
-      axios.spread((admin, basic) => {
-        const users = admin.data.concat(basic.data);
-        return { users };
-      }),
-    )
-    .catch((err) => {
-      console.error(err.message);
-    });
-  return data;
+  try {
+    const res = await axios
+      .all([GISTAXIOS.get(GISTADMIN), GISTAXIOS.get(GISTBASIC)])
+      .then(
+        axios.spread((admin, basic) => {
+          const users = admin.data.concat(basic.data);
+          return { users };
+        }),
+      );
+    return res;
+  } catch (error) {
+    console.error(error.message);
+    return error.message;
+  }
 };
 
 // Quizzes
@@ -60,30 +62,28 @@ const CATENDPOINT = "/api_category.php";
 const CREATEQUIZ = "/api.php";
 
 const getCategories = async () => {
-  const data = await QUIZAXIOS.get(CATENDPOINT)
-    .then((resData) => {
-      const dataRes = resData.data;
-      return dataRes.trivia_categories;
-    })
-    .catch((err) => {
-      console.error(err.message);
-    });
-  return data;
+  try {
+    const res = await QUIZAXIOS.get(CATENDPOINT);
+    const data = await res.data;
+    return data.trivia_categories;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
 };
 
 // Quiz Admin
 
 const createQuizOpenTDBRequest = async (query) => {
-  const reqString = `${CREATEQUIZ}?category=${query.category}&amount=${query.amount}&difficulty=${query.difficulty}&type=${query.answerType}`;
-  const data = await QUIZAXIOS.get(reqString)
-    .then((resData) => {
-      const dataRes = resData;
-      return dataRes.data;
-    })
-    .catch((err) => {
-      console.error(err.message);
-    });
-  return data;
+  try {
+    const reqString = `${CREATEQUIZ}?category=${query.category}&amount=${query.amount}&difficulty=${query.difficulty}&type=${query.answerType}`;
+    const res = await QUIZAXIOS.get(reqString);
+    const dataRes = await res.data;
+    return dataRes;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
 };
 
 export { getUsers, getCategories, createQuizOpenTDBRequest };

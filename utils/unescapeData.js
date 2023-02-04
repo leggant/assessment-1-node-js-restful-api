@@ -1,6 +1,15 @@
 import he from "he";
 
+/**
+ * return a string decoded using the "he" node js package
+ * @function unescapeString
+ * @param {String} string
+ * @returns {String} decoded
+ */
 const unescapeString = (string) => {
+  /**
+   * @constant {String} decoded
+   */
   let decoded = he.decode(string);
   decoded = decoded.replace(/[[\]"]/g, "'");
   return decoded;

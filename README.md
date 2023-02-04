@@ -1,6 +1,6 @@
 # Assessment 1 - @leggant
 
-## :rocket:Deployment - Heroku
+## :rocket: Deployment - Heroku
 
 [:anchor:__Heroku Deployment Pipeline__](https://dashboard.heroku.com/pipelines/7e5bc38d-d7f8-4030-9ad7-56505ed294d6)
 [:anchor:__Staging Deployment__](https://in-dev-app.herokuapp.com/)
@@ -11,11 +11,9 @@
 [:anchor:__API Documentation__](https://in-dev-app.herokuapp.com/docs/api/v1)
 [:anchor:__API Documentation__](https://api-prod-app.herokuapp.com/docs/api/v1)
 
-## Postman Project
-
 ## Entity Relationship Diagram
 
-:anchor: __[Made with Lucidchart](https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea)__
+[:anchor: Made with Lucidchart](https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea)
 <p>
   <img src="./docs/imgs/App_Dev_API_ERD.png" width="850" title="hover text">
 </p>
@@ -71,35 +69,14 @@ npm run resolve:dev 20221219234050_dev // folder name of the local migration ./p
 npm run migrate:prod // this command wil timeout, re-run until successfully completed
 ```
 
-### Run Docker PostGres DB
-
-- start docker on the local system, run the following command in vsCode terminal. This will run a database locally within a background process
-
-```bash
-docker run --name apipostgresinstance -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres
-```
-
-- add the postgres db address to the .env.development file
-
-```plaintext
-DATABASE_URL="postgres://postgres:password@localhost:5432/apipostgresinstance"
-SHADOW_DATABASE_URL="postgres://postgres:password@localhost:5432/apipostgresinstance"
-```
-
-- run a test migration with the following command
-
-```bash
-npx prisma db push
-```
-
 ## Gist Links
 
 __Note: more users added than required.__
 
-- :anchor: [End-point for Basic Users](https://gist.github.com/leggant/0bba24ff5402123c0a1301df853c5541)
-- :anchor: [End-point for Admin Users](https://gist.github.com/leggant/55140b7528dae48661395db873568dfe)
+- :anchor: [End-point for Basic Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/basic_user.json)
+- :anchor: [End-point for Admin Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/admin_user.json)
 
-## :bookmark_tabs:References  
+## :bookmark_tabs: References  
 
 - :anchor: <https://www.freecodecamp.org/news/the-express-handbook>
 - :anchor: <https://express-validator.github.io/docs/index.html>
@@ -142,4 +119,3 @@ __Note: more users added than required.__
 - array flattening: <https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods>
 - `npx run-func ./utils/unitTestDataRequests.js testDate`
 - `npx run-func ./utils/unitTestDataRequests.js deleteTestAdminUser`
--

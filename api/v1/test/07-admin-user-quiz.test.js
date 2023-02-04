@@ -36,7 +36,7 @@ describe("Admin User Quiz Requests", () => {
         email,
         password,
       })
-      .end((err, loginRes) => {
+      .end((err1, loginRes) => {
         // eslint-disable-next-line prefer-destructuring
         token = loginRes.body.token;
       });
@@ -63,7 +63,7 @@ describe("Admin User Quiz Requests", () => {
         .post(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}`)
         .send(TESTQUIZZES[0])
         .auth(token, { type: "bearer" })
-        .end((err1, createRes) => {
+        .end((err3, createRes) => {
           const { id, quizStartDate, quizEndDate } = createRes.body.data;
           quizId = Number(id);
           chai
@@ -92,7 +92,7 @@ describe("Admin User Quiz Requests", () => {
         .post(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}`)
         .send(TESTQUIZZES[1])
         .auth(basicUserToken, { type: "bearer" })
-        .end((failError, createFailRes) => {
+        .end((err4, createFailRes) => {
           chai
             .expect(createFailRes)
             .to.have.header("content-type", "application/json; charset=utf-8");
@@ -133,9 +133,9 @@ describe("Admin User Quiz Requests", () => {
     it("Should Get The New Quiz By Id", (done) => {
       chai
         .request(app)
-        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZQUERYTEST}${quizId}`)
         .auth(token, { type: "bearer" })
-        .end((_error, qRes) => {
+        .end((err5, qRes) => {
           chai
             .expect(qRes)
             .to.have.header("content-type", "application/json; charset=utf-8");
@@ -177,9 +177,9 @@ describe("Admin User Quiz Requests", () => {
     it("Should Block Basic Users Querying Quiz By Id", (done) => {
       chai
         .request(app)
-        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZQUERYTEST}${quizId}`)
         .auth(basicUserToken, { type: "bearer" })
-        .end((error10x, bRes) => {
+        .end((err6, bRes) => {
           chai.expect(bRes).status(401);
           done();
         });
@@ -194,7 +194,7 @@ describe("Admin User Quiz Requests", () => {
         .request(app)
         .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}`)
         .auth(token, { type: "bearer" })
-        .end((_error, qRes) => {
+        .end((err7, qRes) => {
           chai
             .expect(qRes)
             .to.have.header("content-type", "application/json; charset=utf-8");
@@ -220,7 +220,7 @@ describe("Admin User Quiz Requests", () => {
         .request(app)
         .get(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}`)
         .auth(basicUserToken, { type: "bearer" })
-        .end((error20x, bRes2) => {
+        .end((err8, bRes2) => {
           chai.expect(bRes2).status(401);
           done();
         });
@@ -233,10 +233,10 @@ describe("Admin User Quiz Requests", () => {
     it("Should Update The New Quiz Name", (done) => {
       chai
         .request(app)
-        .put(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .put(`${PATHS.BASE}${PATHS.ADMIN.QUIZQUERYTEST}${quizId}`)
         .send({ name: "Yogis Updated Quiz Name" })
         .auth(token, { type: "bearer" })
-        .end((err4, updateRes) => {
+        .end((err9, updateRes) => {
           const { updateResult } = updateRes.body;
           const { startDate, endDate } = updateResult;
           chai
@@ -263,9 +263,9 @@ describe("Admin User Quiz Requests", () => {
     it("Should Delete The New Quiz By Id", (done) => {
       chai
         .request(app)
-        .delete(`${PATHS.BASE}${PATHS.ADMIN.QUIZ}/${quizId}`)
+        .delete(`${PATHS.BASE}${PATHS.ADMIN.QUIZQUERYTEST}${quizId}`)
         .auth(token, { type: "bearer" })
-        .end((_error, deleteRes) => {
+        .end((err11, deleteRes) => {
           chai.expect(deleteRes).status(200);
           chai.expect(deleteRes.body).to.be.an("object");
           chai
@@ -289,26 +289,3 @@ describe("Admin User Quiz Requests", () => {
     });
   });
 });
-
-// describe("Admin User Quiz Requests With Error Handling", () => {
-//   /**
-//    * Test POST request - Create a new quiz
-//    */
-//   describe(`POST: ${PATHS.BASE}${PATHS.ADMIN.QUIZ}`, () => {});
-//   /**
-//    * Test PUT request - Update a quiz by id
-//    */
-//   describe(`PUT: ${PATHS.BASE}${PATHS.ADMIN.QUIZQUERY}`, () => {});
-//   /**
-//    * Test DELETE request - delete a quiz by id
-//    */
-//   describe(`PUT: ${PATHS.BASE}${PATHS.ADMIN.QUIZQUERY}`, () => {});
-//   /**
-//    * Test GET request - get a quiz by id
-//    */
-//   describe(`GET: ${PATHS.BASE}${PATHS.ADMIN.QUIZQUERY}`, () => {});
-//   /**
-//    * Test GET request - get all quizzes
-//    */
-//   describe(`GET: ${PATHS.BASE}${PATHS.ADMIN.QUIZ}`, () => {});
-// });

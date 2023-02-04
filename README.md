@@ -141,4 +141,5 @@ __Note: more users added than required.__
 - `npx run-func ./utils/compareAnswerStrings.js default "Bobs Burgers, \"Lord of the Flies\"?" "Family Guy, \"Lord of the Flies\"?"`
 - array flattening: <https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods>
 - `npx run-func ./utils/unitTestDataRequests.js testDate`
+- `npx run-func ./utils/unitTestDataRequests.js deleteTestAdminUser`
 -

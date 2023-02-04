@@ -10,20 +10,24 @@ import userProfileRouter from "./api/v1/routes/userProfileRouter.js";
 import adminQuizRouter from "./api/v1/routes/adminQuizRouter.js";
 import playerQuizRouter from "./api/v1/routes/playerQuizRouter.js";
 import seederRouter from "./api/v1/routes/seederRouter.js";
+
 /**
  * @constructor dotenv
  * @description initialise a instance of dotenv
  * @example dotenv.config();
  */
 dotenv.config();
+
 /**
  * @constructor express
  * @description initialise a global instance of ExpressJS
  * @example const app = express();
-app.use(cors());
-app.use(helmet());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+    app.use(morgan("dev"));
+    app.use(cors());
+    app.use(helmet());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(compression());
+    app.use(express.json());
  */
 const app = express();
 app.use(morgan("dev"));
@@ -35,23 +39,24 @@ app.use(express.json());
 /**
  * Defines the base value for all API routes
  * @default api
- * @type {string} BASE_PATH
+ * @const {String} BASE_PATH
  */
 const BASE_PATH = "api";
 /**
  * Defines the current version of the API. This is provided by an environment variable
  * @default v1
- * @type {String} API_VERSION
+ * @const {String} API_VERSION - current api version is v1
  */
 // eslint-disable-next-line prefer-destructuring
 const API_VERSION = process.env.API_VERSION;
 app.use(`/docs/${BASE_PATH}/${API_VERSION}`, express.static("docs"));
+
 /**
  * Set the server port. The default port in the development env is 3000
  * @default 3000
- * @type {number} SERVER_PORT
+ * @const {number} SERVER_PORT - server port number
  */
-const SERVER_PORT = process.env.PORT;
+const SERVER_PORT = process.env.PORT || 3000;
 
 app.get(`/${BASE_PATH}/${API_VERSION}`, (req, res) => {
   res.json({ msg: `/${BASE_PATH}/${API_VERSION}` });
@@ -65,4 +70,7 @@ app.listen(SERVER_PORT, () => {
   console.log(`Server is listening on port ${SERVER_PORT}`);
 });
 
+/**
+ * @export app - export app for use in API Unit Tests
+ */
 export default app;

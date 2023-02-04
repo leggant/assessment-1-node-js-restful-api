@@ -8,13 +8,16 @@ const PATHS = {
     CATEGORYSEEDER: `${AUTHONLY}/admin/seeder/categories`,
     QUIZ: `${AUTHONLY}/admin/quiz`,
     QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
+    QUIZQUERYTEST: `${AUTHONLY}/admin/quiz/`,
     USERSEARCH: `${AUTHONLY}/admin/details/:searchField/:searchValue`,
+    USERSEARCHTEST: `${AUTHONLY}/admin/details/`,
   },
   USER: {
     PROFILE: `${AUTHONLY}/profile`,
   },
   QUIZ: {
     PLAYER: `${AUTHONLY}/quiz/:quizId`,
+    PLAYERTEST: `${AUTHONLY}/quiz/`,
     QUESTIONS: `${AUTHONLY}/quiz/:quizId/questions`,
     PLAYERRESULTS: `${AUTHONLY}/quiz/results/:query`,
     SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/submit`,

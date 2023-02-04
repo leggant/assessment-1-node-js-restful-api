@@ -2,7 +2,6 @@ import moment from "moment";
 import PRISMA from "./prisma.js";
 import USERTYPE from "../api/v1/constants/userType.js";
 import QUIZCONSTS from "../api/v1/constants/quiz.js";
-import * as datecheck from "./dateTimeCheck.js";
 
 const ADMINTESTUSER = {
   firstName: "John",
@@ -15,15 +14,26 @@ const ADMINTESTUSER = {
   profileImgURL: "https://testuser.me/api/portraits/men/1.jpg",
 };
 
-const BASICTESTUSER = {
+const BASICTESTUSER1 = {
   firstName: "Jane",
   lastName: "Doe",
-  email: "jednz002@op.ac.nz",
-  userName: "jednz002",
+  email: "jednz003@op.ac.nz",
+  userName: "jednz003",
+  role: USERTYPE.BASIC,
+  password: "Yogi##@4tdfgx",
+  confirmPassword: "Yogi##@4tdfgx",
+  profileImgURL: "https://testuser.me/api/portraits/women/6.jpg",
+};
+
+const BASICTESTUSER2 = {
+  firstName: "Bella",
+  lastName: "Legg",
+  email: "bellanz03@op.ac.nz",
+  userName: "bellanz03",
   role: USERTYPE.BASIC,
   password: "Yogi##@4tdfg",
   confirmPassword: "Yogi##@4tdfg",
-  profileImgURL: "https://testuser.me/api/portraits/women/5.jpg",
+  profileImgURL: "https://testuser.me/api/portraits/women/20.jpg",
 };
 
 const validTestDate = () => {
@@ -94,10 +104,13 @@ const deleteTestAdminUser = async () => {
   }
 };
 const deleteTestBasicUser = async () => {
+  const userNames = [BASICTESTUSER1.userName, BASICTESTUSER2.userName];
   try {
-    await PRISMA.user.delete({
+    await PRISMA.user.deleteMany({
       where: {
-        userName: BASICTESTUSER.userName,
+        userName: {
+          in: userNames,
+        },
       },
     });
     return;
@@ -127,8 +140,9 @@ export {
   deleteTestAdminUser,
   deleteTestBasicUser,
   deleteTestQuizzes,
-  ADMINTESTUSER,
-  BASICTESTUSER,
-  TESTQUIZZES,
   validTestDate,
+  ADMINTESTUSER,
+  BASICTESTUSER1,
+  BASICTESTUSER2,
+  TESTQUIZZES,
 };

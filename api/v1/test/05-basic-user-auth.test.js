@@ -3,48 +3,53 @@ import chaiHttp from "chai-http";
 import { describe, it } from "mocha";
 import app from "../../../app.js";
 import PATHS from "../constants/paths.js";
-import { ADMINTESTUSER } from "../../../utils/unitTestDataRequests.js";
+import { BASICTESTUSER1 } from "../../../utils/unitTestDataRequests.js";
+
+/**
+ * @type {String} basicUserToken - basic user token returned from the before function login request (preflight)
+ */
+let basicUserToken;
 
 chai.use(chaiHttp);
 
-describe("Admin User Registration and Login Tests", () => {
-  describe(`POST: ${PATHS.BASE}${PATHS.REGISTER}`, () => {
-    it("Should register admin user, if they do not exist", (done) => {
+describe("Basic User Registration and Login Tests", () => {
+  describe(`POST: Register Users`, () => {
+    it("Should register basic user #1, if they do not exist", (done) => {
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.REGISTER}`)
-        .send(ADMINTESTUSER)
+        .send(BASICTESTUSER1)
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(201);
+          chai.expect(res).status(201);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.msg)
             .to.be.equal(
-              `New User: ${ADMINTESTUSER.userName} Successfully Registered`,
+              `New User: ${BASICTESTUSER1.userName} Successfully Registered`,
             );
           done();
         });
     });
-    it("Should fail to register an admin user that already exists", (done) => {
+    it("Should fail to register an basic user that already exists", (done) => {
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.REGISTER}`)
-        .send(ADMINTESTUSER)
+        .send(BASICTESTUSER1)
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(409);
+          chai.expect(res).status(409);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.msg)
             .to.be.equal(
-              `${ADMINTESTUSER.firstName} ${ADMINTESTUSER.lastName} already exists. Please Login`,
+              `${BASICTESTUSER1.firstName} ${BASICTESTUSER1.lastName} already exists. Please Login`,
             );
           done();
         });
     });
   });
   describe(`POST: ${PATHS.BASE}${PATHS.LOGIN}`, () => {
-    it("Should login admin user", (done) => {
-      const { email, password } = ADMINTESTUSER;
+    it("Should login basic user", (done) => {
+      const { email, password } = BASICTESTUSER1;
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.LOGIN}`)
@@ -53,12 +58,23 @@ describe("Admin User Registration and Login Tests", () => {
           password,
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(200);
+          basicUserToken = res.body.token;
+          chai.expect(res).status(200);
           chai.expect(res.body).to.be.a("object");
           chai.expect(res.body.token, { type: "bearer" });
           chai
             .expect(res.body.msg)
-            .to.be.equal(`${ADMINTESTUSER.userName} - successfully logged in`);
+            .to.be.equal(`${BASICTESTUSER1.userName} - successfully logged in`);
+          done();
+        });
+    });
+    it("Should return Basic Users Profile Data", (done) => {
+      chai
+        .request(app)
+        .get(`${PATHS.BASE}${PATHS.USER.PROFILE}`)
+        .auth(basicUserToken, { type: "bearer" })
+        .end((_, profileRes) => {
+          chai.expect(profileRes).status(200);
           done();
         });
     });
@@ -71,7 +87,7 @@ describe("Admin User Registration and Login Tests", () => {
           password: "fail",
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai.assert.notExists(
             res.body.token,
@@ -97,7 +113,7 @@ describe("Admin User Registration and Login Tests", () => {
         });
     });
     it("Should return validation error due to invalid password", (done) => {
-      const { email } = ADMINTESTUSER;
+      const { email } = BASICTESTUSER1;
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.LOGIN}`)
@@ -106,7 +122,7 @@ describe("Admin User Registration and Login Tests", () => {
           password: "fail",
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.errors[0])
@@ -132,7 +148,7 @@ describe("Admin User Registration and Login Tests", () => {
         });
     });
     it("Should return validation error due to invalid email format", (done) => {
-      const { password, userName } = ADMINTESTUSER;
+      const { password, userName } = BASICTESTUSER1;
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.LOGIN}`)
@@ -141,7 +157,7 @@ describe("Admin User Registration and Login Tests", () => {
           password,
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.errors[0])
@@ -156,4 +172,4 @@ describe("Admin User Registration and Login Tests", () => {
   });
 });
 
-export default ADMINTESTUSER;
+export default BASICTESTUSER1;

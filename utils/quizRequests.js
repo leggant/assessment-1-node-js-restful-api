@@ -122,6 +122,7 @@ const getQuizDetails = async (quizId) => {
       id: quizId,
     },
     select: {
+      id: true,
       name: true,
       categoryId: true,
       answerType: true,
@@ -146,6 +147,7 @@ const getQuizQuestions = async (quizId) => {
       id: quizId,
     },
     select: {
+      id: true,
       name: true,
       answerType: true,
       difficulty: true,

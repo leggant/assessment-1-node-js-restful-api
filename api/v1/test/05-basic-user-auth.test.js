@@ -3,10 +3,7 @@ import chaiHttp from "chai-http";
 import { describe, it } from "mocha";
 import app from "../../../app.js";
 import PATHS from "../constants/paths.js";
-import {
-  BASICTESTUSER1,
-  BASICTESTUSER2,
-} from "../../../utils/unitTestDataRequests.js";
+import { BASICTESTUSER1 } from "../../../utils/unitTestDataRequests.js";
 
 /**
  * @type {String} basicUserToken - basic user token returned from the before function login request (preflight)
@@ -16,8 +13,8 @@ let basicUserToken;
 chai.use(chaiHttp);
 
 describe("Basic User Registration and Login Tests", () => {
-  describe(`POST: ${PATHS.BASE}${PATHS.REGISTER}`, () => {
-    it("Should register basic user, if they do not exist", (done) => {
+  describe(`POST: Register Users`, () => {
+    it("Should register basic user #1, if they do not exist", (done) => {
       chai
         .request(app)
         .post(`${PATHS.BASE}${PATHS.REGISTER}`)
@@ -77,7 +74,6 @@ describe("Basic User Registration and Login Tests", () => {
         .get(`${PATHS.BASE}${PATHS.USER.PROFILE}`)
         .auth(basicUserToken, { type: "bearer" })
         .end((_, profileRes) => {
-          console.log(profileRes);
           chai.expect(profileRes).status(200);
           done();
         });

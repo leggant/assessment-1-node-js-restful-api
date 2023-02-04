@@ -34,7 +34,7 @@ describe("Admin User Registration and Login Tests", () => {
         .post(`${PATHS.BASE}${PATHS.REGISTER}`)
         .send(ADMINTESTUSER)
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(201);
+          chai.expect(res).status(201);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.msg)
@@ -50,7 +50,7 @@ describe("Admin User Registration and Login Tests", () => {
         .post(`${PATHS.BASE}${PATHS.REGISTER}`)
         .send(ADMINTESTUSER)
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(409);
+          chai.expect(res).status(409);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.msg)
@@ -74,7 +74,7 @@ describe("Admin User Registration and Login Tests", () => {
         .end((_, res) => {
           // eslint-disable-next-line prefer-destructuring
           token = res.body.token;
-          chai.expect(res.status).to.be.equal(200);
+          chai.expect(res).status(200);
           chai.expect(res.body).to.be.a("object");
           chai.expect(res.body.token, { type: "bearer" });
           chai
@@ -92,7 +92,7 @@ describe("Admin User Registration and Login Tests", () => {
           password: "fail",
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai.assert.notExists(
             res.body.token,
@@ -127,7 +127,7 @@ describe("Admin User Registration and Login Tests", () => {
           password: "fail",
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.errors[0])
@@ -162,7 +162,7 @@ describe("Admin User Registration and Login Tests", () => {
           password,
         })
         .end((_, res) => {
-          chai.expect(res.status).to.be.equal(400);
+          chai.expect(res).status(400);
           chai.expect(res.body).to.be.a("object");
           chai
             .expect(res.body.errors[0])
@@ -182,7 +182,6 @@ describe("Admin User Registration and Login Tests", () => {
         .get(`${PATHS.BASE}${PATHS.USER.PROFILE}`)
         .auth(token, { type: "bearer" })
         .end((_, profileRes) => {
-          console.log(profileRes);
           chai.expect(profileRes).status(200);
           done();
         });

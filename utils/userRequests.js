@@ -1,7 +1,6 @@
 /**
  * User Related API Request Handler Methods
  * @author @leggant
- * @fileoverview User Related API Request Handler Methods
  */
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";

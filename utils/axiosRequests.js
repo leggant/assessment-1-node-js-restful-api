@@ -106,9 +106,4 @@ const createQuizOpenTDBRequest = async (query) => {
   }
 };
 
-/**
- * @exports getUsers
- * @exports getCategories
- * @exports createQuizOpenTDBRequest
- */
 export { getUsers, getCategories, createQuizOpenTDBRequest };

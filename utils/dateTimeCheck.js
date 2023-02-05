@@ -1,6 +1,5 @@
 /**
  * date parsing, comparison and validation utilities which utilise moment.js
- * @author @leggant
  */
 
 import moment from "moment";

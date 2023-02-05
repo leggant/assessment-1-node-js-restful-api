@@ -1,6 +1,5 @@
 /**
  * User Related API Request Handler Methods
- * @module quizRequests
  */
 import PRISMA from "./prisma.js";
 import QUIZCONSTS from "../api/v1/constants/quiz.js";

@@ -8,7 +8,4 @@ const checkDataType = (data) => {
   return type;
 };
 
-/**
- * @exports checkDataType
- */
 export default checkDataType;

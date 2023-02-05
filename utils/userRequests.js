@@ -66,7 +66,7 @@ const getSingleUserByParam = async (params) => {
 };
 
 const updateUserById = async (userReq, data) => {
-  const user = await PRISMA.user.findFirst({
+  const user = await PRISMA.user.findFirstOrThrow({
     where: { id: userReq.id },
   });
   const salt = data.password ? await bcryptjs.genSalt() : null;
@@ -106,7 +106,7 @@ const updateUserById = async (userReq, data) => {
 
 const updateUserByParam = async (params, data) => {
   const search = Object.values(params);
-  const userSearch = await PRISMA.user.findFirst({
+  const userSearch = await PRISMA.user.findFirstOrThrow({
     where: {
       OR: [
         {
@@ -141,7 +141,7 @@ const updateUserByParam = async (params, data) => {
 };
 
 const deleteUserById = async (token, id) => {
-  const user = await PRISMA.user.findFirst({
+  const user = await PRISMA.user.findFirstOrThrow({
     where: { id },
   });
   let resTypeOfData = checkDataType(user);

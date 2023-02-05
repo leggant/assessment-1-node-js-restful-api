@@ -10,7 +10,7 @@ const mwTokenValid = async (req, res, next) => {
     const checkBlockedToken = await PRISMA.blockedToken.findFirst({
       where: { token },
     });
-    let type = checkDataType(checkBlockedToken);
+    let type = await checkDataType(checkBlockedToken);
     /**
      * if the type is an object then a value has been found
      * and the request should be blocked, the user has an invalid token
@@ -39,7 +39,7 @@ const mwTokenValid = async (req, res, next) => {
       const checkBlockedUser = await PRISMA.blockedUser.findFirst({
         where: { uid: tokenPayload.id },
       });
-      type = checkDataType(checkBlockedUser);
+      type = await checkDataType(checkBlockedUser);
       /**
        * check the return value, if null the request can continue;
        * if the type is an object then a value has been found

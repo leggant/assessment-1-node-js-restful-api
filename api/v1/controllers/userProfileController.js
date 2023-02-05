@@ -101,9 +101,9 @@ const ctUpdateUser = async (req, res) => {
       .status(200)
       .json({ msg: `${updateRes.userName} Updated Successfully`, updateRes });
   } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
+    return res
+      .status(404)
+      .json({ msg: `Update Error: User Not Found + Update Not Completed.` });
   }
 };
 
@@ -126,16 +126,11 @@ const ctDeleteUser = async (req, res) => {
     const clearedUsers = await clearBlockedUsers();
     console.log("deleted invalid token count: ", clearedTokens);
     console.log("deleted invalid user count: ", clearedUsers);
-    if (!reqStatus) {
-      return res
-        .status(404)
-        .json({ msg: "Request User Could Not Be Found + Not Deleted." });
-    }
     return res.status(200).json({ msg: "User Deleted Successfully" });
   } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
+    return res
+      .status(404)
+      .json({ msg: "Request User Could Not Be Found + Not Deleted." });
   }
 };
 

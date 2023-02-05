@@ -39,7 +39,7 @@ const getSingleUserById = async (id) => {
 };
 const getSingleUserByParam = async (params) => {
   const search = Object.values(params);
-  const response = await PRISMA.user.findFirstOrThrow({
+  const response = await PRISMA.user.findFirst({
     where: {
       OR: [
         {
@@ -66,7 +66,7 @@ const getSingleUserByParam = async (params) => {
 };
 
 const updateUserById = async (userReq, data) => {
-  const user = await PRISMA.user.findFirstOrThrow({
+  const user = await PRISMA.user.findFirst({
     where: { id: userReq.id },
   });
   const salt = data.password ? await bcryptjs.genSalt() : null;
@@ -106,7 +106,7 @@ const updateUserById = async (userReq, data) => {
 
 const updateUserByParam = async (params, data) => {
   const search = Object.values(params);
-  const userSearch = await PRISMA.user.findFirstOrThrow({
+  const userSearch = await PRISMA.user.findFirst({
     where: {
       OR: [
         {

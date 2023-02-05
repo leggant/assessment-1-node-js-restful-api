@@ -25,29 +25,56 @@
 
       <section>
         <article>
-          <pre
-            class="prettyprint source linenums"
-          ><code>import USERTYPE from "../constants/userType.js";
+          <pre class="prettyprint source linenums"><code>/**
+ * @author @leggant
+ * @fileoverview middleware to query the database, and confirm the player has been added to the quiz.
+ */
+import USERTYPE from "../constants/userType.js";
 import PRISMA from "../../../utils/prisma.js";
 
 /**
- * middleware confirming the player has been added to the quiz
+ * middleware confirming the player has been added to the quiz.
+ * prevent admin users from playing quizzes
+ * @function mwPlayerAddedToQuiz
+ * @async
  * @param {Request} req HTTP request
+ * @param {Request} req.params HTTP request param containing the quiz id value
+ * @param {Request} req.user HTTP request user object containing the user Id
  * @param {Response} res HTTP response
  * @param {Response} next HTTP response
- * @returns {Response}
+ * @returns {Request|Response}
  */
 const mwPlayerAddedToQuiz = async (req, res, next) => {
   try {
+    /**
+     * block admins from playing quizzes with answers they have available to them
+     * ahead to time
+     * @constant {Boolean} isAdmin
+     */
     const isAdmin = req.user.role === USERTYPE.ADMIN;
     if (isAdmin) {
       return res.status(403).json({ msg: "Basic Users Only." });
     }
+    /**
+     * @type {Number}
+     */
     // eslint-disable-next-line prefer-destructuring
     const quizId = req.params.quizId;
+    /**
+     * @type {String}
+     */
     const userId = req.user.id;
+    /**
+     * @type {String}
+     */
     // eslint-disable-next-line prefer-destructuring
     const userName = req.user.userName;
+    /**
+     * verify the user in the request has been assigned to the quiz
+     * query the userParticipate table for a row that include the quiz and user ids
+     * and get quiz associated with this row
+     * @constant {{UserParicipate: Object, Quiz: Object} | Null} validPlayer
+     */
     const validPlayer = await PRISMA.userParticipate.findFirst({
       where: {
         userId,
@@ -57,13 +84,20 @@ const mwPlayerAddedToQuiz = async (req, res, next) => {
         quiz: true,
       },
     });
-    // if the player is signed to the quiz
-    // continue with the request; otherwise reject with error message
+
+    /**
+     * check that the player is valid; if null return an error 422
+     * otherwise continue
+     */
     if (!validPlayer) {
       return res.status(422).json({
         msg: `${userName} has not been assigned to the request Quiz ID #${quizId}.`,
       });
     }
+    /**
+     * attach player and quiz information object to the request
+     * continue in the request chain
+     */
     req.quizPlayer = {
       quizId,
       userId,
@@ -88,38 +122,44 @@ export default mwPlayerAddedToQuiz;
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
         <li><a href="dotenv.html">dotenv</a></li>
         <li><a href="express.html">express</a></li>
       </ul>
-      <h3>Tutorials</h3>
-      <ul>
-        <li><a href="tutorial-api.html">API Endpoints</a></li>
-        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
-      </ul>
       <h3>Global</h3>
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#adminToken">adminToken</a></li>
+        <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
@@ -128,14 +168,20 @@ export default mwPlayerAddedToQuiz;
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
+        <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
+        <li><a href="global.html#quizId">quizId</a></li>
         <li><a href="global.html#register">register</a></li>
         <li><a href="global.html#split">split</a></li>
         <li><a href="global.html#splitDate">splitDate</a></li>
+        <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -143,8 +189,8 @@ export default mwPlayerAddedToQuiz;
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02
-      2023 22:15:37 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Feb 06
+      2023 00:32:51 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

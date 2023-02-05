@@ -26,255 +26,362 @@
       <section>
         <article>
           <h1>Assessment 1 - @leggant</h1>
-          <h2>:rocket:Deployment - Heroku</h2>
+          <h2>:rocket: Deployment - Heroku</h2>
+          <ul>
+            <li>
+              <a
+                href="https://dashboard.heroku.com/pipelines/7e5bc38d-d7f8-4030-9ad7-56505ed294d6"
+                >:anchor:<strong>Heroku Deployment Pipeline</strong></a
+              >
+            </li>
+            <li>
+              <a href="https://in-dev-app.herokuapp.com"
+                >:anchor:<strong>Staging Deployment</strong></a
+              >
+            </li>
+            <li>
+              <a href="https://api-prod-app.herokuapp.com"
+                >:anchor:<strong>Production Deployment</strong></a
+              >
+            </li>
+          </ul>
+          <h2>Local Install and Launch</h2>
           <p>
-            :anchor:<strong>Pipeline</strong>: :anchor:<strong>Staging</strong>:
-            :anchor:<strong>Production</strong>:
-          </p>
-          <h2>API Endpoints</h2>
-          <h2>Postman Project</h2>
-          <h2>Entity Relationship Diagram</h2>
-          <p>
-            :anchor:
             <strong
-              ><a
-                href="https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&amp;invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea"
-                >Made with Lucidchart</a
-              ></strong
+              >note: node packages have been installed using Node v18.12.1 - any
+              issues with the install, check the current node version</strong
             >
           </p>
-          <p>
-            <img
-              src="./docs/imgs/App_Dev_API_ERD.png"
-              width="850"
-              title="hover text"
-            />
-          </p>
-          <h2>API/Command Line Instructions</h2>
-          <h3>Database Seeders</h3>
-          <p>
-            <em
-              >user and category seeders are both available from admin-only
-              endpoints</em
-            >
-          </p>
+          <p>After cloning, and installing node packages.</p>
           <ol>
             <li>
-              user seeder endpoint: <code>/user/auth/admin/seeder/players</code>
+              Copy the .env sent to you seperately to the root directory of the
+              app.
             </li>
             <li>
-              category seeder endpoint:
-              <code>/user/auth/admin/seeder/categories</code>
-            </li>
-          </ol>
-          <p>https://opentdb.com/api_category.php</p>
-          <h3>Migrate the Database</h3>
-          <h4>Seeder GISTS</h4>
-          <h4>Development</h4>
-          <pre class="prettyprint source lang-node"><code>npm run migrate:dev
-</code></pre>
-          <h5>Error Handling</h5>
-          <p>If this command above outputs the following error:</p>
-          <pre class="prettyprint source lang-bash"><code>Error: P3005
-
-The database schema is not empty. Read more about how to baseline an existing production database: https://pris.ly/d/migrate-baseline
-</code></pre>
-          <p>
-            I found the only way to resolve this is to delete the locally stored
-            migration file(s). e.g. <code>./prisma/migrations/**</code> Then
-            re-run the migration command:
-          </p>
-          <pre class="prettyprint source lang-node"><code>npm run migrate:dev
-</code></pre>
-          <h5>Additional Commands</h5>
-          <pre
-            class="prettyprint source lang-node"
-          ><code>npm run reset:dev // reset the database
-</code></pre>
-          <h4>Production</h4>
-          <pre
-            class="prettyprint source lang-node"
-          ><code>npm run resolve:dev 20221219234050_dev // folder name of the local migration ./prisma/migrations/20221219234050_dev
-npm run migrate:prod // this command wil timeout, re-run until successfully completed
-</code></pre>
-          <h3>Run Docker PostGres DB</h3>
-          <ul>
-            <li>
-              start docker on the local system, run the following command in
-              vsCode terminal. This will run a database locally within a
-              background process
-            </li>
-          </ul>
-          <pre
-            class="prettyprint source lang-bash"
-          ><code>docker run --name apipostgresinstance -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres
-</code></pre>
-          <ul>
-            <li>add the postgres db address to the .env.development file</li>
-          </ul>
-          <pre
-            class="prettyprint source lang-plaintext"
-          ><code>DATABASE_URL=&quot;postgres://postgres:password@localhost:5432/apipostgresinstance&quot;
-SHADOW_DATABASE_URL=&quot;postgres://postgres:password@localhost:5432/apipostgresinstance&quot;
-</code></pre>
-          <ul>
-            <li>run a test migration with the following command</li>
-          </ul>
-          <pre class="prettyprint source lang-bash"><code>npx prisma db push
-</code></pre>
-          <h2>Gist Links</h2>
-          <p><strong>Note: more users added than required.</strong></p>
-          <ul>
-            <li>
-              :anchor:
-              <a
-                href="https://gist.github.com/leggant/0bba24ff5402123c0a1301df853c5541"
-                >End-point for Basic Users</a
-              >
-            </li>
-            <li>
-              :anchor:
-              <a
-                href="https://gist.github.com/leggant/55140b7528dae48661395db873568dfe"
-                >End-point for Admin Users</a
-              >
-            </li>
-          </ul>
-          <h2>:bookmark_tabs:References</h2>
-          <ul>
-            <li>
-              :anchor: https://www.freecodecamp.org/news/the-express-handbook
-            </li>
-            <li>
-              :anchor: https://express-validator.github.io/docs/index.html
-            </li>
-            <li>
-              :anchor: https://youtu.be/YK-GurROGIg
-              <a
-                href="https://github.com/otago-polytechnic-bit-courses/assessment-1-node-js-restful-api-leggant/issues/12"
-                >#12</a
-              >
-            </li>
-            <li>
-              :anchor:
-              https://blog.devgenius.io/validating-user-inputs-on-your-express-js-application-with-express-validator-4d82b995f524
-            </li>
-            <li>
-              :anchor: https://www.w3schools.com/jsref/jsref_startswith.asp
-            </li>
-            <li>:anchor: https://www.youtube.com/watch?v=7i7xmwowwCY</li>
-            <li>
-              :anchor:
-              https://stackoverflow.com/questions/1050720/how-to-add-hours-to-a-date-object
-            </li>
-            <li>
-              :anchor:
-              <strong>database seeder</strong>
-              https://www.prisma.io/docs/guides/database/seed-database#example-seed-scripts
-            </li>
-            <li>
-              :anchor:
-              https://stackoverflow.com/questions/69526209/prisma-how-can-i-update-only-some-of-the-models-fields-in-update
-            </li>
-            <li>
-              :anchor:
-              https://bobbyhadz.com/blog/javascript-check-if-object-is-empty
-            </li>
-            <li>
-              :anchor: get first key/value from object
-              https://stackoverflow.com/a/56969714
-            </li>
-            <li>
-              :anchor: testing axios functions from the commandline using
-              <code>run-func</code> npm package
+              import the PostMan project JSON file from the root directory into
+              your local installation
               <ul>
-                <li>https://stackoverflow.com/a/43598047</li>
                 <li>
-                  using the command:
-                  <code>npx run-func ./utils/axiosRequests.js getUsers</code>
-                  and
+                  see walkthrough video (send in the linked file along with the
+                  .envs)
                 </li>
+              </ul>
+            </li>
+            <li>
+              Launch local dev server with connection to either the production
+              or staging backends
+              <ul>
+                <li><code>npm run watch:dev</code></li>
+                <li><code>npm run watch:prod</code></li>
+              </ul>
+            </li>
+            <li>
+              use Prisma Studio to inspect the data from either server by
+              running
+              <ul>
+                <li><code>npm run studio:dev</code></li>
+                <li><code>npm run studio:prod</code></li>
+              </ul>
+            </li>
+            <li>
+              with the server launched, use the request files in the ./requests
+              directories to test requests to either server
+            </li>
+            <li>
+              to run test suite, first shut down the local server and run one of
+              the following commands:
+              <ul>
+                <li><code>npm run test</code></li>
                 <li>
-                  <code
-                    >npx env-cmd -f .env.development npx run-func
-                    ./api/v1/controllers/seeder_controller.js seedUsers</code
+                  <code>npm run test:prod</code>
+                  <strong
+                    >Note: Occasionally tests may fail if they are ran in close
+                    succession; if this occurs it is likely due to server
+                    traffic from the previous request.</strong
                   >
                 </li>
               </ul>
             </li>
+          </ol>
+          <h2>API Documentation</h2>
+          <ul>
             <li>
-              :anchor: get object count -
-              https://www.geeksforgeeks.org/find-the-length-of-a-javascript-object
+              <a href="https://in-dev-app.herokuapp.com/docs/api/v1"
+                >:anchor:<strong>API Documentation - Staging Server</strong></a
+              >
             </li>
             <li>
-              :anchor: get specific values from array of objects
-              <ul>
+              <a href="https://api-prod-app.herokuapp.com/docs/api/v1"
+                >:anchor:<strong
+                  >API Documentation - Production Server</strong
+                ></a
+              >
+            </li>
+          </ul>
+          <h3>API End-Points</h3>
+          <p>
+            Full end point requests available via PostMan, import the
+            <code>Assignment_1_API.postman_collection.json</code> file from the
+            project root directory. Note the globa bearer token tab at the top
+            level of the postman project. These will help make it easier to use
+            the same token throughout, only changing if a different user type is
+            needed.
+          </p>
+          <p>See the video walkthrough sent with the submission files.</p>
+          <h2>Gist Links</h2>
+          <ul>
+            <li>
+              <a
+                href="https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/basic_user.json"
+                >:anchor: End-point for Basic Users</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/admin_user.json"
+                >:anchor: End-point for Admin Users</a
+              >
+            </li>
+          </ul>
+          <h2>Entity Relationship Diagram</h2>
+          <p>
+            <a
+              href="https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&amp;invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea"
+              >:anchor: Made with Lucidchart</a
+            >
+          </p>
+          <img
+            src="imgs/App_Dev_API_ERD.png"
+            width="850"
+            title="JsDoc Image Cannot Be Loaded"
+          />
+          <img
+            src="docs/imgs/App_Dev_API_ERD.png"
+            width="850"
+            title="ReadMe Image Cannot Be Loaded"
+          />
+          <h2>Database Seeders</h2>
+          <p>
+            <em
+              >user and category seeders are both available with admin token</em
+            >
+          </p>
+          <ul>
+            <li>
+              <a href="https://opentdb.com/api_config.php"
+                ><strong>Opentdb API Documentation</strong></a
+              >
+            </li>
+            <li>
+              <a href="https://opentdb.com/api_category.php"
+                ><strong>Opentdb API Categories</strong></a
+              >
+            </li>
+          </ul>
+          <p>
+            <strong
+              >Complete the following to request the seeder endpoints</strong
+            >
+          </p>
+          <ol>
+            <li>start a local server environment</li>
+          </ol>
+          <ul>
+            <li><code>npm run watch:dev</code></li>
+            <li><code>npm run watch:prod</code></li>
+          </ul>
+          <ol>
+            <li>login with an admin account.</li>
+            <li>add the returned token to the requst authorisation header</li>
+            <li>
+              send http get request to
+              <ol>
                 <li>
-                  https://www.designcise.com/web/tutorial/how-to-extract-specific-keys-values-from-an-array-of-objects-in-javascript
+                  user seeder endpoint:
+                  <ul>
+                    <li>
+                      <code
+                        >https://in-dev-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/players</code
+                      >
+                    </li>
+                    <li>
+                      <code
+                        >https://api-prod-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/players</code
+                      >
+                    </li>
+                  </ul>
                 </li>
-              </ul>
+                <li>
+                  category seeder endpoint:
+                  <ul>
+                    <li>
+                      <code
+                        >https://in-dev-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/categories</code
+                      >
+                    </li>
+                    <li>
+                      <code
+                        >https://api-prod-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/categories</code
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ol>
             </li>
-            <li>https://stackoverflow.com/a/8016205</li>
+          </ol>
+          <h2>:bookmark_tabs: References</h2>
+          <ul>
             <li>
-              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it
-            </li>
-            <li>
-              filter objects by key:
-              https://masteringjs.io/tutorials/fundamentals/filter-key
-            </li>
-            <li>
-              https://hackernoon.com/how-to-update-object-key-values-using-javascript
-            </li>
-            <li>
-              <code>npx run-func ./utils/axiosRequests.js getCategories</code>
-            </li>
-            <li>
-              <code>npx run-func ./utils/dateTimeCheck.js getCategories</code>
-            </li>
-            <li>
-              quiz date checks: https://youtu.be/oOK3UzLJ_Cs - testing:
-              <code
-                >npx run-func ./utils/dateTimeCheck.js quizDateValid 27 12
-                2022</code
-              >
-              and
-              <code
-                >npx run-func ./utils/dateTimeCheck.js quizEnddateValid 24 12
-                2022 30 12 2022</code
+              <a href="https://www.freecodecamp.org/news/the-express-handbook"
+                >:anchor: Express handbook (freecodecamp.org)</a
               >
             </li>
             <li>
-              https://stackoverflow.com/a/3367429 Get epoch for a specific date
-              using Javascript
-            </li>
-            <li>
-              https://stackoverflow.com/a/61505926 MONTHS in JavaScript Dates
-              starts in zero (0 = January, 11 = December)
-            </li>
-            <li>
-              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
-            </li>
-            <li>
-              <code
-                >npx run-func ./utils/dateTimeCheck.js playerCanParticipate
-                2022-12-30T20:26:46Z 2022-12-30T20:26:46Z</code
+              <a href="https://express-validator.github.io/docs/index.html"
+                >:anchor: Express validator</a
               >
             </li>
             <li>
-              <code
-                >npx run-func ./utils/dateTimeCheck.js playerCanParticipate
-                2022-12-30T20:26:46Z 2022-12-30T20:26:46Z</code
+              <a
+                href="https://blog.devgenius.io/validating-user-inputs-on-your-express-js-application-with-express-validator-4d82b995f524"
+                >:anchor: Express validator-user inputs</a
               >
             </li>
-            <li>https://stackoverflow.com/a/65724578</li>
             <li>
-              https://www.delftstack.com/howto/javascript/javascript-decode-html-entities/#decode-html-entities-using-vanilla-javascript
+              <a
+                href="https://stackoverflow.com/questions/1050720/how-to-add-hours-to-a-date-object"
+                >:anchor: Stackoverflow - add hours to date</a
+              >
             </li>
             <li>
+              <a href="https://youtu.be/YK-GurROGIg"
+                >:anchor: JsDoc YouTube/Traversy Media</a
+              >
+            </li>
+            <li>
+              <a href="https://www.w3schools.com/jsref/jsref_startswith.asp"
+                >:anchor: W3C School/Starts With</a
+              >
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=7i7xmwowwCY"
+                >:anchor: express-validator tutorial/YouTube</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.prisma.io/docs/guides/database/seed-database#example-seed-scripts"
+                >:anchor: Database Seeder|Prisma Docs</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stackoverflow.com/questions/69526209/prisma-how-can-i-update-only-some-of-the-models-fields-in-update"
+                >:anchor: Stackoverflow</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://bobbyhadz.com/blog/javascript-check-if-object-is-empty"
+                >:anchor: bobbyhadz.com/blog</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/56969714"
+                >:anchor: Stackoverflow/get first key/value from object</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/43598047"
+                >:anchor: Stackoverflow/util function testing</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.geeksforgeeks.org/find-the-length-of-a-javascript-object"
+                >:anchor: geeksforgeeks/object count</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.designcise.com/web/tutorial/how-to-extract-specific-keys-values-from-an-array-of-objects-in-javascript"
+                >:anchor: get specific values from array of objects</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/8016205"
+                >:anchor: Stackoverflow</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#try_it"
+                >:anchor: MDN Date Docs</a
+              >
+            </li>
+            <li>
+              <a href="https://masteringjs.io/tutorials/fundamentals/filter-key"
+                >:anchor: filter objects by key</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://hackernoon.com/how-to-update-object-key-values-using-javascript"
+                >:anchor: how to update object key</a
+              >
+            </li>
+            <li>
+              <a href="https://youtu.be/oOK3UzLJ_Cs"
+                >:anchor: quiz date validation</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/3367429"
+                >:anchor: Get epoch for a specific date using Javascript</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/61505926"
+                >:anchor: MONTHS in JavaScript Dates starts in zero (0 =
+                January, 11 = December)</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/65724578"
+                >:anchor: Stackoverflow</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.delftstack.com/howto/javascript/javascript-decode-html-entities/#decode-html-entities-using-vanilla-javascript8"
+                >:anchor: javascript decode html entities</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/14854851"
+                >:anchor: jsdoc array of objects</a
+              >
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/a/16913929"
+                >:anchor: remove special chars from string</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods"
+                >:anchor: array flattening</a
+              >
+            </li>
+          </ul>
+          <h2>Test Commands</h2>
+          <ul>
+            <li>
               <code
-                >npx run-func ./utils/unescapeString.js default
-                &quot;What&amp;#039;s Harry Potter&amp;#039;s dad&amp;#039;s
-                name?&quot;</code
+                >npx run-func ./utils/compareAnswerStrings.js default &quot;Bobs
+                Burgers, \&quot;Lord of the Flies\&quot;?&quot; &quot;Family
+                Guy, \&quot;Lord of the Flies\&quot;?&quot;</code
               >
             </li>
             <li>
@@ -285,31 +392,115 @@ SHADOW_DATABASE_URL=&quot;postgres://postgres:password@localhost:5432/apipostgre
               >
             </li>
             <li>
-              <code>npx run-func ./utils/calculatePlayerScore.js default</code>
-            </li>
-            <li>
-              https://stackoverflow.com/a/14854851 - jsdoc array of objects
-            </li>
-            <li>
-              remove special chars from string
-              https://stackoverflow.com/a/16913929
-            </li>
-            <li>
               <code
-                >npx run-func ./utils/compareAnswerStrings.js default &quot;Bobs
-                Burgers, \&quot;Lord of the Flies\&quot;?&quot; &quot;Family
-                Guy, \&quot;Lord of the Flies\&quot;?&quot;</code
+                >npx run-func ./utils/unescapeString.js default
+                &quot;What&amp;#039;s Harry Potter&amp;#039;s dad&amp;#039;s
+                name?&quot;</code
               >
             </li>
             <li>
-              array flattening:
-              https://www.freecodecamp.org/news/flat-and-flatmap-javascript-array-methods
+              <code
+                >npx run-func ./utils/dateTimeCheck.js playerCanParticipate
+                2022-12-30T20:26:46Z 2022-12-30T20:26:46Z</code
+              >
             </li>
             <li>
-              <code>npx run-func ./utils/unitTestDataRequests.js testDate</code>
+              <code
+                >npx run-func ./utils/dateTimeCheck.js quizDateValid 27 12
+                2022</code
+              >
             </li>
-            <li></li>
+            <li>
+              <code
+                >npx run-func ./utils/dateTimeCheck.js quizEnddateValid 24 12
+                2022 30 12 2022</code
+              >
+            </li>
+            <li>
+              <code>npx run-func ./utils/axiosRequests.js getCategories</code>
+            </li>
+            <li><code>npx run-func ./utils/axiosRequests.js getUsers</code></li>
+            <li>
+              <code
+                >npx env-cmd -f .env.development npx run-func
+                ./api/v1/controllers/seeder_controller.js seedUsers</code
+              >
+            </li>
           </ul>
+        </article>
+      </section>
+
+      <section>
+        <header>
+          <h2>api/v1/middleware/mw_playerAddedToQuiz.js</h2>
+        </header>
+
+        <article>
+          <div class="container-overview">
+            <div class="description">
+              <p>
+                middleware to query the database, and confirm the player has
+                been added to the quiz.
+              </p>
+            </div>
+
+            <dl class="details">
+              <dt class="tag-author">Author:</dt>
+              <dd class="tag-author">
+                <ul>
+                  <li>@leggant</li>
+                </ul>
+              </dd>
+
+              <dt class="tag-source">Source:</dt>
+              <dd class="tag-source">
+                <ul class="dummy">
+                  <li>
+                    <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html"
+                      >api/v1/middleware/mw_playerAddedToQuiz.js</a
+                    >,
+                    <a
+                      href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line1"
+                      >line 1</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <header>
+          <h2>app.js</h2>
+        </header>
+
+        <article>
+          <div class="container-overview">
+            <div class="description">
+              <p>app.js - entry point to the quiz API</p>
+            </div>
+
+            <dl class="details">
+              <dt class="tag-author">Author:</dt>
+              <dd class="tag-author">
+                <ul>
+                  <li>Anthony Legg</li>
+                </ul>
+              </dd>
+
+              <dt class="tag-source">Source:</dt>
+              <dd class="tag-source">
+                <ul class="dummy">
+                  <li>
+                    <a href="app.js.html">app.js</a>,
+                    <a href="app.js.html#line1">line 1</a>
+                  </li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
         </article>
       </section>
     </div>
@@ -318,57 +509,65 @@ SHADOW_DATABASE_URL=&quot;postgres://postgres:password@localhost:5432/apipostgre
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
         <li><a href="dotenv.html">dotenv</a></li>
         <li><a href="express.html">express</a></li>
       </ul>
-      <h3>Tutorials</h3>
-      <ul>
-        <li><a href="tutorial-api.html">API Endpoints</a></li>
-        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
-      </ul>
       <h3>Global</h3>
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#adminToken">adminToken</a></li>
+        <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
-        <li>
-          <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
-        </li>
-        <li><a href="global.html#newDate">newDate</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
+        <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
+        <li><a href="global.html#quizId">quizId</a></li>
         <li><a href="global.html#register">register</a></li>
         <li><a href="global.html#split">split</a></li>
         <li><a href="global.html#splitDate">splitDate</a></li>
+        <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -376,8 +575,8 @@ SHADOW_DATABASE_URL=&quot;postgres://postgres:password@localhost:5432/apipostgre
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02
-      2023 22:15:37 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Feb 06
+      2023 00:32:51 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

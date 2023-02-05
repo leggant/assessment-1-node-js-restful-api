@@ -133,6 +133,82 @@ method: "GET",
 timeout: 5000,
 headers: {'X-Custom-Header': 'foobar'}
 });</code></pre>
+
+          <h4 class="name" id="~res">
+            <span class="type-signature">(inner, constant) </span>res<span
+              class="type-signature"
+            >
+              :Object</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>
+              axios' implementation of Promise.all. this will combine both the
+              admin and basic user endpoint requests into a single async/await
+            </p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Object</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_axiosRequests.js.html"
+                    >utils/axiosRequests.js</a
+                  >, <a href="utils_axiosRequests.js.html#line43">line 43</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h3 class="subsection-title">Methods</h3>
+
+          <h4 class="name" id="~getUsers">
+            <span class="type-signature">(async, inner) </span>getUsers<span
+              class="signature"
+              >()</span
+            ><span class="type-signature"> &rarr; {Response|Error}</span>
+          </h4>
+
+          <div class="description">
+            <p>
+              axios request function to collect user data from GitHub Gist
+              endpoints
+            </p>
+          </div>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_axiosRequests.js.html"
+                    >utils/axiosRequests.js</a
+                  >, <a href="utils_axiosRequests.js.html#line35">line 35</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+              |
+
+              <span class="param-type">Error</span>
+            </dd>
+          </dl>
         </article>
       </section>
     </div>
@@ -141,57 +217,65 @@ headers: {'X-Custom-Header': 'foobar'}
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
         <li><a href="dotenv.html">dotenv</a></li>
         <li><a href="express.html">express</a></li>
       </ul>
-      <h3>Tutorials</h3>
-      <ul>
-        <li><a href="tutorial-api.html">API Endpoints</a></li>
-        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
-      </ul>
       <h3>Global</h3>
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#adminToken">adminToken</a></li>
+        <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
-        <li>
-          <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
-        </li>
-        <li><a href="global.html#newDate">newDate</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
+        <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
+        <li><a href="global.html#quizId">quizId</a></li>
         <li><a href="global.html#register">register</a></li>
         <li><a href="global.html#split">split</a></li>
         <li><a href="global.html#splitDate">splitDate</a></li>
+        <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -199,8 +283,8 @@ headers: {'X-Custom-Header': 'foobar'}
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02
-      2023 22:15:37 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Feb 06
+      2023 00:32:51 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

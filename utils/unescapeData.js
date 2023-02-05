@@ -14,6 +14,7 @@ const unescapeString = (string) => {
   decoded = decoded.replace(/[[\]"]/g, "'");
   return decoded;
 };
+
 /**
  * map through an array of strings, return strings un-escaped/plain text
  * @param {Array.<string>} stringDataArray
@@ -27,5 +28,6 @@ const unescapeArray = (stringDataArray) => {
   });
   return data;
 };
+
 // eslint-disable-next-line import/prefer-default-export
 export { unescapeString, unescapeArray };

@@ -100,7 +100,7 @@ const deleteTestAdminUser = async () => {
     });
     return;
   } catch (err) {
-    console.error(`User ${err.meta.cause}`);
+    console.error(`Post Test Delete Admin User: ${err.meta.cause}`);
   }
 };
 const deleteTestBasicUser = async () => {
@@ -115,7 +115,7 @@ const deleteTestBasicUser = async () => {
     });
     return;
   } catch (err) {
-    console.error(`User ${err.meta.cause}`);
+    console.error(`Post Test Delete Basic User: ${err.meta.cause}`);
   }
 };
 
@@ -132,7 +132,7 @@ const deleteTestQuizzes = async () => {
     });
     return;
   } catch (err) {
-    console.error(`Quiz ${err.meta.cause}`);
+    console.error(`Post Test Delete Quiz: ${err.meta.cause}`);
   }
 };
 

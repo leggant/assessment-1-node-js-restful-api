@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Module: PRISMA</title>
+    <title>JSDoc: Source: api/v1/constants/paths.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,35 +19,52 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Module: PRISMA</h1>
+      <h1 class="page-title">Source: api/v1/constants/paths.js</h1>
 
       <section>
-        <header></header>
-
         <article>
-          <div class="container-overview">
-            <div class="description">
-              <p>initialises a global instance of Prisma Client</p>
-            </div>
+          <pre
+            class="prettyprint source linenums"
+          ><code>const AUTHONLY = "/user/auth";
 
-            <dl class="details">
-              <dt class="tag-source">Source:</dt>
-              <dd class="tag-source">
-                <ul class="dummy">
-                  <li>
-                    <a href="utils_prisma.js.html">utils/prisma.js</a>,
-                    <a href="utils_prisma.js.html#line2">line 2</a>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
+/**
+ * API endpoints set as constants which are used throughout the API
+ * each end point is relative to the environment in which it is used
+ * @const {Object} PATHS
+ * @example "localhost:3000/api/v1/user/auth/profile" (local - uses the staging app server)
+ * "https://in-dev-app.herokuapp.com/api/v1/user/auth/quiz/:quizId" (staging),
+ * "https://api-prod-app.herokuapp.com/api/v1/user/auth/admin/quiz/:quizId"(production)
+ */
+const PATHS = {
+  BASE: `/api/${process.env.API_VERSION}`,
+  REGISTER: `${AUTHONLY}/register`,
+  LOGIN: `${AUTHONLY}/login`,
+  ADMIN: {
+    PLAYERSEEDER: `${AUTHONLY}/admin/seeder/players`,
+    CATEGORYSEEDER: `${AUTHONLY}/admin/seeder/categories`,
+    QUIZ: `${AUTHONLY}/admin/quiz`,
+    QUIZQUERY: `${AUTHONLY}/admin/quiz/:quizId`,
+    QUIZQUERYTEST: `${AUTHONLY}/admin/quiz/`,
+    USERSEARCH: `${AUTHONLY}/admin/details/:searchField/:searchValue`,
+    USERSEARCHTEST: `${AUTHONLY}/admin/details/`,
+  },
+  USER: {
+    PROFILE: `${AUTHONLY}/profile`,
+  },
+  QUIZ: {
+    PLAYER: `${AUTHONLY}/quiz/:quizId`,
+    PLAYERTEST: `${AUTHONLY}/quiz/`,
+    QUESTIONS: `${AUTHONLY}/quiz/:quizId/questions`,
+    PLAYERRESULTS: `${AUTHONLY}/quiz/results/:query`,
+    SUBMITANSWERS: `${AUTHONLY}/quiz/:quizId/submit`,
+  },
+};
 
-            <h3>Example</h3>
-
-            <pre
-              class="prettyprint"
-            ><code>const PRISMA = new PrismaClient();</code></pre>
-          </div>
+/**
+ * @exports PATHS
+ */
+export default PATHS;
+</code></pre>
         </article>
       </section>
     </div>

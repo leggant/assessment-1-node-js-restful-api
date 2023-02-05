@@ -25,7 +25,6 @@
         <article>
           <pre class="prettyprint source linenums"><code>/**
  * date parsing, comparison and validation utilities which utilise moment.js
- * @author @leggant
  */
 
 import moment from "moment";
@@ -39,33 +38,41 @@ import moment from "moment";
 const splitDate = (dateToSplit) => {
   /**
    * @constant {Array.String} split
-
    */
   const split = dateToSplit.split("-");
+
   /**
-   * @constant {String} year - first array item
+   * @type {String}
    */
   const year = split[0];
+
   /**
-   * @constant {String} month - second array item
+   * @type {String}
    */
   let month = split[1];
   month = month.charAt(0) === "0" ? month.substring(1) : month;
+
   /**
-   * @constant {String} day - last array item
+   * @type {String}
    */
   let day = split[2];
   day = day.charAt(0) === "0" ? day.substring(1) : day;
   return { year, month, day };
 };
+
 /**
  * create a database compatible date from a string
+ * use to update quiz dates so that the new are
+ * compatible with the database
+ * @function dbDateStringFromDate(date)
  * @param {String} date - input date string
- * @returns {Date} dateres - UTC Date
+ * @returns {Date} dateres - UTC Date Compatible With The Database
+ * @example input string: "2023-01-25"
+ * returns as "2023-01-25T00:42:58Z"
+ * @link MDN UTC Date Docs | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
  */
 const dbDateStringFromDate = (date) => {
   const data = splitDate(date);
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
   const dateres = new Date(`${data.month} ${data.day}, ${data.year} UTC`);
   return dateres;
 };
@@ -157,22 +164,9 @@ export {
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-checkDataType.html">checkDataType</a></li>
-        <li>
-          <a href="module-checkIfObjectIsEmpty.html">checkIfObjectIsEmpty</a>
-        </li>
-        <li>
-          <a href="module-compareAnswerStrings.html">compareAnswerStrings</a>
-        </li>
-        <li>
-          <a href="module-createQuizOpenTDBRequest.html"
-            >createQuizOpenTDBRequest</a
-          >
-        </li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
@@ -188,24 +182,32 @@ export {
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
         <li><a href="global.html#adminToken">adminToken</a></li>
         <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
-        <li><a href="global.html#day">day</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
-        <li><a href="global.html#month">month</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
@@ -213,6 +215,8 @@ export {
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
         <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
@@ -223,7 +227,7 @@ export {
         <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
-        <li><a href="global.html#year">year</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -231,8 +235,8 @@ export {
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Feb 04
-      2023 23:59:26 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Feb 05
+      2023 19:39:49 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

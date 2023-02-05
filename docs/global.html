@@ -112,6 +112,49 @@
             </dd>
           </dl>
 
+          <h4 class="name" id="PATHS">
+            <span class="type-signature">(constant) </span>PATHS<span
+              class="type-signature"
+            >
+              :Object</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>
+              API endpoints set as constants which are used throughout the API
+              each end point is relative to the environment in which it is used
+            </p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Object</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_constants_paths.js.html"
+                    >api/v1/constants/paths.js</a
+                  >, <a href="api_v1_constants_paths.js.html#line3">line 3</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Example</h5>
+
+          <pre
+            class="prettyprint"
+          ><code>"localhost:3000/api/v1/user/auth/profile" (local - uses the staging app server)
+"https://in-dev-app.herokuapp.com/api/v1/user/auth/quiz/:quizId" (staging),
+"https://api-prod-app.herokuapp.com/api/v1/user/auth/admin/quiz/:quizId"(production)</code></pre>
+
           <h4 class="name" id="SERVER_PORT">
             <span class="type-signature">(constant) </span>SERVER_PORT<span
               class="type-signature"
@@ -292,7 +335,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line54">line 54</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line61">line 61</a>
                 </li>
               </ul>
             </dd>
@@ -320,39 +363,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line68">line 68</a>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-
-          <h4 class="name" id="day">
-            <span class="type-signature">(constant) </span>day<span
-              class="type-signature"
-            >
-              :String</span
-            >
-          </h4>
-
-          <div class="description">
-            <p>last array item</p>
-          </div>
-
-          <h5>Type:</h5>
-          <ul>
-            <li>
-              <span class="param-type">String</span>
-            </li>
-          </ul>
-
-          <dl class="details">
-            <dt class="tag-source">Source:</dt>
-            <dd class="tag-source">
-              <ul class="dummy">
-                <li>
-                  <a href="utils_dateTimeCheck.js.html"
-                    >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line29">line 29</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line75">line 75</a>
                 </li>
               </ul>
             </dd>
@@ -411,7 +422,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line92">line 92</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line99">line 99</a>
                 </li>
               </ul>
             </dd>
@@ -456,22 +467,25 @@
             </dd>
           </dl>
 
-          <h4 class="name" id="month">
-            <span class="type-signature">(constant) </span>month<span
+          <h4 class="name" id="isAdmin">
+            <span class="type-signature">(constant) </span>isAdmin<span
               class="type-signature"
             >
-              :String</span
+              :Boolean</span
             >
           </h4>
 
           <div class="description">
-            <p>second array item</p>
+            <p>
+              block admins from playing quizzes with answers they have available
+              to them ahead to time
+            </p>
           </div>
 
           <h5>Type:</h5>
           <ul>
             <li>
-              <span class="param-type">String</span>
+              <span class="param-type">Boolean</span>
             </li>
           </ul>
 
@@ -480,9 +494,13 @@
             <dd class="tag-source">
               <ul class="dummy">
                 <li>
-                  <a href="utils_dateTimeCheck.js.html"
-                    >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line24">line 24</a>
+                  <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html"
+                    >api/v1/middleware/mw_playerAddedToQuiz.js</a
+                  >,
+                  <a
+                    href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line22"
+                    >line 22</a
+                  >
                 </li>
               </ul>
             </dd>
@@ -519,6 +537,93 @@
                   >,
                   <a href="api_v1_test_08-basic-user-quiz.test.js.html#line19"
                     >line 19</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="query">
+            <span class="type-signature">(constant) </span>query<span
+              class="type-signature"
+            >
+              :string|Object|Object</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>
+              query is assigned data by the mw_userProfile middleware which will
+              provide the current users id as a string by default If an admin
+              uses this path with a query of another &quot;basic&quot; user
+              email or username, their token is first validated, if ok, the
+              param is assigned to the req.profileQuery as an object
+            </p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">string</span>
+              |
+
+              <span class="param-type">Object</span>
+              |
+
+              <span class="param-type">Object</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userProfileController.js.html"
+                    >api/v1/controllers/userProfileController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_userProfileController.js.html#line24"
+                    >line 24</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="queryById">
+            <span class="type-signature">(constant) </span>queryById<span
+              class="type-signature"
+            >
+              :Boolean</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>
+              check if the data type of query is a string ie. the current user
+              is querying their own data
+            </p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Boolean</span>
+            </li>
+          </ul>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userProfileController.js.html"
+                    >api/v1/controllers/userProfileController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_userProfileController.js.html#line35"
+                    >line 35</a
                   >
                 </li>
               </ul>
@@ -617,7 +722,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line15">line 15</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line14">line 14</a>
                 </li>
               </ul>
             </dd>
@@ -696,22 +801,29 @@
             </dd>
           </dl>
 
-          <h4 class="name" id="year">
-            <span class="type-signature">(constant) </span>year<span
+          <h4 class="name" id="validPlayer">
+            <span class="type-signature">(constant) </span>validPlayer<span
               class="type-signature"
             >
-              :String</span
+              :Object|Null</span
             >
           </h4>
 
           <div class="description">
-            <p>first array item</p>
+            <p>
+              verify the user in the request has been assigned to the quiz query
+              the userParticipate table for a row that include the quiz and user
+              ids and get quiz associated with this row
+            </p>
           </div>
 
           <h5>Type:</h5>
           <ul>
             <li>
-              <span class="param-type">String</span>
+              <span class="param-type">Object</span>
+              |
+
+              <span class="param-type">Null</span>
             </li>
           </ul>
 
@@ -720,15 +832,82 @@
             <dd class="tag-source">
               <ul class="dummy">
                 <li>
-                  <a href="utils_dateTimeCheck.js.html"
-                    >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line20">line 20</a>
+                  <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html"
+                    >api/v1/middleware/mw_playerAddedToQuiz.js</a
+                  >,
+                  <a
+                    href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line45"
+                    >line 45</a
+                  >
                 </li>
               </ul>
             </dd>
           </dl>
 
           <h3 class="subsection-title">Methods</h3>
+
+          <h4 class="name" id="checkIfObjectIsEmpty">
+            <span class="type-signature"></span>checkIfObjectIsEmpty<span
+              class="signature"
+              >(obj)</span
+            ><span class="type-signature"> &rarr; {Boolean}</span>
+          </h4>
+
+          <div class="description">
+            <p>utility for verifying is an object is empty</p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>obj</code></td>
+
+                <td class="type">
+                  <span class="param-type">Object</span>
+                </td>
+
+                <td class="description last"><p>object to verify</p></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_checkEmptyObject.js.html"
+                    >utils/checkEmptyObject.js</a
+                  >, <a href="utils_checkEmptyObject.js.html#line6">line 6</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>isEmpty</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Boolean</span>
+            </dd>
+          </dl>
 
           <h4 class="name" id="compare">
             <span class="type-signature"></span>compare<span class="signature"
@@ -970,7 +1149,213 @@
             </dd>
           </dl>
 
-          <h4 class="name" id="dbDateStringFromDate">
+          <h4 class="name" id="ctGetUser">
+            <span class="type-signature">(async) </span>ctGetUser<span
+              class="signature"
+              >(req, res)</span
+            ><span class="type-signature"> &rarr; {Response}</span>
+          </h4>
+
+          <div class="description">
+            <p>
+              Get user profile information through either the token provided in
+              the request for the current authenticated users data; or, if an
+              admin, query a basic user by their email or username values
+            </p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>req</code></td>
+
+                <td class="type">
+                  <span class="param-type">Request</span>
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>res</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userProfileController.js.html"
+                    >api/v1/controllers/userProfileController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_userProfileController.js.html#line12"
+                    >line 12</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>res</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="ctUpdateUser">
+            <span class="type-signature">(async) </span>ctUpdateUser<span
+              class="signature"
+              >(req, res)</span
+            ><span class="type-signature"> &rarr; {Response}</span>
+          </h4>
+
+          <div class="description">
+            <p>
+              Get user profile information through either the token provided in
+              the request for the current authenticated users data; or, if an
+              admin, query a basic user by their email or username values
+            </p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>req</code></td>
+
+                <td class="type">
+                  <span class="param-type">Request</span>
+                </td>
+
+                <td class="description last">
+                  <h6>Properties</h6>
+
+                  <table class="params">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+
+                        <th>Type</th>
+
+                        <th class="last">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td class="name"><code>user</code></td>
+
+                        <td class="type">
+                          <span class="param-type">Object</span>
+                        </td>
+
+                        <td class="description last">
+                          <p>currently authenticated user data</p>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="name"><code>body</code></td>
+
+                        <td class="type">
+                          <span class="param-type">Object</span>
+                        </td>
+
+                        <td class="description last">
+                          <p>user profile data to change</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>res</code></td>
+
+                <td class="type">
+                  <span class="param-type">Response</span>
+                </td>
+
+                <td class="description last">
+                  <p>
+                    return update success status or an error output on failure
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_v1_controllers_userProfileController.js.html"
+                    >api/v1/controllers/userProfileController.js</a
+                  >,
+                  <a
+                    href="api_v1_controllers_userProfileController.js.html#line76"
+                    >line 76</a
+                  >
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">
+            <p>res</p>
+          </div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">Response</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id="dbDateStringFromDatedate">
             <span class="type-signature"></span>dbDateStringFromDate<span
               class="signature"
               >(date)</span
@@ -978,7 +1363,10 @@
           </h4>
 
           <div class="description">
-            <p>create a database compatible date from a string</p>
+            <p>
+              create a database compatible date from a string use to update quiz
+              dates so that the new are compatible with the database
+            </p>
           </div>
 
           <h5>Parameters:</h5>
@@ -1014,7 +1402,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line41">line 41</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line38">line 38</a>
                 </li>
               </ul>
             </dd>
@@ -1023,13 +1411,83 @@
           <h5>Returns:</h5>
 
           <div class="param-desc">
-            <p>dateres - UTC Date</p>
+            <p>dateres - UTC Date Compatible With The Database</p>
           </div>
 
           <dl>
             <dt>Type</dt>
             <dd>
               <span class="param-type">Date</span>
+            </dd>
+          </dl>
+
+          <h5>Example</h5>
+
+          <pre class="prettyprint"><code>input string: "2023-01-25"
+returns as "2023-01-25T00:42:58Z"</code></pre>
+
+          <h4 class="name" id="getSingleUserById">
+            <span class="type-signature">(async) </span>getSingleUserById<span
+              class="signature"
+              >(id)</span
+            ><span class="type-signature">
+              &rarr; {<a href="global.html#UserQuery">UserQuery</a>|Null}</span
+            >
+          </h4>
+
+          <div class="description">
+            <p>Get a single user queried by user ID string</p>
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>id</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last"><p>user id (UUID) string</p></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_userRequests.js.html">utils/userRequests.js</a
+                  >, <a href="utils_userRequests.js.html#line20">line 20</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type"
+                ><a href="global.html#UserQuery">UserQuery</a></span
+              >
+              |
+
+              <span class="param-type">Null</span>
             </dd>
           </dl>
 
@@ -1046,7 +1504,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line72">line 72</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line79">line 79</a>
                 </li>
               </ul>
             </dd>
@@ -1069,11 +1527,14 @@
             <span class="type-signature">(async) </span>mwPlayerAddedToQuiz<span
               class="signature"
               >(req, res, next)</span
-            ><span class="type-signature"> &rarr; {Response}</span>
+            ><span class="type-signature"> &rarr; {Request|Response}</span>
           </h4>
 
           <div class="description">
-            <p>middleware confirming the player has been added to the quiz</p>
+            <p>
+              middleware confirming the player has been added to the quiz.
+              prevent admin users from playing quizzes
+            </p>
           </div>
 
           <h5>Parameters:</h5>
@@ -1097,7 +1558,48 @@
                   <span class="param-type">Request</span>
                 </td>
 
-                <td class="description last"><p>HTTP request</p></td>
+                <td class="description last">
+                  <p>HTTP request</p>
+                  <h6>Properties</h6>
+
+                  <table class="params">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+
+                        <th>Type</th>
+
+                        <th class="last">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td class="name"><code>params</code></td>
+
+                        <td class="type">
+                          <span class="param-type">Request</span>
+                        </td>
+
+                        <td class="description last">
+                          <p>HTTP request param containing the quiz id value</p>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="name"><code>user</code></td>
+
+                        <td class="type">
+                          <span class="param-type">Request</span>
+                        </td>
+
+                        <td class="description last">
+                          <p>HTTP request user object containing the user Id</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
               </tr>
 
               <tr>
@@ -1130,9 +1632,8 @@
                   <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html"
                     >api/v1/middleware/mw_playerAddedToQuiz.js</a
                   >,
-                  <a
-                    href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line11"
-                    >line 11</a
+                  <a href="api_v1_middleware_mw_playerAddedToQuiz.js.html#line8"
+                    >line 8</a
                   >
                 </li>
               </ul>
@@ -1144,6 +1645,9 @@
           <dl>
             <dt>Type</dt>
             <dd>
+              <span class="param-type">Request</span>
+              |
+
               <span class="param-type">Response</span>
             </dd>
           </dl>
@@ -1210,7 +1714,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line108">line 108</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line115">line 115</a>
                 </li>
               </ul>
             </dd>
@@ -1288,7 +1792,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line53">line 53</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line60">line 60</a>
                 </li>
               </ul>
             </dd>
@@ -1353,7 +1857,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line67">line 67</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line74">line 74</a>
                 </li>
               </ul>
             </dd>
@@ -1434,7 +1938,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line88">line 88</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line95">line 95</a>
                 </li>
               </ul>
             </dd>
@@ -1585,7 +2089,7 @@
                 <li>
                   <a href="utils_dateTimeCheck.js.html"
                     >utils/dateTimeCheck.js</a
-                  >, <a href="utils_dateTimeCheck.js.html#line14">line 14</a>
+                  >, <a href="utils_dateTimeCheck.js.html#line13">line 13</a>
                 </li>
               </ul>
             </dd>
@@ -1869,6 +2373,101 @@
               </ul>
             </dd>
           </dl>
+
+          <h4 class="name" id="UserQuery">UserQuery</h4>
+
+          <div class="description">
+            <p>API User Get Request Response Object</p>
+          </div>
+
+          <h5>Type:</h5>
+          <ul>
+            <li>
+              <span class="param-type">Object</span>
+            </li>
+          </ul>
+
+          <h5 class="subsection-title">Properties:</h5>
+
+          <table class="props">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>firstName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last"><p>User first name</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>lastName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last"><p>User last name</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>userName</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last"><p>Users unique username</p></td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>email</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>Users unique email address</p>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>profileImgURL</code></td>
+
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
+
+                <td class="description last">
+                  <p>Users unique profile image link</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils_userRequests.js.html">utils/userRequests.js</a
+                  >, <a href="utils_userRequests.js.html#line11">line 11</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
         </article>
       </section>
     </div>
@@ -1877,22 +2476,9 @@
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-checkDataType.html">checkDataType</a></li>
-        <li>
-          <a href="module-checkIfObjectIsEmpty.html">checkIfObjectIsEmpty</a>
-        </li>
-        <li>
-          <a href="module-compareAnswerStrings.html">compareAnswerStrings</a>
-        </li>
-        <li>
-          <a href="module-createQuizOpenTDBRequest.html"
-            >createQuizOpenTDBRequest</a
-          >
-        </li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
@@ -1908,24 +2494,32 @@
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
         <li><a href="global.html#adminToken">adminToken</a></li>
         <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
-        <li><a href="global.html#day">day</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
-        <li><a href="global.html#month">month</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
@@ -1933,6 +2527,8 @@
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
         <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
@@ -1943,7 +2539,7 @@
         <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
-        <li><a href="global.html#year">year</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -1951,8 +2547,8 @@
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Feb 04
-      2023 23:59:26 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Feb 05
+      2023 19:39:49 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

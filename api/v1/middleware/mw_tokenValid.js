@@ -7,7 +7,7 @@ const mwTokenValid = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(" ")[1];
-    const checkBlockedToken = await PRISMA.blockedToken.findUnique({
+    const checkBlockedToken = await PRISMA.blockedToken.findFirst({
       where: { token },
     });
     let type = checkDataType(checkBlockedToken);

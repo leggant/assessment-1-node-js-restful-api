@@ -1,1012 +1,1212 @@
 {
-  "info": {
-    "_postman_id": "aad1a7ef-0918-432b-b00e-247efe201a5c",
-    "name": "Assignment 1 API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "12921609"
-  },
-  "item": [
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "Admin User",
-          "item": [
-            {
-              "name": "Error Requests",
-              "item": [
-                {
-                  "name": "ERROR: Register New Admin User",
-                  "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"firstName\": 1000,\r\n    \"lastName\": 1,\r\n    \"email\": \"kijlktyjiz@jstudent.op.ac.nz\",\r\n    \"userName\": \"kijlktiz\",\r\n    \"password\": \"ti34\",\r\n    \"confirmPassword\": \"ting124\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{host}}/api/v1/user/auth/register",
-                      "host": ["{{host}}"],
-                      "path": ["api", "v1", "user", "auth", "register"]
-                    }
-                  },
-                  "response": []
-                },
-                {
-                  "name": "Login Admin User w/ Email Error",
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
-                        {
-                          "key": "token",
-                          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"email\": \"leggtc1\",\r\n    \"password\": \"@Test12345\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{host}}/api/v1/user/auth/login",
-                      "host": ["{{host}}"],
-                      "path": ["api", "v1", "user", "auth", "login"]
-                    }
-                  },
-                  "response": []
-                }
-              ]
-            },
-            {
-              "name": "Register New Admin User",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"{{admin}}\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/register",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "register"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Login Admin User w/ Email",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"password\": \"@Test12345\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/login",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "login"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Login Admin User w/ Username",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/login",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "login"]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Basic User",
-          "item": [
-            {
-              "name": "Error Requests",
-              "item": [
-                {
-                  "name": "ERROR: Register New Basic User",
-                  "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"firstName\": 1000,\r\n    \"lastName\": 1,\r\n    \"email\": \"kijlktyjiz@jstudent.op.ac.nz\",\r\n    \"userName\": \"kijlktiz\",\r\n    \"password\": \"ti34\",\r\n    \"confirmPassword\": \"ting124\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{host}}/api/v1/user/auth/register",
-                      "host": ["{{host}}"],
-                      "path": ["api", "v1", "user", "auth", "register"]
-                    }
-                  },
-                  "response": []
-                }
-              ]
-            },
-            {
-              "name": "Register New User",
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"firstName\": \"Yogi\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"yoginz@op.ac.nz\",\r\n    \"userName\": \"yoginz\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=FR7BCDC2\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/register",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "register"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Login User w/ Email",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"yoginz@op.ac.nz\",\r\n    \"password\": \"@Test12345\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/login",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "login"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Login User w/ Username",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"userName\": \"yoginz\",\r\n    \"password\": \"@Test123456\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{host}}/api/v1/user/auth/login",
-                  "host": ["{{host}}"],
-                  "path": ["api", "v1", "user", "auth", "login"]
-                }
-              },
-              "response": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Admin Only - Seeders",
-      "item": [
-        {
-          "name": "Call User Seeder",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/seeder/players",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "seeder",
-                "players"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Call Category Seeder",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/seeder/categories",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "seeder",
-                "categories"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Admin Only - User Admin",
-      "item": [
-        {
-          "name": "Get Current User w/ Token",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/profile",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User w/ Username",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "userName",
-                  "type": "string"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "skhan2",
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User w/ email",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "email"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "lbloxland1@smugmug.com"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User w/ Username",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"password\": \"@Test123456\",\r\n    \"confirmPassword\": \"@Test123456\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "userName"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "leggtc1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User w/ Email",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "email"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "leggtc1@student.op.ac.nz"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete User w/ Username",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "userName"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "alinggardv"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete User w/ Email",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "admin",
-                "details",
-                ":searchField",
-                ":searchValue"
-              ],
-              "variable": [
-                {
-                  "key": "searchField",
-                  "value": "email"
-                },
-                {
-                  "key": "searchValue",
-                  "value": "leggtc1@student.op.ac.nz"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Current User Profile Requests",
-      "item": [
-        {
-          "name": "Get User Data",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/profile",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User Password",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"password\": \"Yogi##@4tdfg\",\r\n    \"confirmPassword\": \"Yogi##@4tdfg\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/profile",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Current User (You)",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/profile",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "profile"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Admin Quiz Requests",
-      "item": [
-        {
-          "name": "Create New Quiz",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [""],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"categoryId\": 22,\r\n    \"name\": \"Yogis Quiz\",\r\n    \"difficulty\": \"{{easy}}\",\r\n    \"answerType\": \"{{truefalse}}\",\r\n    \"numQuestions\": 10,\r\n    \"startDate\": \"2023-02-07\",\r\n    \"endDate\": \"2023-02-10\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create New Quiz / Error",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [""],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"categoryId\": 22,\r\n    \"name\": \"Yogis Quiz\",\r\n    \"difficulty\": \"{{easy}}\",\r\n    \"answerType\": \"{{truefalse}}\",\r\n    \"numQuestions\": 20,\r\n    \"startDate\": \"2023-01-23\",\r\n    \"endDate\": \"2023-01-27\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Quizzes",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Quiz By ID",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz", ":quizId"],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "50"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Quiz By ID",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Yogis Quiz test change\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz", ":quizId"],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "50"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Quiz By ID",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "admin", "quiz", ":quizId"],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "50"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Player Quiz Requests",
-      "item": [
-        {
-          "name": "Add Player To Quiz",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [""],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/quiz/:quizId",
-              "host": ["{{host}}"],
-              "path": ["api", "v1", "user", "auth", "quiz", ":quizId"],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "58"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Quiz Questions",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/quiz/:quizId/questions",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "quiz",
-                ":quizId",
-                "questions"
-              ],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "58"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Player Submit Quiz Answers",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [""],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"quizAnswers\": [\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{host}}/api/v1/user/auth/quiz/:quizId/submit",
-              "host": ["{{host}}"],
-              "path": [
-                "api",
-                "v1",
-                "user",
-                "auth",
-                "quiz",
-                ":quizId",
-                "submit"
-              ],
-              "variable": [
-                {
-                  "key": "quizId",
-                  "value": "58"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "",
-        "type": "string"
-      }
-    ]
-  },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "host",
-      "value": "localhost:3000",
-      "type": "string"
-    },
-    {
-      "key": "api_path",
-      "value": "/v1/api/",
-      "type": "string"
-    },
-    {
-      "key": "easy",
-      "value": "easy",
-      "type": "string"
-    },
-    {
-      "key": "med",
-      "value": "medium",
-      "type": "string"
-    },
-    {
-      "key": "hard",
-      "value": "hard",
-      "type": "string"
-    },
-    {
-      "key": "multichoice",
-      "value": "multiple",
-      "type": "string"
-    },
-    {
-      "key": "truefalse",
-      "value": "boolean",
-      "type": "string"
-    },
-    {
-      "key": "admin",
-      "value": "ADMIN_USER",
-      "type": "string"
-    },
-    {
-      "key": "basic",
-      "value": "BASIC_USER",
-      "type": "string"
-    },
-    {
-      "key": "host",
-      "value": "https://in-dev-app.herokuapp.com",
-      "type": "string",
-      "disabled": true
-    },
-    {
-      "key": "host",
-      "value": "https://api-prod-app.herokuapp.com",
-      "type": "string",
-      "disabled": true
-    }
-  ]
+	"info": {
+		"_postman_id": "7b396fb1-bd43-42e1-afdb-a21197bb8ec0",
+		"name": "Assignment 1 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12921609"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Admin User",
+					"item": [
+						{
+							"name": "Error Requests",
+							"item": [
+								{
+									"name": "ERROR: Register New Admin User",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"firstName\": 1000,\r\n    \"lastName\": 1,\r\n    \"email\": \"kijlktyjiz@jstudent.op.ac.nz\",\r\n    \"userName\": \"kijlktiz\",\r\n    \"password\": \"ti34\",\r\n    \"confirmPassword\": \"ting124\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/v1/user/auth/register",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"auth",
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login Admin User w/ Email Error",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"leggtc1\",\r\n    \"password\": \"@Test12345\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/v1/user/auth/login",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register New Admin User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"{{admin}}\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Admin User w/ Email",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"password\": \"@Test123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Admin User w/ Username",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Basic User",
+					"item": [
+						{
+							"name": "Error Requests",
+							"item": [
+								{
+									"name": "ERROR: Register New Basic User",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"firstName\": 1000,\r\n    \"lastName\": 1,\r\n    \"email\": \"kijlktyjiz@jstudent.op.ac.nz\",\r\n    \"userName\": \"kijlktiz\",\r\n    \"password\": \"ti34\",\r\n    \"confirmPassword\": \"ting124\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/v1/user/auth/register",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"auth",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register New User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Yogi\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"yoginz@op.ac.nz\",\r\n    \"userName\": \"yoginz\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"BASIC_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=FR7BCDC2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login User w/ Email",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"yoginz@op.ac.nz\",\r\n    \"password\": \"@Test12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login User w/ Username",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFudGhvbnkgTGVnZyIsImlhdCI6MTY2OTE3ODY2NCwiZXhwIjoxNjY5MTgyMjY0fQ.CGI87wkQisYhP2y2koU0U2KKLkKq54c5qV3fbAWg828",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"yoginz\",\r\n    \"password\": \"@Test12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/user/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin Only - Seeders",
+			"item": [
+				{
+					"name": "Call User Seeder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/seeder/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"seeder",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Call Category Seeder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/seeder/categories",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"seeder",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Only - User Admin",
+			"item": [
+				{
+					"name": "Get Current User w/ Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User w/ Username",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "userName"
+								},
+								{
+									"key": "searchValue",
+									"value": "yoginz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User w/ email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "email"
+								},
+								{
+									"key": "searchValue",
+									"value": "yoginz@op.ac.nz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User w/ Username",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"@Test123456\",\r\n    \"confirmPassword\": \"@Test123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "userName"
+								},
+								{
+									"key": "searchValue",
+									"value": "leggtc1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User w/ Email",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "email"
+								},
+								{
+									"key": "searchValue",
+									"value": "leggtc1@student.op.ac.nz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User w/ Username",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "userName"
+								},
+								{
+									"key": "searchValue",
+									"value": "yoginz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User w/ Email",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/details/:searchField/:searchValue",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"details",
+								":searchField",
+								":searchValue"
+							],
+							"variable": [
+								{
+									"key": "searchField",
+									"value": "email"
+								},
+								{
+									"key": "searchValue",
+									"value": "leggtc1@student.op.ac.nz"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Current User Profile Requests",
+			"item": [
+				{
+					"name": "Get User Data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"Yogi##@4tdfg\",\r\n    \"confirmPassword\": \"Yogi##@4tdfg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Current User (You)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Quiz Requests",
+			"item": [
+				{
+					"name": "Create New Quiz",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryId\": 12,\r\n    \"name\": \"Yogis Quiz #2\",\r\n    \"difficulty\": \"{{med}}\",\r\n    \"answerType\": \"{{multichoice}}\",\r\n    \"numQuestions\": 10,\r\n    \"startDate\": \"2023-02-07\",\r\n    \"endDate\": \"2023-02-11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Quiz / Error",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryId\": 22,\r\n    \"name\": \"Yogis Quiz\",\r\n    \"difficulty\": \"{{easy}}\",\r\n    \"answerType\": \"{{truefalse}}\",\r\n    \"numQuestions\": 20,\r\n    \"startDate\": \"2023-01-23\",\r\n    \"endDate\": \"2023-01-27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Quizzes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz",
+								":quizId"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "64"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quiz By ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Yogis Quiz test change #2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz",
+								":quizId"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "64"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quiz By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Anthony\",\r\n    \"lastName\": \"Legg\",\r\n    \"email\": \"leggtc1@student.op.ac.nz\",\r\n    \"userName\": \"leggtc1\",\r\n    \"password\": \"@Test12345\",\r\n    \"confirmPassword\": \"@Test12345\",\r\n    \"role\": \"ADMIN_USER\",\r\n    \"profileImgURL\": \"https://api.lorem.space/image/face?w=150&h=150&hash=8B7BCDC2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/admin/quiz/:quizId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"admin",
+								"quiz",
+								":quizId"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "64"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player Quiz Requests",
+			"item": [
+				{
+					"name": "Add Player To Quiz",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/quiz/:quizId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"quiz",
+								":quizId"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "57"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz Questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/quiz/:quizId/questions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"quiz",
+								":quizId",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "57"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player Submit Quiz Answers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quizAnswers\": [\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"false\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        },\r\n        {\r\n            \"answer\": \"true\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/quiz/:quizId/submit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"quiz",
+								":quizId",
+								"submit"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "57"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "api_path",
+			"value": "/v1/api/",
+			"type": "string"
+		},
+		{
+			"key": "easy",
+			"value": "easy",
+			"type": "string"
+		},
+		{
+			"key": "med",
+			"value": "medium",
+			"type": "string"
+		},
+		{
+			"key": "hard",
+			"value": "hard",
+			"type": "string"
+		},
+		{
+			"key": "multichoice",
+			"value": "multiple",
+			"type": "string"
+		},
+		{
+			"key": "truefalse",
+			"value": "boolean",
+			"type": "string"
+		},
+		{
+			"key": "admin",
+			"value": "ADMIN_USER",
+			"type": "string"
+		},
+		{
+			"key": "basic",
+			"value": "BASIC_USER",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "https://in-dev-app.herokuapp.com",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "https://api-prod-app.herokuapp.com",
+			"type": "string",
+			"disabled": true
+		}
+	]
 }

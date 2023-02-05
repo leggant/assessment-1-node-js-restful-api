@@ -71,7 +71,7 @@
     "watch:prod": "env-cmd -f .env.production nodemon",
     "doc": "jsdoc -c jsdoc.json && npx pretty-quick ./docs/*",
     "studio:dev": "env-cmd -f .env.development npx prisma studio",
-    "studio:prod": "env-cmd -f .env.development npx prisma studio",
+    "studio:prod": "env-cmd -f .env.production npx prisma studio",
     "push:dev": "npx env-cmd -f .env.development npx prisma db push",
     "push:prod": "npx env-cmd -f .env.production npx prisma db push",
     "migrate:dev": "npx env-cmd -f .env.development npx prisma migrate dev",

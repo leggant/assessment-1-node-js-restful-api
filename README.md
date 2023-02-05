@@ -23,7 +23,7 @@ After cloning, and installing node packages.
    - `npm run studio:prod`
 5. with the server launched, use the request files in the ./requests directories to test requests to either server
 6. to run test suite, first shut down the local server and run one of the following commands:
-   - `npm run test:dev`
+   - `npm run test`
    - `npm run test:prod`
    __Note: Occasionally tests may fail if they are ran in close succession; if this occurs it is likely due to server traffic from the previous request.__
 

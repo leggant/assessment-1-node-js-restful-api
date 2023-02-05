@@ -17,7 +17,6 @@ import QUIZCONSTS from "../constants/quiz.js";
  * @returns {Response} res - return json object with validation errors, quiz information, quiz questions if the current date is within the range of the quiz start and end dates.
  */
 const ctAddQuizPlayer = async (req, res) => {
-  // add player to quiz participant table
   const { quizId, userId, userName, quizDatesOk } = req.quizPlayer;
   const addPlayer = await addPlayerAsQuizParticipant(quizId, userId);
   if (!addPlayer) {

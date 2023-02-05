@@ -37,7 +37,8 @@ const ctGetUser = async (req, res) => {
      * ie. the current user is querying their own data
      * @constant {Boolean} queryById
      */
-    const queryById = typeof query === "string";
+    const returnType = checkDataType(query);
+    const queryById = returnType === "string";
     const userData = await (async () => {
       /**
        * if queryById is a string query user by id

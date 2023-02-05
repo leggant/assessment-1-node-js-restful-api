@@ -82,6 +82,9 @@ const ctGetAllQuizzes = async (req, res) => {
       userParticipateQuiz: true,
       userQuestionAnswers: true,
     },
+    orderBy: {
+      startDate: "desc",
+    },
   });
   if (allQuizzes.length) {
     res.status(200).json({ data: allQuizzes });

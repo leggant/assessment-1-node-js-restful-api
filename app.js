@@ -1,3 +1,8 @@
+/**
+ * @file app.js - entry point to the quiz API
+ * @author Anthony Legg
+ * @link @leggant
+ */
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -12,15 +17,15 @@ import playerQuizRouter from "./api/v1/routes/playerQuizRouter.js";
 import seederRouter from "./api/v1/routes/seederRouter.js";
 
 /**
+ * initialise a instance of dotenv
  * @constructor dotenv
- * @description initialise a instance of dotenv
  * @example dotenv.config();
  */
 dotenv.config();
 
 /**
+ * initialise a global instance of ExpressJS
  * @constructor express
- * @description initialise a global instance of ExpressJS
  * @example const app = express();
     app.use(morgan("dev"));
     app.use(cors());

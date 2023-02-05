@@ -6,6 +6,26 @@
 - [:anchor:__Staging Deployment__](https://in-dev-app.herokuapp.com)
 - [:anchor:__Production Deployment__](https://api-prod-app.herokuapp.com)
 
+## Local Install and Launch
+
+__note: node packages have been installed using Node v18.12.1 - any issues with the install, check the current node version__
+
+After cloning, and installing node packages.
+
+1. Copy the .env sent to you seperately to the root directory of the app.
+2. import the PostMan project JSON file from the root directory into your local installation
+   - see walkthrough video (send in the linked file along with the .envs)
+3. Launch local dev server with connection to either the production or staging backends
+   - `npm run watch:dev`
+   - `npm run watch:prod`
+4. use Prisma Studio to inspect the data from either server by running
+   - `npm run studio:dev`
+   - `npm run studio:prod`
+5. with the server launched, use the request files in the ./requests directories to test requests to either server
+6. to run test suite, first shut down the local server and run one of the following commands:
+   - `npm run test:dev`
+   - `npm run test:prod`
+
 ## API Documentation
 
 - [:anchor:__API Documentation - Staging Server__](https://in-dev-app.herokuapp.com/docs/api/v1)
@@ -13,13 +33,16 @@
 
 ### API End-Points
 
-- [:anchor:__API Documentation - Staging Server__](https://in-dev-app.herokuapp.com/docs/api/v1/tutorial-api.html)
-- [:anchor:__API Documentation - Production Server__](https://api-prod-app.herokuapp.com/docs/api/v1/tutorial-api.html)
+Full end point requests available via PostMan, import the `Assignment_1_API.postman_collection.json` file from the project root directory.
+Note the globa bearer token tab at the top level of the postman project. These will help make it easier to use the same token throughout, only changing
+if a different user type is needed.
+
+See the video walkthrough sent with the submission files.
 
 ## Gist Links
 
-- :anchor: [End-point for Basic Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/basic_user.json)
-- :anchor: [End-point for Admin Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/admin_user.json)
+- [:anchor: End-point for Basic Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/basic_user.json)
+- [:anchor: End-point for Admin Users](https://gist.githubusercontent.com/leggant/c88f9010d6664fa2f10a847c7102d933/raw/eb83f9678cb23e0042a6925df51c4c399a3a87e2/admin_user.json)
 
 ## Entity Relationship Diagram
 
@@ -30,13 +53,27 @@
 
 ## Database Seeders
 
-*user and category seeders are both available from admin-only endpoints*
+*user and category seeders are both available with admin token*
 
 - [__Opentdb API Documentation__](https://opentdb.com/api_config.php)
 - [__Opentdb API Categories__](https://opentdb.com/api_category.php)
   
-1. user seeder endpoint: `/user/auth/admin/seeder/players`
-2. category seeder endpoint: `/user/auth/admin/seeder/categories`
+__Complete the following to request the seeder endpoints__
+
+1. start a local server environment
+
+- `npm run watch:dev`
+- `npm run watch:prod`
+
+1. login with an admin account.
+2. add the returned token to the requst authorisation header
+3. send http get request to
+   1. user seeder endpoint:
+      - `https://in-dev-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/players`
+      - `https://api-prod-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/players`
+   2. category seeder endpoint:
+      - `https://in-dev-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/categories`
+      - `https://api-prod-app.herokuapp.com/docs/api/v1/user/auth/admin/seeder/categories`
 
 ## :bookmark_tabs: References
 
@@ -78,4 +115,3 @@
 - `npx run-func ./utils/axiosRequests.js getCategories`
 - `npx run-func ./utils/axiosRequests.js getUsers`
 - `npx env-cmd -f .env.development npx run-func ./api/v1/controllers/seeder_controller.js seedUsers`
-

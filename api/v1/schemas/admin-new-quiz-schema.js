@@ -1,12 +1,9 @@
 import { body } from "express-validator";
-
 import PRISMA from "../../../utils/prisma.js";
 import QUIZCONSTS from "../constants/quiz.js";
 import {
   quizDateValid,
   quizEnddateValid,
-  splitDate,
-  createMomentDate,
 } from "../../../utils/dateTimeCheck.js";
 
 const NewQuizSchema = [

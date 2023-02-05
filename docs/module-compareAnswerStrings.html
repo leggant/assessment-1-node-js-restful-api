@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Module: PRISMA</title>
+    <title>JSDoc: Module: compareAnswerStrings</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -19,34 +19,28 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Module: PRISMA</h1>
+      <h1 class="page-title">Module: compareAnswerStrings</h1>
 
       <section>
         <header></header>
 
         <article>
           <div class="container-overview">
-            <div class="description">
-              <p>initialises a global instance of Prisma Client</p>
-            </div>
-
             <dl class="details">
               <dt class="tag-source">Source:</dt>
               <dd class="tag-source">
                 <ul class="dummy">
                   <li>
-                    <a href="utils_prisma.js.html">utils/prisma.js</a>,
-                    <a href="utils_prisma.js.html#line2">line 2</a>
+                    <a href="utils_compareAnswerStrings.js.html"
+                      >utils/compareAnswerStrings.js</a
+                    >,
+                    <a href="utils_compareAnswerStrings.js.html#line24"
+                      >line 24</a
+                    >
                   </li>
                 </ul>
               </dd>
             </dl>
-
-            <h3>Example</h3>
-
-            <pre
-              class="prettyprint"
-            ><code>const PRISMA = new PrismaClient();</code></pre>
           </div>
         </article>
       </section>
@@ -56,45 +50,55 @@
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
-        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
+        <li><a href="module-checkDataType.html">checkDataType</a></li>
+        <li>
+          <a href="module-checkIfObjectIsEmpty.html">checkIfObjectIsEmpty</a>
+        </li>
+        <li>
+          <a href="module-compareAnswerStrings.html">compareAnswerStrings</a>
+        </li>
+        <li>
+          <a href="module-createQuizOpenTDBRequest.html"
+            >createQuizOpenTDBRequest</a
+          >
+        </li>
+        <li><a href="module-quizRequests.html">quizRequests</a></li>
+        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
         <li><a href="dotenv.html">dotenv</a></li>
         <li><a href="express.html">express</a></li>
       </ul>
+      <h3>Tutorials</h3>
+      <ul>
+        <li><a href="tutorial-api.html">API Endpoints</a></li>
+        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
+      </ul>
       <h3>Global</h3>
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
-        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
         <li><a href="global.html#adminToken">adminToken</a></li>
         <li><a href="global.html#basicUserToken">basicUserToken</a></li>
-        <li>
-          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
-        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
-        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
-        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
+        <li><a href="global.html#day">day</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDatedate"
-            >dbDateStringFromDate</a
-          >
+          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
-        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
-        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
+        <li><a href="global.html#month">month</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
@@ -102,8 +106,6 @@
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
         <li><a href="global.html#playerToken">playerToken</a></li>
-        <li><a href="global.html#query">query</a></li>
-        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
@@ -114,7 +116,7 @@
         <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
-        <li><a href="global.html#validPlayer">validPlayer</a></li>
+        <li><a href="global.html#year">year</a></li>
       </ul>
     </nav>
 
@@ -122,8 +124,8 @@
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Feb 06
-      2023 00:32:51 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat Feb 04
+      2023 23:59:26 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

@@ -25,7 +25,7 @@
         <article>
           <pre class="prettyprint source linenums"><code>/**
  * User Related API Request Handler Methods
- * @module userRequests
+ * @author @leggant
  */
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -47,7 +47,7 @@ import USERTYPE from "../api/v1/constants/userType.js";
  * @function getSingleUserById
  * @param {string} id user id (UUID) string
  * @async
- * @returns {UserQuery}
+ * @returns {UserQuery|Null}
  */
 const getSingleUserById = async (id) => {
   const response = await PRISMA.user.findUnique({
@@ -64,7 +64,7 @@ const getSingleUserById = async (id) => {
 };
 const getSingleUserByParam = async (params) => {
   const search = Object.values(params);
-  const response = await PRISMA.user.findFirstOrThrow({
+  const response = await PRISMA.user.findFirst({
     where: {
       OR: [
         {
@@ -166,7 +166,7 @@ const updateUserByParam = async (params, data) => {
 };
 
 const deleteUserById = async (token, id) => {
-  const user = await PRISMA.user.findFirst({
+  const user = await PRISMA.user.findFirstOrThrow({
     where: { id },
   });
   let resTypeOfData = checkDataType(user);
@@ -287,33 +287,9 @@ const clearBlockedUsers = async () => {
   return 0;
 };
 
-const getAllUsers = async (PRISMAX, res, req, type, includes) => {
-  try {
-    let data;
-    if (includes) {
-      data = await PRISMAX.findMany({
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      data = await PRISMAX.findMany();
-    }
-    if (data.length === 0) {
-      return res.status(200).json({ msg: `No ${type}s found` });
-    }
-    return res.json({ data });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
 export {
   getSingleUserById,
   getSingleUserByParam,
-  getAllUsers,
   updateUserById,
   updateUserByParam,
   deleteUserById,
@@ -330,57 +306,65 @@ export {
       <h2><a href="index.html">Home</a></h2>
       <h3>Modules</h3>
       <ul>
+        <li><a href="module-PATHS.html">PATHS</a></li>
         <li><a href="module-PRISMA.html">PRISMA</a></li>
         <li><a href="module-axiosRequests.html">axiosRequests</a></li>
-        <li><a href="module-quizRequests.html">quizRequests</a></li>
-        <li><a href="module-userRequests.html">userRequests</a></li>
       </ul>
       <h3>Classes</h3>
       <ul>
         <li><a href="dotenv.html">dotenv</a></li>
         <li><a href="express.html">express</a></li>
       </ul>
-      <h3>Tutorials</h3>
-      <ul>
-        <li><a href="tutorial-api.html">API Endpoints</a></li>
-        <li><a href="tutorial-setup.html">Dev Environment Start Guide</a></li>
-      </ul>
       <h3>Global</h3>
       <ul>
         <li><a href="global.html#API_VERSION">API_VERSION</a></li>
         <li><a href="global.html#BASE_PATH">BASE_PATH</a></li>
+        <li><a href="global.html#PATHS">PATHS</a></li>
         <li><a href="global.html#SERVER_PORT">SERVER_PORT</a></li>
+        <li><a href="global.html#adminToken">adminToken</a></li>
+        <li><a href="global.html#basicUserToken">basicUserToken</a></li>
+        <li>
+          <a href="global.html#checkIfObjectIsEmpty">checkIfObjectIsEmpty</a>
+        </li>
         <li><a href="global.html#compare">compare</a></li>
         <li>
           <a href="global.html#compareAnswerStrings">compareAnswerStrings</a>
         </li>
         <li><a href="global.html#ctAddQuizPlayer">ctAddQuizPlayer</a></li>
+        <li><a href="global.html#ctGetUser">ctGetUser</a></li>
+        <li><a href="global.html#ctUpdateUser">ctUpdateUser</a></li>
         <li><a href="global.html#dateNow">dateNow</a></li>
         <li>
-          <a href="global.html#dbDateStringFromDate">dbDateStringFromDate</a>
+          <a href="global.html#dbDateStringFromDatedate"
+            >dbDateStringFromDate</a
+          >
         </li>
         <li><a href="global.html#decoded">decoded</a></li>
         <li><a href="global.html#difference">difference</a></li>
+        <li><a href="global.html#getSingleUserById">getSingleUserById</a></li>
         <li><a href="global.html#hashedPassword">hashedPassword</a></li>
+        <li><a href="global.html#isAdmin">isAdmin</a></li>
         <li><a href="global.html#momentqDate">moment</a></li>
-        <li>
-          <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
-        </li>
-        <li><a href="global.html#newDate">newDate</a></li>
         <li>
           <a href="global.html#mwPlayerAddedToQuiz">mwPlayerAddedToQuiz</a>
         </li>
         <li>
           <a href="global.html#playerCanParticipate">playerCanParticipate</a>
         </li>
+        <li><a href="global.html#playerToken">playerToken</a></li>
+        <li><a href="global.html#query">query</a></li>
+        <li><a href="global.html#queryById">queryById</a></li>
         <li><a href="global.html#quizDateFuture">quizDateFuture</a></li>
         <li><a href="global.html#quizDateValid">quizDateValid</a></li>
         <li><a href="global.html#quizEnddateValid">quizEnddateValid</a></li>
+        <li><a href="global.html#quizId">quizId</a></li>
         <li><a href="global.html#register">register</a></li>
         <li><a href="global.html#split">split</a></li>
         <li><a href="global.html#splitDate">splitDate</a></li>
+        <li><a href="global.html#token">token</a></li>
         <li><a href="global.html#unescapeArray">unescapeArray</a></li>
         <li><a href="global.html#unescapeString">unescapeString</a></li>
+        <li><a href="global.html#validPlayer">validPlayer</a></li>
       </ul>
     </nav>
 
@@ -388,8 +372,8 @@ export {
 
     <footer>
       Documentation generated by
-      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02
-      2023 22:15:37 GMT+1300 (New Zealand Daylight Time)
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Feb 06
+      2023 00:32:51 GMT+1300 (New Zealand Daylight Time)
     </footer>
 
     <script>

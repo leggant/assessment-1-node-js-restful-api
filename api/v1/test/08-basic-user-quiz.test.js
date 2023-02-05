@@ -13,15 +13,15 @@ chai.use(chaiHttp);
 
 describe(`Login as An Admin, Create A New Quiz, Login As A Player/Assign Self To Quiz`, () => {
   /**
-   * @type {String} adminToken - admin user token returned from the before function login request
+   * @constant {String} adminToken - admin user token returned from the before function login request
    */
   let adminToken;
   /**
-   * @type {String} playerToken - basic user token returned from the before function login request
+   * @constant {String} playerToken - basic user token returned from the before function login request
    */
   let playerToken;
   /**
-   * @type {Number} quizId - quiz id returned from the create new quiz test
+   * @constant {Number} quizId - quiz id returned from the create new quiz test
    */
   let quizId;
 

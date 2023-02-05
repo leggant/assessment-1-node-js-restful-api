@@ -54,10 +54,6 @@ const register = async (req, res) => {
     }
 
     /**
-     * Validate the users input data
-     */
-
-    /**
      * A salt is random bits added to a password before it is hashed. Salts
      * create unique passwords even if two users have the same passwords
      */

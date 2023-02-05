@@ -1,6 +1,6 @@
 /**
  * User Related API Request Handler Methods
- * @module userRequests
+ * @author @leggant
  */
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -22,7 +22,7 @@ import USERTYPE from "../api/v1/constants/userType.js";
  * @function getSingleUserById
  * @param {string} id user id (UUID) string
  * @async
- * @returns {UserQuery}
+ * @returns {UserQuery|Null}
  */
 const getSingleUserById = async (id) => {
   const response = await PRISMA.user.findUnique({
@@ -39,7 +39,7 @@ const getSingleUserById = async (id) => {
 };
 const getSingleUserByParam = async (params) => {
   const search = Object.values(params);
-  const response = await PRISMA.user.findFirstOrThrow({
+  const response = await PRISMA.user.findFirst({
     where: {
       OR: [
         {
@@ -141,7 +141,7 @@ const updateUserByParam = async (params, data) => {
 };
 
 const deleteUserById = async (token, id) => {
-  const user = await PRISMA.user.findFirst({
+  const user = await PRISMA.user.findFirstOrThrow({
     where: { id },
   });
   let resTypeOfData = checkDataType(user);
@@ -262,33 +262,9 @@ const clearBlockedUsers = async () => {
   return 0;
 };
 
-const getAllUsers = async (PRISMAX, res, req, type, includes) => {
-  try {
-    let data;
-    if (includes) {
-      data = await PRISMAX.findMany({
-        include: {
-          ...includes,
-        },
-      });
-    } else {
-      data = await PRISMAX.findMany();
-    }
-    if (data.length === 0) {
-      return res.status(200).json({ msg: `No ${type}s found` });
-    }
-    return res.json({ data });
-  } catch (err) {
-    return res.status(500).json({
-      msg: err.message,
-    });
-  }
-};
-
 export {
   getSingleUserById,
   getSingleUserByParam,
-  getAllUsers,
   updateUserById,
   updateUserByParam,
   deleteUserById,

@@ -1,4 +1,13 @@
 const AUTHONLY = "/user/auth";
+
+/**
+ * API endpoints set as constants which are used throughout the API
+ * each end point is relative to the environment in which it is used
+ * @const {Object} PATHS
+ * @example "localhost:3000/api/v1/user/auth/profile" (local - uses the staging app server)
+ * "https://in-dev-app.herokuapp.com/api/v1/user/auth/quiz/:quizId" (staging),
+ * "https://api-prod-app.herokuapp.com/api/v1/user/auth/admin/quiz/:quizId"(production)
+ */
 const PATHS = {
   BASE: `/api/${process.env.API_VERSION}`,
   REGISTER: `${AUTHONLY}/register`,
@@ -24,4 +33,7 @@ const PATHS = {
   },
 };
 
+/**
+ * @exports PATHS
+ */
 export default PATHS;

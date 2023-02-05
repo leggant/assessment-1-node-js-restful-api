@@ -1,52 +1,53 @@
 /**
- * @author @leggant
- * @description date parsing, comparison and validation utilities which utilise moment.js
+ * date parsing, comparison and validation utilities which utilise moment.js
  */
+
 import moment from "moment";
 
-// * @typedef {import('./File1.js').MyObject1} MyObject1
-/**
- * create a moment class object
- * @param {Date|undefined} dateToParse
- * @constant {moment.Moment} newDate
- * @returns {moment.Moment} newDate - returns the date as a Moment class
- */
-const createMomentDate = (dateToParse) => {
-  /**
-   * @constant {moment.Moment} newDate
-   */
-  let newDate;
-  if (!dateToParse || dateToParse === undefined) {
-    newDate = moment();
-  }
-  newDate = moment(dateToParse);
-  return newDate;
-};
 /**
  * take a date from a user request, split it into day, month and year
  * @param {String} dateToSplit - date string set by the admin user quiz create request
- * @returns {{year: String, month: String, day: String}} - object contains each part of a date in seperate strings
+ * @example dateToSplit -2023-02-30
+ * @returns {{year: String, month: String, day: String}} object contains each part of a date in seperate strings
  */
 const splitDate = (dateToSplit) => {
   /**
    * @constant {Array.String} split
    */
   const split = dateToSplit.split("-");
+
+  /**
+   * @type {String}
+   */
   const year = split[0];
+
+  /**
+   * @type {String}
+   */
   let month = split[1];
   month = month.charAt(0) === "0" ? month.substring(1) : month;
+
+  /**
+   * @type {String}
+   */
   let day = split[2];
   day = day.charAt(0) === "0" ? day.substring(1) : day;
   return { year, month, day };
 };
+
 /**
  * create a database compatible date from a string
+ * use to update quiz dates so that the new are
+ * compatible with the database
+ * @function dbDateStringFromDate(date)
  * @param {String} date - input date string
- * @returns {Date} dateres - UTC Date
+ * @returns {Date} dateres - UTC Date Compatible With The Database
+ * @example input string: "2023-01-25"
+ * returns as "2023-01-25T00:42:58Z"
+ * @link MDN UTC Date Docs | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
  */
 const dbDateStringFromDate = (date) => {
   const data = splitDate(date);
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCDate#try_it
   const dateres = new Date(`${data.month} ${data.day}, ${data.year} UTC`);
   return dateres;
 };
@@ -122,7 +123,6 @@ const playerCanParticipate = (quizStart, quizEnd) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  createMomentDate,
   quizDateFuture,
   splitDate,
   dbDateStringFromDate,

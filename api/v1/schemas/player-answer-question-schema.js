@@ -5,7 +5,6 @@ import {
   quizDateValid,
   quizEnddateValid,
   splitDate,
-  playerCanParticipate,
 } from "../../../utils/dateTimeCheck.js";
 
 const PlayerSubmitQuizAnswersSchema = [

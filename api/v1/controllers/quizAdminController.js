@@ -95,9 +95,9 @@ const ctUpdateQuizById = async (req, res) => {
     const updateResult = await updateQuizById(req.params.quizId, req.body);
     const ok = checkDataType(updateResult);
     if (ok === "boolean") {
-      return res
-        .status(400)
-        .json({ msg: `Quiz Update Error: Update Not Completed.` });
+      return res.status(404).json({
+        msg: `Quiz Update Error: Quiz #${req.params.quizId} Not Found + Update Not Completed.`,
+      });
     }
     return res.status(200).json({
       msg: `${updateResult.name} Updated Successfully`,

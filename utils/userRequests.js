@@ -1,6 +1,7 @@
 /**
  * User Related API Request Handler Methods
- * @module userRequests
+ * @author @leggant
+ * @fileoverview User Related API Request Handler Methods
  */
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -22,7 +23,7 @@ import USERTYPE from "../api/v1/constants/userType.js";
  * @function getSingleUserById
  * @param {string} id user id (UUID) string
  * @async
- * @returns {UserQuery}
+ * @returns {UserQuery|Null}
  */
 const getSingleUserById = async (id) => {
   const response = await PRISMA.user.findUnique({

@@ -1,7 +1,6 @@
 /**
  * @author @leggant
  * @fileoverview middleware to query the database, and confirm the player has been added to the quiz.
- * @exports mwPlayerAddedToQuiz
  */
 import USERTYPE from "../constants/userType.js";
 import PRISMA from "../../../utils/prisma.js";

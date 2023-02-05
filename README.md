@@ -2,21 +2,31 @@
 
 ## :rocket: Deployment - Heroku
 
-[:anchor:__Heroku Deployment Pipeline__](https://dashboard.heroku.com/pipelines/7e5bc38d-d7f8-4030-9ad7-56505ed294d6)
-[:anchor:__Staging Deployment__](https://in-dev-app.herokuapp.com/)
-[:anchor:__Production Deployment__](https://api-prod-app.herokuapp.com/)
+- [:anchor:__Heroku Deployment Pipeline__](https://dashboard.heroku.com/pipelines/7e5bc38d-d7f8-4030-9ad7-56505ed294d6)
+- [:anchor:__Staging Deployment__](https://in-dev-app.herokuapp.com)
+- [:anchor:__Production Deployment__](https://api-prod-app.herokuapp.com)
 
-## API Endpoints
+## API Documentation
 
-[:anchor:__API Documentation__](https://in-dev-app.herokuapp.com/docs/api/v1)
-[:anchor:__API Documentation__](https://api-prod-app.herokuapp.com/docs/api/v1)
+- [:anchor:__API Documentation__](https://in-dev-app.herokuapp.com/docs/api/v1)
+- [:anchor:__API Documentation__](https://api-prod-app.herokuapp.com/docs/api/v1)
+
+### API End-Points
+
+- [:anchor:__API Documentation__](https://in-dev-app.herokuapp.com/docs/api/v1/tutorial-api.html)
+- [:anchor:__API Documentation__](https://api-prod-app.herokuapp.com/docs/api/v1/tutorial-api.html)
+
+### API Local Set-Up
+
+- [:anchor:__API Documentation__](https://in-dev-app.herokuapp.com/docs/api/v1/tutorial-setup.html)
+- [:anchor:__API Documentation__](https://api-prod-app.herokuapp.com/docs/api/v1/tutorial-setup.html)
 
 ## Entity Relationship Diagram
 
 [:anchor: Made with Lucidchart](https://lucid.app/lucidchart/d03c09c4-e9c0-4f14-bf42-dceaf7a4e0d8/edit?viewport_loc=-354%2C156%2C3162%2C1102%2C0_0&invitationId=inv_c9acfca4-7f84-4762-87a2-5b0f96bca0ea)
-<p>
-  <img src="./docs/imgs/App_Dev_API_ERD.png" width="850" title="hover text">
-</p>
+
+<img src="imgs/App_Dev_API_ERD.png" width="850" title="JsDoc Image Cannot Be Loaded">
+<img src="docs/imgs/App_Dev_API_ERD.png" width="850" title="ReadMe Image Cannot Be Loaded">
 
 ## API/Command Line Instructions
 

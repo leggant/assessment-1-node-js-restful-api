@@ -115,6 +115,4 @@ __Complete the following to request the seeder endpoints__
 - `npx run-func ./utils/dateTimeCheck.js quizEnddateValid 24 12 2022 30 12 2022`
 - `npx run-func ./utils/axiosRequests.js getCategories`
 - `npx run-func ./utils/axiosRequests.js getUsers`
-- `npx env-cmd -f .env.development npx run-func ./api/v1/controllers/categorySeederController.js seedQuizCategories`
-- `npx env-cmd -f .env.development npx run-func ./api/v1/controllers/userSeederController.js seedUsers`
 - `npx env-cmd -f .env.development npx run-func ./utils/unitTestDataRequests.js deleteTestQuizzes`

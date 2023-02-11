@@ -92,30 +92,46 @@ const TESTQUIZZES = [
 ];
 
 const deleteTestAdminUser = async () => {
+  let response;
   try {
-    await PRISMA.user.delete({
+    response = await PRISMA.user.findFirst({
       where: {
         userName: ADMINTESTUSER.userName,
       },
     });
-    return;
-  } catch (err) {
-    console.error(`Post Test Delete Admin User: ${err.meta.cause}`);
-  }
-};
-const deleteTestBasicUser = async () => {
-  const userNames = [BASICTESTUSER1.userName, BASICTESTUSER2.userName];
-  try {
-    await PRISMA.user.deleteMany({
-      where: {
-        userName: {
-          in: userNames,
+    if (response !== null) {
+      response = await PRISMA.user.delete({
+        where: {
+          id: response.id,
         },
-      },
-    });
-    return;
+      });
+    }
   } catch (err) {
-    console.error(`Post Test Delete Basic User: ${err.meta.cause}`);
+    console.error(`Error: Delete Test Admin User`);
+  }
+  return response;
+};
+
+const deleteTestBasicUser = async () => {
+  try {
+    let response = await PRISMA.user
+      .findFirst({
+        where: {
+          userName: BASICTESTUSER1.userName,
+        },
+      })
+      .then(async (user) => {
+        if (user) {
+          response = await PRISMA.user.delete({
+            where: {
+              id: user.id,
+            },
+          });
+        }
+      });
+    return response;
+  } catch (err) {
+    return err;
   }
 };
 
@@ -123,16 +139,42 @@ const deleteTestQuizzes = async () => {
   const quizNames = ["Yogis Updated Quiz Name"];
   TESTQUIZZES.forEach((x) => quizNames.push(x.name));
   try {
-    await PRISMA.quiz.deleteMany({
+    const quizData = await PRISMA.quiz.findMany({
       where: {
         name: {
           in: quizNames,
         },
       },
     });
+    const deleteQuestions = PRISMA.question.deleteMany({
+      where: {
+        quizId: {
+          in: quizData.id,
+        },
+      },
+    });
+    const deleteUserParticipate = PRISMA.userParticipate.deleteMany({
+      where: {
+        quizId: {
+          in: quizData.id,
+        },
+      },
+    });
+    const deleteQuiz = PRISMA.quiz.deleteMany({
+      where: {
+        id: {
+          in: quizData.id,
+        },
+      },
+    });
+    await PRISMA.$transaction([
+      deleteQuestions,
+      deleteUserParticipate,
+      deleteQuiz,
+    ]);
     return;
   } catch (err) {
-    console.error(`Post Test Delete Quiz: ${err.meta.cause}`);
+    console.error(`Test Delete Quiz Error`);
   }
 };
 

@@ -149,6 +149,11 @@ const deleteUserById = async (token, id) => {
   const deleteReq = resOk
     ? await PRISMA.user.delete({
         where: { id },
+        include: {
+          userScores: true,
+          userParticipateQuiz: true,
+          userQuestionAnswer: true,
+        },
       })
     : null;
   resTypeOfData = checkDataType(deleteReq);
@@ -192,6 +197,11 @@ const deleteUserByParam = async (token, params) => {
   const user = await PRISMA.user.delete({
     where: {
       id: userSearch.id,
+    },
+    include: {
+      userScores: true,
+      userParticipateQuiz: true,
+      userQuestionAnswer: true,
     },
   });
   let resTypeOfData = checkDataType(user);

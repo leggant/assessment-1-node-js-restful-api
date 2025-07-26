@@ -1,0 +1,4 @@
+npm i @prisma/client@latest axios@latest bcryptjs@latest compression@latest cors@latest dotenv@latest env-cmd@latest express@latest express-validator@latest he@latest helmet@latest jsonwebtoken@latest moment@latest morgan@latest node-cache@latest
+
+
+npm i -D c8@latest chai@latest chai-http@latest chai-json-schema@latest cz-conventional-changelog@latest eslint@latest eslint-config-airbnb-base@latest eslint-config-prettier@latest eslint-plugin-import@latest eslint-plugin-prettier@latest husky@latest jsdoc@latest lint-staged@latest  mocha@latest nodemon@latest nyc@latest prettier@latest pretty-quick@latest prisma@latest
